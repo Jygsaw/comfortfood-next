@@ -9,7 +9,7 @@
     "start-localhost": "next start"
   },
   "engines": {
-    "node": "18.17.0"
+    "node": ">= 18.17.0"
   },
   "dependencies": {
     "next": "^14.0.3",

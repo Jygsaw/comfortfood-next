@@ -2,6 +2,9 @@
   "name": "vizro-next",
   "version": "0.0.0",
   "license": "ISC",
+  "repository": "https://github.com/Jygsaw/vizro-next.git",
+  "author": "Justin Cheung <jygsaw@gmail.com>",
+  "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",

@@ -1,0 +1,11 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "@stylistic/js"
+  ],
+  "rules": {
+    "@stylistic/js/eol-last": 2,
+    "@stylistic/js/no-trailing-spaces": 2,
+    "@stylistic/js/semi": 2
+  }
+}

@@ -1,5 +1,5 @@
-import React from "react";
+import React, { type PropsWithChildren, type ReactNode } from 'react';
 
-const Layout = ({ children }) => <main>{children}</main>;
+const Layout = ({ children }: PropsWithChildren): ReactNode => <main>{children}</main>;
 
 export default Layout;

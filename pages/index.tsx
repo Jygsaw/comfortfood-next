@@ -1,7 +1,7 @@
-import React from "react";
-import Layout from "components/Layout";
+import React, { type ReactNode } from 'react';
+import Layout from 'components/Layout';
 
-const Index = () => (
+const Index = (): ReactNode => (
     <Layout>
         Hello, World.
     </Layout>

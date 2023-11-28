@@ -5,6 +5,7 @@
   ],
   "rules": {
     "@stylistic/js/eol-last": 2,
+    "@stylistic/js/indent": 2,
     "@stylistic/js/no-trailing-spaces": 2,
     "@stylistic/js/semi": 2
   }

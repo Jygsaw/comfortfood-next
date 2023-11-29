@@ -1,6 +1,7 @@
 import React from 'react';
+import type { dynamicRoute } from 'types/routing';
 
-const Page =({ params: { id, slug } }: { params: { id: string, slug: string}}) => (
+const Page =({ params: { id, slug } }: dynamicRoute) => (
     <>
         Amazing recipe for delicious food
     </>

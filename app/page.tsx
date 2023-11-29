@@ -1,8 +1,9 @@
 import React from 'react';
+import { titleAppend } from 'lib/seoUtils';
 import { type Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Vizro',
+    title: titleAppend('Homepage'),
 };
 
 const Page = () => (

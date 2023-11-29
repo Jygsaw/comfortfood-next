@@ -1,6 +1,6 @@
 import React from 'react';
-import { titleAppend } from 'lib/seoUtils';
 import { type Metadata } from 'next';
+import { titleAppend } from 'lib/seoUtils';
 
 export const metadata: Metadata = {
     title: titleAppend('About Us'),

@@ -1,7 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
-import { titleAppend } from 'lib/seoUtils';
 import { type Metadata } from 'next';
+import Link from 'next/link';
+import ArticleCard from 'components/ArticleCard';
+import RecipeCard from 'components/RecipeCard';
+import { titleAppend } from 'lib/seoUtils';
 
 export const metadata: Metadata = {
     title: titleAppend('Homepage'),
@@ -14,16 +16,16 @@ const Page = () => (
             <Link href="/search">Search for recipes</Link>
         </div>
         <div>
-            <Link href="/article/1/interesting-article">article with id and slug</Link>
+            <ArticleCard id="1" slug="interesting-article" />
         </div>
         <div>
-            <Link href="/article/1">article with only id</Link>
+            <ArticleCard id="1" slug="" />
         </div>
         <div>
-            <Link href="/recipe/1/amazing-recipe">recipe with id and slug</Link>
+            <RecipeCard id="2" slug="amazing-recipe" />
         </div>
         <div>
-            <Link href="/recipe/1">recipe with only id</Link>
+            <RecipeCard id="2" slug="" />
         </div>
     </>
 );

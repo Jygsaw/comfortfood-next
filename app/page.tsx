@@ -13,6 +13,12 @@ const Page = () => (
         <div>
             <Link href="/search">Search for recipes</Link>
         </div>
+        <div>
+            <Link href="/article/1/interesting-article">article with id and slug</Link>
+        </div>
+        <div>
+            <Link href="/article/1">article with only id</Link>
+        </div>
     </>
 );
 

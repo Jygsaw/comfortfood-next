@@ -19,6 +19,12 @@ const Page = () => (
         <div>
             <Link href="/article/1">article with only id</Link>
         </div>
+        <div>
+            <Link href="/recipe/1/amazing-recipe">recipe with id and slug</Link>
+        </div>
+        <div>
+            <Link href="/recipe/1">recipe with only id</Link>
+        </div>
     </>
 );
 

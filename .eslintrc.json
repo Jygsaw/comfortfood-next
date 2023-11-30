@@ -9,6 +9,7 @@
     "@stylistic/js/object-curly-spacing": [2, "always"],
     "@stylistic/js/eol-last": 2,
     "@stylistic/js/indent": 2,
+    "@stylistic/js/no-multi-spaces": 2,
     "@stylistic/js/no-trailing-spaces": 2,
     "@stylistic/js/quotes": 2,
     "@stylistic/js/semi": 2,

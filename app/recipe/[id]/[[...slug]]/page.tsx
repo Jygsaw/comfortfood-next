@@ -1,5 +1,5 @@
-import React from 'react';
-import type { dynamicRoute } from 'types/routing';
+import React from "react";
+import type { dynamicRoute } from "types/routing";
 
 const Page =({ params: { id, slug } }: dynamicRoute) => (
     <>

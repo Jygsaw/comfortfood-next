@@ -1,9 +1,9 @@
-import React from 'react';
-import { titleAppend } from 'lib/seoUtils';
-import { type Metadata } from 'next';
+import React from "react";
+import { titleAppend } from "lib/seoUtils";
+import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: titleAppend('Search'),
+    title: titleAppend("Search"),
 };
 
 const Page = () => (

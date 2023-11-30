@@ -8,20 +8,33 @@ export const metadata: Metadata = {
     title: titleAppend("Search"),
 };
 
-const Page = async () => {
-    const recipes = await getRecipes();
+type Input = {
+    searchParams: {
+        q: string,
+    },
+};
 
-    return recipes.length ? (
-        <div>
-            <div>search bar</div>
+const Page = async ({ searchParams: { q } }: Input) => {
+    const recipes = await getRecipes(q);
+
+    return (
+        <>
             <div>
-                {recipes.map(recipe => (
-                    <RecipeCard key={recipe.id} id={recipe.id} slug={recipe.slug} />
-                ))}
+                <form action="/search" method="get">
+                    <input type="text" name="q" defaultValue={q}/>
+                    <input type="submit" />
+                </form>
             </div>
-        </div>
-    ) : (
-        <div>No recipes found.</div>
+            <div>
+                {recipes.length ?
+                    recipes.map(recipe => (
+                        <RecipeCard key={recipe.id} id={recipe.id} slug={recipe.slug} />
+                    )) : (
+                        <div>No recipes found.</div>
+
+                    )}
+            </div>
+        </>
     );
 };
 

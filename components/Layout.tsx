@@ -5,9 +5,17 @@ import type { PropsWithChildren, ReactNode } from "react";
 
 const Layout = ({ children }: PropsWithChildren): ReactNode => (
     <>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <div className="min-h-screen flex flex-col">
+            <header>
+                <Header />
+            </header>
+            <main className="flex-grow">
+                {children}
+            </main>
+            <footer>
+                <Footer />
+            </footer>
+        </div>
     </>
 );
 

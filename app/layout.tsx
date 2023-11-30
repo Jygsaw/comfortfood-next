@@ -1,6 +1,7 @@
-import React, { type PropsWithChildren } from "react";
+import React from "react";
 import Layout from "components/Layout";
 import "./globals.css";
+import type { PropsWithChildren } from "react";
 
 const RootLayout = ({ children }: PropsWithChildren) => (
     <html lang="en">

@@ -1,6 +1,7 @@
-import React, { type PropsWithChildren, type ReactNode } from "react";
+import React from "react";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import type { PropsWithChildren, ReactNode } from "react";
 
 const Layout = ({ children }: PropsWithChildren): ReactNode => (
     <>

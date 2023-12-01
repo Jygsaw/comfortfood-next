@@ -13,6 +13,7 @@
     "@stylistic/js/no-trailing-spaces": 2,
     "@stylistic/js/quotes": 2,
     "@stylistic/js/semi": 2,
+    "@stylistic/js/space-in-parens": 2,
     "@stylistic/ts/type-annotation-spacing": 2
   }
 }

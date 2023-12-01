@@ -10,6 +10,7 @@
     "@stylistic/js/eol-last": 2,
     "@stylistic/js/indent": 2,
     "@stylistic/js/no-multi-spaces": 2,
+    "@stylistic/js/no-multiple-empty-lines": [2, { "max": 1 }],
     "@stylistic/js/no-trailing-spaces": 2,
     "@stylistic/js/quotes": 2,
     "@stylistic/js/semi": 2,

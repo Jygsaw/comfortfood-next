@@ -16,24 +16,28 @@ type Input = {
 
 const Page = async ({ searchParams: { q } }: Input) => {
     const recipes = await getRecipes(q);
+    const statusMsg = !q
+        ? "Find your next recipe today!"
+        : !recipes.length ? `No "${q}" recipes found` : "";
 
     return (
         <>
-            <div>
-                <form action="/search" method="get">
-                    <input type="text" name="q" defaultValue={q}/>
-                    <input type="submit" />
-                </form>
-            </div>
-            <div>
-                {recipes.length ?
-                    recipes.map(recipe => (
-                        <RecipeCard key={recipe.id} id={recipe.id} slug={recipe.slug} />
-                    )) : (
-                        <div>No recipes found.</div>
+            <form className="w-3/4 mx-auto my-6 flex gap-5" id="searchForm" action="/search" method="get">
+                <input className="flex-grow p-2 border-2 text-2xl" type="text" name="q" defaultValue={q}/>
+                <input className="text-xl" type="submit" />
+            </form>
 
-                    )}
-            </div>
+            <section className="flex justify-center">
+                <p className="text-xl font-semibold">{statusMsg}</p>
+            </section>
+
+            <section className="w-full grid grid-cols-3 gap-x-10 gap-y-16 place-items-center">
+                {recipes.map(recipe => (
+                    <div key={recipe.id} className="w-96 h-96">
+                        <RecipeCard {...recipe} />
+                    </div>
+                ))}
+            </section>
         </>
     );
 };

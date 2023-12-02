@@ -1,3 +1,4 @@
+import { generateRecipe } from "lib/testUtils";
 import type { Recipe } from "types/recipe";
 
 // TODO: create recipe API
@@ -19,11 +20,7 @@ export async function getRecipes(query: string): Promise<Recipe[]> {
         .then(() => {
             const recipes = [];
             for (let i = 0; i < (query?.length ?? 0); i++) {
-                recipes.push({
-                    id: i.toString(),
-                    slug: `recipe-${i}`,
-                    name: `recipe ${i}`,
-                });
+                recipes.push(generateRecipe(i.toString()));
             }
             return recipes;
         });

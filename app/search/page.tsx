@@ -16,9 +16,9 @@ type Input = {
 
 const Page = async ({ searchParams: { q } }: Input) => {
     const recipes = await getRecipes(q);
-    const statusMsg = !q
-        ? "Find your next recipe today!"
-        : !recipes.length ? `No "${q}" recipes found` : "";
+    const statusMsg = !!q
+        ? `Found ${recipes.length} recipes for "${q}"`
+        : "Find your next recipe today!";
 
     return (
         <>
@@ -27,7 +27,7 @@ const Page = async ({ searchParams: { q } }: Input) => {
                 <input className="text-xl" type="submit" />
             </form>
 
-            <section className="flex justify-center">
+            <section className="flex justify-center m-6">
                 <p className="text-xl font-semibold">{statusMsg}</p>
             </section>
 

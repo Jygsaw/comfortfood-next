@@ -1,22 +1,20 @@
 import React from "react";
+import { URLSearchParams } from "url";
 import { titleAppend } from "lib/seoUtils";
 import { getRecipes } from "lib/recipesAPI";
 import RecipeCard from "components/RecipeCard";
 import type { Metadata } from "next";
+import type { PageProps } from "types/next";
 
 export const metadata: Metadata = {
     title: titleAppend("Search"),
 };
 
-type Input = {
-    searchParams: {
-        q: string,
-    },
-};
-
-const Page = async ({ searchParams: { q } }: Input) => {
-    const recipes = await getRecipes(q);
-    const statusMsg = !!q
+const Page = async ({ searchParams }: PageProps) => {
+    const urlSearchParams = new URLSearchParams(searchParams);
+    const recipes = await getRecipes(urlSearchParams);
+    const q = urlSearchParams.get("q") ?? "";
+    const statusMsg = q
         ? `Found ${recipes.length} recipes for "${q}"`
         : "Find your next recipe today!";
 

@@ -4,8 +4,8 @@ import type { UrlSearchParams } from "types/search";
 const RECIPE_API = "/api/recipes";
 
 export async function getRecipes(params: UrlSearchParams): Promise<Recipe[]> {
-    const searchParams = new URLSearchParams(params);
-    const url = `http://${process.env.HOSTNAME}${RECIPE_API}?${searchParams.toString()}`;
+    const query = "?" + new URLSearchParams(params).toString();
+    const url = `http://${process.env.RENDER_EXTERNAL_HOSTNAME}${RECIPE_API}${query}`;
 
     return fetch(url)
         .then(response => {

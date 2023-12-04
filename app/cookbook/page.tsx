@@ -1,7 +1,6 @@
 import React from "react";
+import UnderConstruction from "components/UnderConstruction";
 
-const Page = () => {
-    return <div>COOKBOOK</div>;
-};
+const Page = () => <UnderConstruction />;
 
 export default Page;

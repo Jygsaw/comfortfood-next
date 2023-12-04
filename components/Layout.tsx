@@ -9,7 +9,7 @@ const Layout = ({ children }: PropsWithChildren): ReactNode => (
             <header>
                 <Header />
             </header>
-            <main className="flex-grow">
+            <main className="relative flex-grow">
                 {children}
             </main>
             <footer>

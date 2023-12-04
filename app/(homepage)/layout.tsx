@@ -1,22 +1,22 @@
 import React from "react";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 
-const Layout = ({ children }: PropsWithChildren): ReactNode => (
-    <>
-        <div className="container max-w-screen-7xl min-h-screen mx-auto flex flex-col">
+const Layout = ({ children }: PropsWithChildren) => {
+    return (
+        <div className="min-h-screen flex flex-col">
             <header>
                 <Header />
             </header>
-            <main className="relative flex-grow">
+            <main className="relative w-screen flex-grow">
                 {children}
             </main>
-            <footer>
+            <footer className="container mx-auto">
                 <Footer />
             </footer>
         </div>
-    </>
-);
+    );
+};
 
 export default Layout;

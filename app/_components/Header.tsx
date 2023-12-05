@@ -6,7 +6,7 @@ import NavBar from "app/_components/NavBar";
 
 const Header = () => {
     return (
-        <div className="bg-slate-500 min-h-24 px-5 py-3 flex gap-7 items-center">
+        <div className="min-h-24 px-5 py-3 flex gap-7 items-center">
             <div className="w-48 min-w-fit">
                 <Link href="/"><Logo /></Link>
             </div>

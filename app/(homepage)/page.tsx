@@ -7,6 +7,19 @@ export const metadata: Metadata = {
     title: titleAppend("Homepage"),
 };
 
-const Page = () => <UnderConstruction />;
+const Page = () => {
+    return (
+        <>
+            <section className="relative w-full h-[calc(100vh-92px)] mx-auto">
+                <UnderConstruction />
+            </section>
+            <section className="container mx-auto flex flex-col" >
+                <div>SOMETHING</div>
+                <div>SOMETHING</div>
+                <div>SOMETHING</div>
+            </section>
+        </>
+    );
+};
 
 export default Page;

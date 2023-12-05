@@ -6,13 +6,13 @@ import type { PropsWithChildren } from "react";
 const Layout = ({ children }: PropsWithChildren) => {
     return (
         <div className="min-h-screen flex flex-col">
-            <header>
+            <header className="border-b border-slate-500">
                 <Header />
             </header>
             <main className="relative w-screen flex-grow">
                 {children}
             </main>
-            <footer className="container mx-auto">
+            <footer className="border-t border-slate-500">
                 <Footer />
             </footer>
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import { titleAppend } from "lib/seoUtils";
-import { getRecipes } from "lib/recipesAPI";
-import RecipeCard from "components/RecipeCard";
+import { titleAppend } from "app/_lib/seoUtils";
+import { getRecipes } from "app/_lib/recipesAPI";
+import RecipeCard from "app/_components/RecipeCard";
 import type { Metadata } from "next";
-import type { UrlSearchParams } from "types/search";
+import type { UrlSearchParams } from "app/_types/search";
 
 export const metadata: Metadata = {
     title: titleAppend("Search"),

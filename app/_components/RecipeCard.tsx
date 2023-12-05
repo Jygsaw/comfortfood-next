@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Recipe } from "types/recipe";
+import type { Recipe } from "app/_types/recipe";
 
 const RecipeCard = ({ id, slug, name, image, description, likes, bookmarked }: Recipe) => {
     const href = `recipe/${id}/${slug}`;

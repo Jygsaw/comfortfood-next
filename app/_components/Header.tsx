@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import AccountControls from "components/AccountControls";
-import Logo from "components/Logo";
-import NavBar from "components/NavBar";
+import AccountControls from "app/_components/AccountControls";
+import Logo from "app/_components/Logo";
+import NavBar from "app/_components/NavBar";
 
 const Header = () => {
     return (

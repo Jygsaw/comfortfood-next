@@ -1,5 +1,5 @@
-import type { Recipe } from "types/recipe";
-import type { UrlSearchParams } from "types/search";
+import type { Recipe } from "app/_types/recipe";
+import type { UrlSearchParams } from "app/_types/search";
 
 const RECIPE_API = "/api/recipes";
 

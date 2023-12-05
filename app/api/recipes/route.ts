@@ -1,4 +1,4 @@
-import { generateRecipe } from "lib/testUtils";
+import { generateRecipe } from "app/_lib/testUtils";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

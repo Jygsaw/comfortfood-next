@@ -8,4 +8,4 @@ export function generateRecipe(id: string) {
         likes: Math.floor(Math.random() * 10),
         bookmarked: Math.random() < 0.5,
     };
-};
+}

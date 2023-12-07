@@ -1,5 +1,5 @@
 import React from "react";
-import { titleAppend } from "app/_lib/seoUtils";
+import { titleAppend } from "app/_lib/siteUtils";
 import { getRecipes } from "app/_lib/recipesAPI";
 import RecipeCard from "app/_components/RecipeCard";
 import type { Metadata } from "next";

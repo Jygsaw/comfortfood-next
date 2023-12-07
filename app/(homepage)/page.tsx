@@ -1,5 +1,5 @@
 import React from "react";
-import { titleAppend } from "app/_lib/seoUtils";
+import { titleAppend } from "app/_lib/siteUtils";
 import UnderConstruction from "app/_components/UnderConstruction";
 import type { Metadata } from "next";
 

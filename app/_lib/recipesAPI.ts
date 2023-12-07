@@ -1,11 +1,12 @@
+import { buildUrl } from "./siteUtils";
+
 import type { Recipe } from "app/_types/recipe";
 import type { UrlSearchParams } from "app/_types/search";
 
-const RECIPE_API = "/api/recipes";
+const RECIPES_API = "/api/recipes";
 
-export async function getRecipes(params: UrlSearchParams): Promise<Recipe[]> {
-    const query = "?" + new URLSearchParams(params).toString();
-    const url = `http://${process.env.RENDER_EXTERNAL_HOSTNAME}${RECIPE_API}${query}`;
+export async function getRecipes(searchParams: UrlSearchParams): Promise<Recipe[]> {
+    const url = buildUrl(RECIPES_API, searchParams);
 
     return fetch(url)
         .then(response => {

@@ -1,8 +1,8 @@
 {
-  "name": "vizro-next",
+  "name": "comfortfood-next",
   "version": "0.0.0",
   "license": "ISC",
-  "repository": "https://github.com/Jygsaw/vizro-next.git",
+  "repository": "https://github.com/Jygsaw/comfortfood-next.git",
   "author": "Justin Cheung <jygsaw@gmail.com>",
   "main": "index.js",
   "scripts": {

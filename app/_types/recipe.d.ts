@@ -1,4 +1,5 @@
 export type Recipe = {
+    type: "recipe",
     id: string,
     slug: string,
     name: string,

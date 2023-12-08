@@ -1,12 +1,5 @@
-export type DataType = "recipe";
+import type { Recipe } from "app/_types/recipe";
 
-export type CardData = {
-    type: DataType,
-    id: string,
-    slug: string,
-    name: string,
-    image: string,
-    description: string,
-    likes: integer,
-    bookmarked: boolean,
-};
+export type DataType = Recipe["type"];
+
+export type CardData = Recipe;

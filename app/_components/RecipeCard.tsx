@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Recipe } from "app/_types/recipe";
 
-const RecipeCard = ({ id, slug, name, image, description, likes, bookmarked }: Recipe) => {
+const RecipeCard = ({ id, slug, name, imageLink, description, likes, bookmarked }: Recipe) => {
     const href = `recipe/${id}/${slug}`;
 
     return (
         <article className="relative w-full h-full border-2 shadow-md">
             <Link className="group" href={href}>
-                <Image src={image} alt={name} fill />
+                <Image src={imageLink} alt={name} fill />
                 <section className="absolute w-full h-full flex flex-col z-10 bg-gray-800 bg-opacity-0 hover:bg-opacity-80">
                     <header className="h-12">
                         {bookmarked && <span className="absolute top-0 right-0">BKMRK</span>}

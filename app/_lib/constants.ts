@@ -3,7 +3,7 @@ export const NEW_RECIPE = {
     id: "NEW",
     slug: "",
     name: "",
-    image: "",
+    imageLink: "",
     description: "",
     likes: 0,
     bookmarked: false,

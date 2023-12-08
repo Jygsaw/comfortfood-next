@@ -4,7 +4,7 @@ import type { PropsWithChildren } from "react";
 
 const RootLayout = ({ children }: PropsWithChildren) => (
     <html lang="en">
-        <body>
+        <body className="overflow-y-scroll">
             {children}
         </body>
     </html>

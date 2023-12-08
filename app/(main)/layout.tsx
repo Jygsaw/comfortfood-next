@@ -1,19 +1,19 @@
 import React from "react";
-import Header from "app/_components/Header";
-import Footer from "app/_components/Footer";
+import SiteHeader from "app/_components/SiteHeader";
+import SiteFooter from "app/_components/SiteFooter";
 import type { PropsWithChildren } from "react";
 
 const Layout = ({ children }: PropsWithChildren) => {
     return (
         <div className="min-h-screen flex flex-col">
-            <header className="border-b border-slate-500">
-                <Header />
+            <header className="sticky top-0 h-24 z-30 border-b border-slate-500">
+                <SiteHeader />
             </header>
-            <main className="relative container mx-auto flex-grow">
+            <main className="container mx-auto flex-grow">
                 {children}
             </main>
             <footer className="border-t border-slate-500">
-                <Footer />
+                <SiteFooter />
             </footer>
         </div>
     );

@@ -9,6 +9,12 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
+                hostname: "www.simplyrecipes.com",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
                 hostname: "d2lnr5mha7bycj.cloudfront.net",
                 port: "",
                 pathname: "**",
@@ -16,6 +22,12 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "cdn.pixabay.com",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "d14tal8bchn59o.cloudfront.net",
                 port: "",
                 pathname: "**",
             },

@@ -19,6 +19,36 @@ const nextConfig = {
                 port: "",
                 pathname: "**",
             },
+            {
+                protocol: "https",
+                hostname: "acupunctureofiowa.com",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.tastefest.com.au",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.innatfollybeach.com",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "simplebites.net",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "www.greenpan.ch",
+                port: "",
+                pathname: "**",
+            },
         ],
     },
 

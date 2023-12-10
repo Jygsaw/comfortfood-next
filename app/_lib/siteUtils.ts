@@ -6,6 +6,8 @@ export function titleAppend(title: string) {
 
 export function buildPath(type: UserContent["type"], id: UserContent["id"], slug: UserContent["slug"]) {
     switch (type) {
+        case "article":
+            return `/article/${id}/${slug}`;
         case "recipe":
             return `/recipe/${id}/${slug}`;
         default:

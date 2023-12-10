@@ -3,8 +3,9 @@ import { titleAppend } from "app/_lib/siteUtils";
 import { getRecipes } from "app/_lib/recipesAPI";
 import RecipeCard from "app/_components/RecipeCard";
 import SectionHeader from "app/_components/SectionHeader";
+
 import type { Metadata } from "next";
-import type { UrlSearchParams } from "app/_types/search";
+import type { PageProps } from "app/_types/next";
 
 export const metadata: Metadata = {
     title: titleAppend("Search"),
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 
 const BANNER_LINK = "https://acupunctureofiowa.com/wp-content/uploads/2019/11/Acupuncture-of-Iowa-Iowa-City-Blogs-header-food.jpg";
 
-const Page = async ({ searchParams, searchParams: { q } }: { searchParams: UrlSearchParams }) => {
+const Page = async ({ searchParams }: PageProps) => {
+    const q = searchParams?.q;
     const recipes = await getRecipes(searchParams);
     const statusMsg = q
         ? `Found ${recipes.length} recipes for "${q}"`

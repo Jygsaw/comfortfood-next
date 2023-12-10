@@ -1,11 +1,11 @@
 import { buildUrl } from "./siteUtils";
 
-import type { Recipe } from "app/_types/recipe";
-import type { UrlSearchParams } from "app/_types/search";
+import type { PageProps } from "app/_types/next";
+import type { Recipe } from "app/_types/record";
 
 const RECIPES_API = "/api/recipes";
 
-export async function getRecipes(searchParams: UrlSearchParams): Promise<Recipe[]> {
+export async function getRecipes(searchParams?: PageProps["searchParams"]): Promise<Recipe[]> {
     const url = buildUrl(RECIPES_API, searchParams);
 
     return fetch(url)

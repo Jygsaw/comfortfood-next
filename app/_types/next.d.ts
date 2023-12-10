@@ -4,3 +4,5 @@ export interface PageProps {
     params?: Record<string, string>,
     searchParams?: Record<string, string>,
 }
+
+export type DynamicRoute = { params: { id: string, slug: string}};

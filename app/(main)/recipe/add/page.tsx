@@ -7,7 +7,7 @@ import { addRecipe } from "app/_lib/recipeAPI";
 import { buildPath } from "app/_lib/siteUtils";
 
 import type { ChangeEvent, FormEvent } from "react";
-import type { Recipe } from "app/_types/recipe";
+import type { Recipe } from "app/_types/record";
 
 const Page = () => {
     const router = useRouter();

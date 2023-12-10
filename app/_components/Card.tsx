@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { buildPath } from "app/_lib/siteUtils";
 
-import type { CardData } from "app/_types/card";
+import type { UserContent } from "app/_types/record";
 
-const Card = ({ type, id, slug, name, imageLink, bookmarked }: CardData) => {
+const Card = ({ type, id, slug, name, imageLink, bookmarked }: UserContent) => {
     const href = buildPath(type, id, slug);
 
     return (

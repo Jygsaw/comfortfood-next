@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Recipe } from "app/_types/recipe";
 
-const RecipeCard = ({ id, slug, name, imageLink, description, likes, bookmarked }: Recipe) => {
+import type { Recipe } from "app/_types/record";
+
+const RecipeCard = ({ id, slug, name, imageLink, description, bookmarked }: Recipe) => {
     const href = `recipe/${id}/${slug}`;
 
     return (
@@ -19,7 +20,6 @@ const RecipeCard = ({ id, slug, name, imageLink, description, likes, bookmarked 
                     </p>
                     <footer className="flex h-16 place-items-end bg-gradient-to-t from-gray-800 to-transparent">
                         <p className="flex-grow mx-2 my-1 text-white text-lg truncate">{name}</p>
-                        <span className="mx-2 my-1 text-white text-lg">LIKE:{likes}</span>
                     </footer>
                 </section>
             </Link>

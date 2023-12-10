@@ -1,6 +1,6 @@
 import { buildUrl } from "./siteUtils";
 
-import type { Recipe } from "app/_types/recipe";
+import type { Recipe } from "app/_types/record";
 
 const RECIPE_API = "/api/recipe";
 

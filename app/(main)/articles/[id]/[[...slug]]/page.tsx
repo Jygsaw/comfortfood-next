@@ -1,5 +1,5 @@
 import React from "react";
-import { getArticle } from "app/_lib/articleAPI";
+import { getArticle } from "app/_lib/articlesAPI";
 
 import type { DynamicRoute } from "app/_types/next";
 

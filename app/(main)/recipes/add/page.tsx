@@ -1,9 +1,11 @@
 "use client";
 
+// TODO: deprecate and split into create action and "edit" page
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { NEW_RECIPE } from "app/_lib/constants";
-import { addRecipe } from "app/_lib/recipeAPI";
+import { createRecipe } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 
 import type { ChangeEvent, FormEvent } from "react";
@@ -29,7 +31,7 @@ const Page = () => {
         event.preventDefault();
 
         if (validate(recipe)) {
-            addRecipe(recipe)
+            createRecipe(recipe)
                 .then((recipe) => {
                     router.push(buildPath(recipe.type, recipe.id, recipe.slug));
                 })

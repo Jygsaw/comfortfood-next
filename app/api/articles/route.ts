@@ -1,17 +1,4 @@
-import { generateRecipe } from "app/_lib/testUtils";
-
-import type { NextRequest } from "next/server";
-
-export async function GET(request: NextRequest) {
-    const q = request.nextUrl.searchParams.get("q") ?? "";
-
-    // TODO: connect to persistent storage
-    const recipes = new Array(q.length)
-        .fill(null)
-        .map(() => generateRecipe());
-
-    return Response.json({ data: { recipes } });
-}
+import { generateArticle } from "app/_lib/testUtils";
 
 export async function POST(request: Request) {
     const data = await request.json();
@@ -25,13 +12,13 @@ export async function POST(request: Request) {
     }
 
     // TODO: connect to persistent storage
-    const recipe = generateRecipe({
+    const article = generateArticle({
         name: data.name,
         description: data.description,
         imageLink: data.imageLink,
     });
 
     return Response.json({ data: {
-        recipe
+        article
     } }, { status: 201 });
 }

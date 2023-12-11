@@ -4,15 +4,19 @@ export function titleAppend(title: string) {
     return title + " | ComfortFood";
 }
 
-export function buildPath(type: UserContent["type"], id: UserContent["id"], slug: UserContent["slug"]) {
+export function getBasePath(type: UserContent["type"]) {
     switch (type) {
         case "article":
-            return `/article/${id}/${slug}`;
+            return "/articles";
         case "recipe":
-            return `/recipe/${id}/${slug}`;
+            return "/recipes";
         default:
             throw new Error(`Unknown path type: ${type}`);
     }
+}
+
+export function buildPath(type: UserContent["type"], id?: string, slug?: string) {
+    return [getBasePath(type), id, slug].join("/");
 }
 
 export function buildUrl(path: string, params?: Record<string, string>) {

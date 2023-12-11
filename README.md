@@ -1,8 +1,8 @@
-## Demo website
+## Demo
 https://comfortfood.onrender.com
+(note: May be slow to start up from hibernation.)
 
 ## TODO
-- clean up mock article
 - generalize Card to handle different styles
 - extend record types to support draft records
 - migrate add recipe page to new + edit recipe flow
@@ -18,3 +18,4 @@ https://comfortfood.onrender.com
 - PUBLISH => if (createdFrom = LIVE), then replace LIVE w/ DRAFT
     - and delete all related drafts?
     - and allow publish of separate new record?
+- research html editors and embedding user articles in pages

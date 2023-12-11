@@ -9,9 +9,9 @@ const RecipeCard = ({ id, slug, name, imageLink, description, bookmarked }: Reci
     const href = buildPath("recipe", id, slug);
 
     return (
-        <article className="relative w-full h-full border-2 shadow-md">
-            <Link className="group" href={href}>
-                <Image src={imageLink} alt={name} fill />
+        <Link className="group w-full h-full" href={href}>
+            <article className="relative w-full h-full border-2 shadow-md">
+                <Image src={imageLink} alt={name} fill sizes="33vw" />
                 <section className="absolute w-full h-full flex flex-col z-10 bg-gray-800 bg-opacity-0 hover:bg-opacity-80">
                     <header className="h-12">
                         {bookmarked && <span className="absolute top-0 right-0">BKMRK</span>}
@@ -23,8 +23,8 @@ const RecipeCard = ({ id, slug, name, imageLink, description, bookmarked }: Reci
                         <p className="flex-grow mx-2 my-1 text-white text-lg truncate">{name}</p>
                     </footer>
                 </section>
-            </Link>
-        </article>
+            </article>
+        </Link>
     );
 };
 

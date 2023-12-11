@@ -13,7 +13,7 @@ const Card = ({ type, id, slug, name, imageLink, bookmarked }: UserContent) => {
             <article className="w-full h-full flex flex-col bg-white hover:shadow-md">
                 <div className="relative w-full aspect-[1.5]">
                     {bookmarked && <span className="absolute top-0 right-0 z-10">BKMRK</span>}
-                    <Image src={imageLink} alt={name} fill style={{ objectFit: "cover" }} />
+                    <Image src={imageLink} alt={name} fill sizes="33vw" style={{ objectFit: "cover" }} />
                 </div>
                 <p className="mx-2 my-1 flex-grow text-lg">
                     {name}

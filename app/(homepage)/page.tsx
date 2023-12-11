@@ -38,13 +38,15 @@ const Page = () => {
 
     return (
         <div className="bg-orange-50">
-            <section className="w-full bg-gradient-to-b from-white to-orange-50 flex to-10%">
+            <section className="flex bg-gradient-to-b from-white to-orange-50 to-10%">
                 <div className="sticky top-24 h-[calc(100vh-92px)] flex-grow ">
-                    <Image src={HERO_LINK} alt="" fill style={{ objectFit: "cover" }}/>
+                    <div className="relative w-full h-full">
+                        <Image src={HERO_LINK} alt="" priority fill sizes="66vw" style={{ objectFit: "cover" }}/>
+                    </div>
                 </div>
                 <section className="w-2/5 2xl:w-1/3 mx-10">
                     <SectionHeader title="Latest" link="/recent" banner={
-                        <Image className="mx-auto my-4" src={SCROLL_LINK} alt="" width="275" height="183" />
+                        <Image className="w-fit h-fit mx-auto my-4" src={SCROLL_LINK} alt="" width="275" height="183" />
                     } />
                     <div className="grid grid-cols-2 gap-8">
                         {latestData.map(data => <Card key={data.id} {...data} />)}

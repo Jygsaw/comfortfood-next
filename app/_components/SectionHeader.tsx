@@ -16,7 +16,7 @@ const SectionHeader = ({ title, link, bannerLink, banner }: Input) => {
         <header>
             {bannerLink ? (
                 <div className="relative w-full h-24">
-                    <Image src={bannerLink} alt="" fill style={{ objectFit: "cover" }}/>
+                    <Image src={bannerLink} alt="" priority fill style={{ objectFit: "cover" }}/>
                 </div>
             ) : banner}
             <div className="m-4 text-3xl text-center">

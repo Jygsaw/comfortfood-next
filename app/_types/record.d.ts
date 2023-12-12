@@ -6,24 +6,29 @@ export interface BaseRecord {
     updatedAt: string,
 }
 
-export interface UserContent extends BaseRecord {
-    type: (Article | Recipe)["type"],
+export interface ContentRecord extends BaseRecord {
+    draftOf?: string,
     name: string,
     slug: string,
     imageLink: string,
     description: string,
-    bookmarked: boolean,
+    // TODO: refine properties
+    rating?: number,
 }
 
-export interface Article extends UserContent {
+export interface Article extends ContentRecord {
     type: "article",
     // TODO: refine properties
     content: any,
 }
 
-export interface Recipe extends UserContent {
+export interface Recipe extends ContentRecord {
     type: "recipe",
     // TODO: refine properties
     ingredients: any,
     instructions: any,
+    time?: number,
+    difficulty?: any,
 }
+
+export type UserContent = Article | Recipe;

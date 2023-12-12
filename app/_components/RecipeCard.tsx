@@ -5,7 +5,7 @@ import { buildPath } from "app/_lib/siteUtils";
 
 import type { Recipe } from "app/_types/record";
 
-const RecipeCard = ({ id, slug, name, imageLink, description, bookmarked }: Recipe) => {
+const RecipeCard = ({ id, slug, name, imageLink, description }: Recipe) => {
     const href = buildPath("recipe", id, slug);
 
     return (
@@ -13,9 +13,7 @@ const RecipeCard = ({ id, slug, name, imageLink, description, bookmarked }: Reci
             <article className="relative w-full h-full border-2 shadow-md">
                 <Image src={imageLink} alt={name} fill sizes="33vw" />
                 <section className="absolute w-full h-full flex flex-col z-10 bg-gray-800 bg-opacity-0 hover:bg-opacity-80">
-                    <header className="h-12">
-                        {bookmarked && <span className="absolute top-0 right-0">BKMRK</span>}
-                    </header>
+                    <header className="h-12" />
                     <p className="flex-grow m-3 text-white invisible group-hover:visible">
                         {description}
                     </p>

@@ -1,6 +1,6 @@
 import type { Article, Recipe } from "app/_types/record";
 
-const BASERECORD_DEFAULTS = {
+const BASE_RECORD_DEFAULTS = {
     id: "NEW",
     createdBy: "",
     createdAt: "",
@@ -8,24 +8,24 @@ const BASERECORD_DEFAULTS = {
     updatedAt: "",
 } as const;
 
-const USERCONTENT_DEFAULTS = {
+const CONTENT_RECORD_DEFAULTS = {
+    draft: true,
     name: "",
     slug: "",
     imageLink: "",
     description: "",
-    bookmarked: false,
 } as const;
 
-export const NEW_ARTICLE: Article = {
-    ...BASERECORD_DEFAULTS,
-    ...USERCONTENT_DEFAULTS,
+export const ARTICLE_DEFAULTS: Article = {
+    ...BASE_RECORD_DEFAULTS,
+    ...CONTENT_RECORD_DEFAULTS,
     type: "article",
     content: "",
 } as const;
 
-export const NEW_RECIPE: Recipe = {
-    ...BASERECORD_DEFAULTS,
-    ...USERCONTENT_DEFAULTS,
+export const RECIPE_DEFAULTS: Recipe = {
+    ...BASE_RECORD_DEFAULTS,
+    ...CONTENT_RECORD_DEFAULTS,
     type: "recipe",
     ingredients: "",
     instructions: "",

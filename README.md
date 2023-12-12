@@ -3,8 +3,6 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation.)
 
 ## TODO
-- generalize Card to handle different styles
-- extend record types to support draft records
 - migrate add recipe page to new + edit recipe flow
 - NEW => create record from default, draft = true, redirect to EDIT DRAFT
 - EDIT DRAFT => edit record

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { titleAppend } from "app/_lib/siteUtils";
-import { generateRecipes } from "app/_lib/testUtils";
+import { generateArticles, generateRecipes } from "app/_lib/testUtils";
 import Card from "app/_components/Card";
 import SectionHeader from "app/_components/SectionHeader";
 
@@ -21,7 +21,7 @@ const Page = () => {
         {
             title: "Seasonal Favorites",
             link: "/articles",
-            cardData: generateRecipes(3),
+            cardData: generateArticles(3),
         },
         {
             title: "Easy Snacks",
@@ -31,7 +31,7 @@ const Page = () => {
         {
             title: "Tips and Tricks",
             link: "/articles",
-            cardData: generateRecipes(3),
+            cardData: generateArticles(3),
         },
     ];
     const latestData = generateRecipes(8);
@@ -49,7 +49,7 @@ const Page = () => {
                         <Image className="w-fit h-fit mx-auto my-4" src={SCROLL_LINK} alt="" width="275" height="183" />
                     } />
                     <div className="grid grid-cols-2 gap-8">
-                        {latestData.map(data => <Card key={data.id} {...data} />)}
+                        {latestData.map(data => <Card key={data.id} {...{ data }} />)}
                     </div>
                 </section>
             </section>
@@ -58,7 +58,7 @@ const Page = () => {
                     <section className="container mx-auto">
                         <SectionHeader title={data.title} link={data.link} />
                         <div className="w-full grid grid-cols-3 gap-10">
-                            {data.cardData.map(data => <Card key={data.id} {...data} />)}
+                            {data.cardData.map(data => <Card key={data.id} {...{ data }} />)}
                         </div>
                     </section>
                 </div>

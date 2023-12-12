@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { NEW_RECIPE } from "app/_lib/constants";
+import { RECIPE_DEFAULTS } from "app/_lib/constants";
 import { createRecipe } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 
@@ -13,7 +13,7 @@ import type { Recipe } from "app/_types/record";
 
 const Page = () => {
     const router = useRouter();
-    const [recipe, setRecipe] = useState<Recipe>(NEW_RECIPE);
+    const [recipe, setRecipe] = useState<Recipe>(RECIPE_DEFAULTS);
     const [status, setStatus] = useState("");
 
     const validate = (recipe: Recipe) => !!recipe.name && !!recipe.description;

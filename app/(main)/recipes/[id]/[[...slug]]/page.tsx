@@ -1,11 +1,20 @@
 import React from "react";
-import UnderConstruction from "app/_components/UnderConstruction";
+import { getRecipe } from "app/_lib/recipesAPI";
+import DeleteRecipeButton from "./DeleteRecipeButton";
+import EditRecipeButton from "./EditRecipeButton";
 
 import type { DynamicRoute } from "app/_types/next";
 
-const Page =({ params: { id } }: DynamicRoute) => {
-    console.log("fetching id:", id);
-    return <UnderConstruction />;
+const Page = async ({ params: { id } }: DynamicRoute) => {
+    const recipe = await getRecipe(id);
+
+    return (
+        <>
+            <EditRecipeButton {...{ id }} />
+            <DeleteRecipeButton {...{ id }} />
+            <pre>{JSON.stringify(recipe, null, 4)}</pre>
+        </>
+    );
 };
 
 export default Page;

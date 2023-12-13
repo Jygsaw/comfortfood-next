@@ -13,25 +13,17 @@ export async function GET(request: NextRequest) {
     return Response.json({ data: { recipes } });
 }
 
-export async function POST(request: Request) {
-    const data = await request.json();
+export async function POST() {
+    const draft = generateRecipe();
+    draft.draftOf = draft.id;
 
-    // TODO: validate data
+    // TODO: save draft to persistent storage
     if (false) {
         return Response.json({ error: {
-            code: 400,
-            message: "Invalid data",
-        } }, { status: 400 });
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
     }
 
-    // TODO: connect to persistent storage
-    const recipe = generateRecipe({
-        name: data.name,
-        description: data.description,
-        imageLink: data.imageLink,
-    });
-
-    return Response.json({ data: {
-        recipe
-    } }, { status: 201 });
+    return new Response(null, { status: 204 });
 }

@@ -2,7 +2,7 @@ import { generateRecipe } from "app/_lib/testUtils";
 
 import type { DynamicRoute } from "app/_types/next";
 
-export async function GET(_: Request, { params: { id } }: DynamicRoute) {
+export async function GET(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
     const recipe = generateRecipe({ id });
     if (!recipe) {
@@ -15,8 +15,8 @@ export async function GET(_: Request, { params: { id } }: DynamicRoute) {
     return Response.json({ data: { recipe } });
 }
 
-export async function PATCH(request: Request, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
+export async function POST(_: never, { params: { id } }: DynamicRoute) {
+    // TODO: fetch original recipe from persistent storage
     const recipe = generateRecipe({ id });
     if (!recipe) {
         return Response.json({ error: {
@@ -25,33 +25,22 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
         } }, { status: 403 });
     }
 
-    const data = await request.json();
-    // TODO: validate data
-    if (false) {
-        return Response.json({ error: {
-            code: 400,
-            message: "Invalid data",
-        } }, { status: 400 });
-    }
-
-    const newRecipe = {
-        ...recipe,
-        ...data,
-    };
-    // TODO: connect to persistent storage
-    if (false) {
+    // TODO: create draft based on original
+    const draft = generateRecipe({ name: recipe.name, draftOf: recipe.id });
+    // TODO: save draft to persistent storage
+    if (draft && false) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
         } }, { status: 500 });
     }
 
-    return Response.json({ data: { recipe: newRecipe } });
+    return new Response(null, { status: 204 });
 }
 
-export async function DELETE(_: Request, { params: { id } }: DynamicRoute) {
+export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    console.log("> deleting:", id);
+    console.log("> deleting recipe where ID is:", id);
 
     return new Response(null, { status: 204 });
 }

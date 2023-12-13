@@ -3,22 +3,14 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation.)
 
 ## TODO
-- [ ] integrate recipe pages with new api design
-    - [ ] recipes
-        - add recipe button
-            - [ ] redirect to /recipes/[id]/draft after draft created
-    - [ ] recipes/[id]/[[...slug]]
-        - [ ] POST(id) = edit recipe button
-            - [ ] redirect to draft of recipe (if draftOf exists)
-                - [ ] /recipes/[id]/draft
-            - [ ] copy recipe and create new record (if draftOf doesn't exist)
-                - [ ] id = genUUID
-                - [ ] draftOf = POST.id
-
-## Next Steps
+- refine articles endpoints and routes to match recipes design
 - implement some concept of user record
     - when viewing a DRAFT recipe, then only visibile to createdBy
+
+## Next Steps
+- integrate with persistent storage
 - streamline endpoints with shared lib functions
+- integrate React Suspense and NextJS loading.ts into pages
 
 ## Future Features
 - research html editors and how to embed user-created articles in pages
@@ -49,13 +41,16 @@ https://comfortfood.onrender.com
             - [X] create new recipe record
                 - [X] id = genUUID
                 - [X] draftOf = self.id
+            - [X] redirect to /recipes/[id]/draft after draft created
     - [X] recipes/[id]/[[...slug]]
         - [X] GET(id) = display recipe
             - [X] fetch recipe where id = id
         - [X] POST(id) = edit recipe button
-            - [X] copy recipe and create new record
+            - [X] if draft exists, skip creation
+            - [X] if draft doesn't exist, copy original recipe and create new record
                 - [X] id = genUUID
                 - [X] draftOf = POST.id
+            - [X] redirect to /recipes/[id]/draft
         - [X] DELETE(id) = delete recipe button
             - [X] delete recipe where id = DELETE.id
     - [X] recipes/[id]/draft = edit DRAFT of recipe.id

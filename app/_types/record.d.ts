@@ -7,7 +7,6 @@ export interface BaseRecord {
 }
 
 export interface ContentRecord extends BaseRecord {
-    draftOf?: string,
     name: string,
     slug: string,
     imageLink: string,
@@ -22,6 +21,10 @@ export interface Article extends ContentRecord {
     content: any,
 }
 
+export interface ArticleDraft extends Article {
+    draftOf: string,
+}
+
 export interface Recipe extends ContentRecord {
     type: "recipe",
     // TODO: refine properties
@@ -29,6 +32,10 @@ export interface Recipe extends ContentRecord {
     instructions: any,
     time?: number,
     difficulty?: any,
+}
+
+export interface RecipeDraft extends Recipe {
+    draftOf: string,
 }
 
 export type UserContent = Article | Recipe;

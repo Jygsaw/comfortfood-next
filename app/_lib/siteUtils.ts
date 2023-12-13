@@ -1,22 +1,27 @@
-import type { UserContent } from "app/_types/record";
+// TODO: rethink how to generalize and type path construction
+type PathType = "recipe" | "recipeDraft" | "recipePreview" | "article" | "articleDraft" | "articlePreview";
 
 export function titleAppend(title: string) {
     return title + " | ComfortFood";
 }
 
-export function getBasePath(type: UserContent["type"]) {
+export function buildPath(type: PathType, id?: string, slug?: string) {
     switch (type) {
         case "article":
-            return "/articles";
+            return ["/articles", id, slug].join("/");
+        case "articleDraft":
+            return ["/articles", id, "draft"].join("/");
+        case "articlePreview":
+            return ["/articles", id, "draft", "preview"].join("/");
         case "recipe":
-            return "/recipes";
+            return ["/recipes", id, slug].join("/");
+        case "recipeDraft":
+            return ["/recipes", id, "draft"].join("/");
+        case "recipePreview":
+            return ["/recipes", id, "draft", "preview"].join("/");
         default:
             throw new Error(`Unknown path type: ${type}`);
     }
-}
-
-export function buildPath(type: UserContent["type"], id?: string, slug?: string) {
-    return [getBasePath(type), id, slug].join("/");
 }
 
 export function buildUrl(path: string, params?: Record<string, string>) {

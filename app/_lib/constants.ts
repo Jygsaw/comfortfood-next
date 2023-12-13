@@ -9,7 +9,6 @@ const BASE_RECORD_DEFAULTS = {
 } as const;
 
 const CONTENT_RECORD_DEFAULTS = {
-    draft: true,
     name: "",
     slug: "",
     imageLink: "",

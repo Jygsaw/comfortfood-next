@@ -6,6 +6,7 @@
   ],
   "rules": {
     "no-unused-vars": 2,
+    "@stylistic/js/arrow-spacing": 2,
     "@stylistic/js/object-curly-spacing": [2, "always"],
     "@stylistic/js/eol-last": 2,
     "@stylistic/js/indent": [2, 4, { "SwitchCase": 1 }],

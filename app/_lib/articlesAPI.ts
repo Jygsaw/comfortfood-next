@@ -15,7 +15,7 @@ export async function getArticle(id: string): Promise<Article> {
             if (!response.ok) throw new Error(response.statusText);
             return response.json();
         })
-        .then(json =>json.data.article);
+        .then(json => json.data.article);
 }
 
 export async function createArticle(data: Partial<Article>): Promise<Article> {

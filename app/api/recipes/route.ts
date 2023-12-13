@@ -14,8 +14,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST() {
-    const draft = generateRecipe();
-    draft.draftOf = draft.id;
+    const recipe = generateRecipe();
+    const draft = {
+        ...recipe,
+        draftOf: recipe.id,
+    };
 
     // TODO: save draft to persistent storage
     if (false) {
@@ -25,5 +28,5 @@ export async function POST() {
         } }, { status: 500 });
     }
 
-    return new Response(null, { status: 204 });
+    return Response.json({ data: { recipe: draft } });
 }

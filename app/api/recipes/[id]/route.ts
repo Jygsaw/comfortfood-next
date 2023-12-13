@@ -16,26 +16,32 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
 }
 
 export async function POST(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: fetch original recipe from persistent storage
-    const recipe = generateRecipe({ id });
-    if (!recipe) {
-        return Response.json({ error: {
-            code: 403,
-            message: "Not found",
-        } }, { status: 403 });
+    // TODO: check if draft exists already for original recipe
+    // TODO: connect to persistent storage
+    let draft = generateRecipe({ draftOf: id });
+
+    if (!draft) {
+        // TODO: fetch original recipe from persistent storage
+        const recipe = generateRecipe({ id });
+        if (!recipe) {
+            return Response.json({ error: {
+                code: 403,
+                message: "Not found",
+            } }, { status: 403 });
+        }
+
+        // TODO: create draft based on original
+        draft = generateRecipe({ name: recipe.name, draftOf: recipe.id });
+        // TODO: save draft to persistent storage
+        if (draft && false) {
+            return Response.json({ error: {
+                code: 500,
+                message: "Server error"
+            } }, { status: 500 });
+        }
     }
 
-    // TODO: create draft based on original
-    const draft = generateRecipe({ name: recipe.name, draftOf: recipe.id });
-    // TODO: save draft to persistent storage
-    if (draft && false) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
-    }
-
-    return new Response(null, { status: 204 });
+    return Response.json({ data: { recipe: draft } });
 }
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {

@@ -1,7 +1,7 @@
 import { buildUrl } from "./siteUtils";
 
 import type { PageProps } from "app/_types/next";
-import type { Recipe } from "app/_types/record";
+import type { Recipe, RecipeDraft } from "app/_types/record";
 
 const RECIPES_API = "/api/recipes";
 
@@ -45,7 +45,7 @@ export async function deleteRecipe(id: string): Promise<void> {
         });
 }
 
-export async function createRecipeDraft(id: string = ""): Promise<void> {
+export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
     const options = {
         method: "POST",
@@ -54,10 +54,12 @@ export async function createRecipeDraft(id: string = ""): Promise<void> {
     return fetch(url, options)
         .then(response => {
             if (!response.ok) throw new Error(response.statusText);
-        });
+            return response.json();
+        })
+        .then(json => json.data.recipe);
 }
 
-export async function getRecipeDraft(id: string): Promise<Recipe> {
+export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
     const options = {
         method: "GET",
@@ -71,7 +73,7 @@ export async function getRecipeDraft(id: string): Promise<Recipe> {
         .then(json => json.data.recipe);
 }
 
-export async function updateRecipeDraft(id: string, data: Partial<Recipe>): Promise<Recipe> {
+export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
     const options = {
         method: "PATCH",

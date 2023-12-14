@@ -3,14 +3,13 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation.)
 
 ## TODO
-- refine articles endpoints and routes to match recipes design
-- implement some concept of user record
-    - when viewing a DRAFT recipe, then only visibile to createdBy
+- [ ] integrate with persistent storage
+- [ ] streamline endpoints with shared lib functions
 
 ## Next Steps
-- integrate with persistent storage
-- streamline endpoints with shared lib functions
-- integrate React Suspense and NextJS loading.ts into pages
+- [ ] implement some concept of user record
+    - [ ] when viewing a DRAFT recipe, then only visibile to createdBy
+- [ ] integrate React Suspense and NextJS loading.ts into pages
 
 ## Future Features
 - research html editors and how to embed user-created articles in pages
@@ -34,6 +33,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] refine articles endpoints, api, and routes to match recipes design
 - [X] update recipes routes and api to support drafts
     - [X] recipes
         - [X] GET = display summary data

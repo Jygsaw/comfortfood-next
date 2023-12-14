@@ -1,6 +1,6 @@
 import { generateRecipe } from "app/_lib/testUtils";
 
-import type { DynamicRoute } from "app/_types/next";
+import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: Request, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage

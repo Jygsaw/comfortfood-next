@@ -1,6 +1,6 @@
 import { buildUrl } from "./siteUtils";
 
-import type { PageProps } from "app/_types/next";
+import type { PageProps } from "app/_types/site";
 import type { Recipe, RecipeDraft } from "app/_types/record";
 
 const RECIPES_API = "/api/recipes";

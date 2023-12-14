@@ -5,7 +5,7 @@ import RecipeCard from "app/_components/RecipeCard";
 import SectionHeader from "app/_components/SectionHeader";
 
 import type { Metadata } from "next";
-import type { PageProps } from "app/_types/next";
+import type { PageProps } from "app/_types/site";
 
 export const metadata: Metadata = {
     title: titleAppend("Search"),

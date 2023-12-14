@@ -1,7 +1,7 @@
 import React from "react";
 import { getArticle } from "app/_lib/articlesAPI";
 
-import type { DynamicRoute } from "app/_types/next";
+import type { DynamicRoute } from "app/_types/site";
 
 const Page = async ({ params: { id } }: DynamicRoute) => {
     const article = await getArticle(id);

@@ -1,5 +1,14 @@
 import type { Article, Recipe } from "app/_types/record";
 
+export const PATH_TYPES = {
+    article: "article",
+    articleDraft: "articleDraft",
+    articlePreview: "articlePreview",
+    recipe: "recipe",
+    recipeDraft: "recipeDraft",
+    recipePreview: "recipePreview",
+} as const;
+
 const BASE_RECORD_DEFAULTS = {
     id: "NEW",
     createdBy: "",

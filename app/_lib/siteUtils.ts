@@ -1,23 +1,24 @@
-// TODO: rethink how to generalize and type path construction
-type PathType = "recipe" | "recipeDraft" | "recipePreview" | "article" | "articleDraft" | "articlePreview";
+import { PATH_TYPES } from "app/_lib/constants";
+
+import type { PathTypes } from "app/_types/site";
 
 export function titleAppend(title: string) {
     return title + " | ComfortFood";
 }
 
-export function buildPath(type: PathType, id?: string, slug?: string) {
+export function buildPath(type: PathTypes, id?: string, slug?: string) {
     switch (type) {
-        case "article":
+        case PATH_TYPES.article:
             return ["/articles", id, slug].join("/");
-        case "articleDraft":
+        case PATH_TYPES.articleDraft:
             return ["/articles", id, "draft"].join("/");
-        case "articlePreview":
+        case PATH_TYPES.articlePreview:
             return ["/articles", id, "draft", "preview"].join("/");
-        case "recipe":
+        case PATH_TYPES.recipe:
             return ["/recipes", id, slug].join("/");
-        case "recipeDraft":
+        case PATH_TYPES.recipeDraft:
             return ["/recipes", id, "draft"].join("/");
-        case "recipePreview":
+        case PATH_TYPES.recipePreview:
             return ["/recipes", id, "draft", "preview"].join("/");
         default:
             throw new Error(`Unknown path type: ${type}`);

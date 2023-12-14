@@ -4,7 +4,7 @@ import DeleteRecipeButton from "./DeleteRecipeButton";
 import PreviewRecipeButton from "./PreviewRecipeButton";
 import EditRecipeForm from "./EditRecipeForm";
 
-import type { DynamicRoute } from "app/_types/next";
+import type { DynamicRoute } from "app/_types/site";
 
 const Page = async ({ params: { id } }: DynamicRoute) => {
     const recipe = await getRecipeDraft(id);

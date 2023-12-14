@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { createRecipeDraft } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
+import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
     id: string,
@@ -13,7 +14,7 @@ const EditRecipeButton = ({ id }: Input) => {
     const router = useRouter();
 
     const handleEdit = () => createRecipeDraft(id)
-        .then(() => router.push(buildPath("recipeDraft", id)));
+        .then(() => router.push(buildPath(PATH_TYPES.recipeDraft, id)));
 
     return (
         <div className="my-4 ">

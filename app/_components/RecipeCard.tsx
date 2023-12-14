@@ -2,11 +2,12 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { buildPath } from "app/_lib/siteUtils";
+import { PATH_TYPES } from "app/_lib/constants";
 
 import type { Recipe } from "app/_types/record";
 
 const RecipeCard = ({ id, slug, name, imageLink, description }: Recipe) => {
-    const href = buildPath("recipe", id, slug);
+    const href = buildPath(PATH_TYPES.recipe, id, slug);
 
     return (
         <Link className="group w-full h-full" href={href}>

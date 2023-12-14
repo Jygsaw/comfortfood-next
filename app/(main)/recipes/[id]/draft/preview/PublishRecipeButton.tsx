@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { publishRecipeDraft } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
+import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
     draftOf: string,
@@ -15,7 +16,7 @@ const PublishRecipeButton = ({ draftOf, slug }: Input) => {
 
     const handlePublish = () =>
         publishRecipeDraft(draftOf)
-            .then(() => router.push(buildPath("recipe", draftOf, slug)));
+            .then(() => router.push(buildPath(PATH_TYPES.recipe, draftOf, slug)));
 
     return (
         <div className="my-4">

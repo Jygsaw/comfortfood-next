@@ -1,26 +1,26 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import { generateArticle } from "app/_lib/testUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
-export async function GET(_: never, { params: { id } }: DynamicRoute) {
+export async function GET(_: Request, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const recipe = generateRecipe({ draftOf: id });
-    if (!recipe) {
+    // TODO: retrieve article from db where draftOf = id
+    const article = generateArticle({ draftOf: id });
+    if (!article) {
         return Response.json({ error: {
             code: 403,
             message: "Not found",
         } }, { status: 403 });
     }
 
-    return Response.json({ data: { recipe } });
+    return Response.json({ data: { article } });
 }
 
 export async function PATCH(request: Request, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const recipe = generateRecipe({ draftOf: id });
-    if (!recipe) {
+    // TODO: retrieve article from db where draftOf = id
+    const article = generateArticle({ draftOf: id });
+    if (!article) {
         return Response.json({ error: {
             code: 403,
             message: "Not found",
@@ -36,8 +36,8 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
         } }, { status: 400 });
     }
 
-    const newRecipe = {
-        ...recipe,
+    const newArticle = {
+        ...article,
         ...data,
     };
 
@@ -49,12 +49,12 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
         } }, { status: 500 });
     }
 
-    return Response.json({ data: { recipe: newRecipe } });
+    return Response.json({ data: { article: newArticle } });
 }
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    console.log("> deleting recipe where draftOf is:", id);
+    console.log("> deleting article where draftOf is:", id);
 
     return new Response(null, { status: 204 });
 }

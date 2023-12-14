@@ -1,11 +1,11 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import { generateArticle } from "app/_lib/testUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
 export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const draft = generateRecipe({ draftOf: id });
+    // TODO: retrieve article from db where draftOf = id
+    const draft = generateArticle({ draftOf: id });
     if (!draft) {
         return Response.json({ error: {
             code: 403,
@@ -15,11 +15,11 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
 
     // TODO: refine logic flow
     const shouldDelete = draft.draftOf !== draft.id;
-    const { draftOf, ...recipe } = draft;
-    recipe.id = draftOf;
+    const { draftOf, ...article } = draft;
+    article.id = draftOf;
 
-    // TODO: save recipe to persistent storage where ID = recipe.id
-    if (recipe && false) {
+    // TODO: save article to persistent storage where ID = article.id
+    if (article && false) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
@@ -27,7 +27,7 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
     }
 
     // TODO: delete draft from database where id = draft.id
-    console.log("> possibly deleting recipe where ID is:", draft.id);
+    console.log("> possibly deleting article where ID is:", draft.id);
     if (shouldDelete && false) {
         return Response.json({ error: {
             code: 500,

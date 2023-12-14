@@ -1,24 +1,19 @@
 import { generateArticle } from "app/_lib/testUtils";
 
-export async function POST(request: Request) {
-    const data = await request.json();
+export async function POST() {
+    const article = generateArticle();
+    const draft = {
+        ...article,
+        draftOf: article.id,
+    };
 
-    // TODO: validate data
+    // TODO: save draft to persistent storage
     if (false) {
         return Response.json({ error: {
-            code: 400,
-            message: "Invalid data",
-        } }, { status: 400 });
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
     }
 
-    // TODO: connect to persistent storage
-    const article = generateArticle({
-        name: data.name,
-        description: data.description,
-        imageLink: data.imageLink,
-    });
-
-    return Response.json({ data: {
-        article
-    } }, { status: 201 });
+    return Response.json({ data: { article: draft } });
 }

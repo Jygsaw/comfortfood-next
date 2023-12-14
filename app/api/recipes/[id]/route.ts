@@ -46,7 +46,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    console.log("> deleting recipe where ID is:", id);
+    console.log("> deleting recipe where id is:", id);
 
     return new Response(null, { status: 204 });
 }

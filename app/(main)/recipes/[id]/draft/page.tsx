@@ -7,14 +7,13 @@ import EditRecipeForm from "./EditRecipeForm";
 import type { DynamicRoute } from "app/_types/site";
 
 const Page = async ({ params: { id } }: DynamicRoute) => {
-    const recipe = await getRecipeDraft(id);
+    const draft = await getRecipeDraft(id);
 
     return (
         <>
             <PreviewRecipeButton {...{ id }} />
             <DeleteRecipeButton {...{ id }} />
-            <EditRecipeForm {...{ recipe }} />
-            <pre>{JSON.stringify(recipe, null, 4)}</pre>
+            <EditRecipeForm {...{ draft }} />
         </>
     );
 };

@@ -1,6 +1,6 @@
 import { buildUrl } from "./siteUtils";
 
-import type { Article } from "app/_types/record";
+import type { Article, ArticleDraft } from "app/_types/record";
 
 const ARTICLES_API = "/api/articles";
 
@@ -18,12 +18,22 @@ export async function getArticle(id: string): Promise<Article> {
         .then(json => json.data.article);
 }
 
-export async function createArticle(data: Partial<Article>): Promise<Article> {
-    const url = buildUrl(ARTICLES_API);
+export async function deleteArticle(id: string): Promise<void> {
+    const url = buildUrl(`${ARTICLES_API}/${id}`);
+    const options = {
+        method: "DELETE",
+    };
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) throw new Error(response.statusText);
+        });
+}
+
+export async function createArticleDraft(id: string = ""): Promise<ArticleDraft> {
+    const url = buildUrl(`${ARTICLES_API}/${id}`);
     const options = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
     };
 
     return fetch(url, options)
@@ -34,8 +44,22 @@ export async function createArticle(data: Partial<Article>): Promise<Article> {
         .then(json => json.data.article);
 }
 
-export async function updateArticle(id: string, data: Partial<Article>): Promise<Article> {
-    const url = buildUrl(`${ARTICLES_API}/${id}`);
+export async function getArticleDraft(id: string): Promise<ArticleDraft> {
+    const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
+    const options = {
+        method: "GET",
+    };
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) throw new Error(response.statusText);
+            return response.json();
+        })
+        .then(json => json.data.article);
+}
+
+export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>): Promise<ArticleDraft> {
+    const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
     const options = {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -50,10 +74,22 @@ export async function updateArticle(id: string, data: Partial<Article>): Promise
         .then(json => json.data.article);
 }
 
-export async function deleteArticle(id: string): Promise<void> {
-    const url = buildUrl(`${ARTICLES_API}/${id}`);
+export async function deleteArticleDraft(id: string): Promise<void> {
+    const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
     const options = {
         method: "DELETE",
+    };
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) throw new Error(response.statusText);
+        });
+}
+
+export async function publishArticleDraft(id: string): Promise<void> {
+    const url = buildUrl(`${ARTICLES_API}/${id}/draft/preview`);
+    const options = {
+        method: "PATCH",
     };
 
     return fetch(url, options)

@@ -10,7 +10,8 @@
     "build": "next build",
     "lint": "next lint",
     "start": "next start -H 0.0.0.0",
-    "start-localhost": "next start"
+    "start-localhost": "next start",
+    "types": "tsc --pretty --noemit"
   },
   "engines": {
     "node": ">= 18.17.0"

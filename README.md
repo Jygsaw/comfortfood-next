@@ -1,3 +1,10 @@
+## Summary
+This is a personal project to learn NextJS and PostgreSQL and to work through different development scenarios.  Some design choices are intentionally bad in order to experience the pain and the corrective work necessary to achieve best practices.
+
+For example, all user content data is currently stored in one giant table that will eventually need to be split and normalized.  Though this is bad from a design standpoint, the underlying goal is to research and implement a migration path to achieve better normalized data.
+
+We apologize for the inconvenience.
+
 ## Demo
 https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation.)
@@ -22,6 +29,13 @@ https://comfortfood.onrender.com
             - copiedFrom = POST.id
     - should modified recipe keep a reference to original?
     - what happens if original is deleted?
+- extend articles data model
+    - rating system
+- extend recipes data model
+    - rating system
+    - time needed
+    - difficulty
+    - ingredients
 - bookmarks
     - allow users to bookmark favorite articles and recipes
     - what happens when original is deleted?

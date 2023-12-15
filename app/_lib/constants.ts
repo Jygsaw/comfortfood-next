@@ -22,19 +22,18 @@ const CONTENT_RECORD_DEFAULTS = {
     slug: "",
     imageLink: "",
     description: "",
+
+    content: "",
 } as const;
 
 export const ARTICLE_DEFAULTS: Article = {
     ...BASE_RECORD_DEFAULTS,
     ...CONTENT_RECORD_DEFAULTS,
     type: "article",
-    content: "",
 } as const;
 
 export const RECIPE_DEFAULTS: Recipe = {
     ...BASE_RECORD_DEFAULTS,
     ...CONTENT_RECORD_DEFAULTS,
     type: "recipe",
-    ingredients: "",
-    instructions: "",
 } as const;

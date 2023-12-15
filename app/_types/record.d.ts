@@ -11,14 +11,12 @@ export interface ContentRecord extends BaseRecord {
     slug: string,
     imageLink: string,
     description: string,
-    // TODO: refine properties
-    rating?: number,
+
+    content: any,
 }
 
 export interface Article extends ContentRecord {
     type: "article",
-    // TODO: refine properties
-    content: any,
 }
 
 export interface ArticleDraft extends Article {
@@ -27,11 +25,6 @@ export interface ArticleDraft extends Article {
 
 export interface Recipe extends ContentRecord {
     type: "recipe",
-    // TODO: refine properties
-    ingredients: any,
-    instructions: any,
-    time?: number,
-    difficulty?: any,
 }
 
 export interface RecipeDraft extends Recipe {

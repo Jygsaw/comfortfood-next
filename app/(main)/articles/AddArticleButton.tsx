@@ -15,7 +15,7 @@ const AddArticleButton = () => {
     return (
         <div className="my-4">
             <button className="w-40 h-12 bg-blue-300 rounded" onClick={handleAdd}>
-            Add a new article
+                Add a new article
             </button>
         </div>
     );

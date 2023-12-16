@@ -1,7 +1,7 @@
 ## Summary
-This is a personal project to learn NextJS and PostgreSQL and to work through different development scenarios.  Some design choices are intentionally bad in order to experience the pain and the corrective work necessary to achieve best practices.
+This is a personal project to learn NextJS and PostgreSQL and to work through different development scenarios.  Some design choices are intentionally bad in order to experience the pain and corrective work necessary to clean up tech debt.
 
-For example, all user content data is currently stored in one giant table that will eventually need to be split and normalized.  Though this is bad from a design standpoint, the underlying goal is to research and implement a migration path to achieve better normalized data.
+For example, all user content data is currently stored in one giant table that will eventually need to be split and normalized.  Though this is bad from a design standpoint, the underlying goal is to research and implement a migration path to achieve better data normalization.
 
 We apologize for the inconvenience.
 
@@ -10,7 +10,7 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation.)
 
 ## TODO
-- [ ] integrate with persistent storage
+- [ ] integrate recipes endpoints with persistent storage
 - [ ] streamline endpoints with shared lib functions
 
 ## Next Steps
@@ -47,6 +47,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] integrate articles endpoints with persistent storage
 - [X] refine articles endpoints, api, and routes to match recipes design
 - [X] update recipes routes and api to support drafts
     - [X] recipes

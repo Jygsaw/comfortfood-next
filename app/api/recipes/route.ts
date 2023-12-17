@@ -17,7 +17,7 @@ export async function POST() {
     const recipe = generateRecipe();
     const draft = {
         ...recipe,
-        draftOf: recipe.id,
+        draftOf: recipe.contentId,
     };
 
     // TODO: save draft to persistent storage

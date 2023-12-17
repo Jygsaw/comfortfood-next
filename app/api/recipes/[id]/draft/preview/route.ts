@@ -14,9 +14,9 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
     }
 
     // TODO: refine logic flow
-    const shouldDelete = draft.draftOf !== draft.id;
+    const shouldDelete = draft.draftOf !== draft.contentId;
     const { draftOf, ...recipe } = draft;
-    recipe.id = draftOf;
+    recipe.contentId = draftOf;
 
     // TODO: save recipe to persistent storage where ID = recipe.id
     if (recipe && false) {
@@ -27,7 +27,7 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
     }
 
     // TODO: delete draft from database where id = draft.id
-    console.log("> possibly deleting recipe where ID is:", draft.id);
+    console.log("> possibly deleting recipe where ID is:", draft.contentId);
     if (shouldDelete && false) {
         return Response.json({ error: {
             code: 500,

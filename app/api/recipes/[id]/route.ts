@@ -4,7 +4,7 @@ import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
     // TODO: connect to persistent storage
-    const recipe = generateRecipe({ id });
+    const recipe = generateRecipe({ contentId: id });
     if (!recipe) {
         return Response.json({ error: {
             code: 403,
@@ -22,7 +22,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
     if (!draft) {
         // TODO: fetch original recipe from persistent storage
-        const recipe = generateRecipe({ id });
+        const recipe = generateRecipe({ contentId: id });
         if (!recipe) {
             return Response.json({ error: {
                 code: 403,
@@ -31,7 +31,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
         }
 
         // TODO: create draft based on original
-        draft = generateRecipe({ name: recipe.name, draftOf: recipe.id });
+        draft = generateRecipe({ name: recipe.name, draftOf: recipe.contentId });
         // TODO: save draft to persistent storage
         if (draft && false) {
             return Response.json({ error: {

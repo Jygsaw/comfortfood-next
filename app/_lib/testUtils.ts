@@ -14,7 +14,7 @@ export function generateRecipe(overrides?: Partial<RecipeDraft>): Recipe | Recip
     const id = uuidv4();
     return {
         ...RECIPE_DEFAULTS,
-        id,
+        contentId: id,
         slug: `lorem-ipsum-${id}`,
         name: Math.random() < 0.3 ? `Lorem Ipsum ${id}` : `Lorem Ipsum ${id} Lorem ipsum dolor sit amet, consectetur adipiscing elit`,
         imageLink: "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_59565821-77e2-437c-9113-cdf304316dd4.jpg",
@@ -35,7 +35,7 @@ export function generateArticle(overrides?: Partial<ArticleDraft>): Article | Ar
     const id = uuidv4();
     return {
         ...ARTICLE_DEFAULTS,
-        id,
+        contentId: id,
         slug: `slug-${id}`,
         imageLink: "https://www.simplyrecipes.com/thmb/aNnI7QfPFNrPdzU0Mbb7EcRvN4I=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Expiration-Dates-LEAD-a9c08d6e07f14ea1a80e06e1dd86cdd7.jpg",
         ...(Math.random() < 0.5 ? { rating: 3 } : {}),

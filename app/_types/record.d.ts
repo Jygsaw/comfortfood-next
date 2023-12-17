@@ -1,5 +1,5 @@
 export interface BaseRecord {
-    id: string,
+    contentId: string,
     createdBy: string,
     createdAt: string,
     updatedBy: string,

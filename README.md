@@ -7,10 +7,9 @@ We apologize for the inconvenience.
 
 ## Demo
 https://comfortfood.onrender.com
-(note: May be slow to start up from hibernation.)
+(note: May be slow to start up from hibernation)
 
 ## TODO
-- [ ] integrate recipes endpoints with persistent storage
 - [ ] streamline endpoints with shared lib functions
 
 ## Next Steps
@@ -47,6 +46,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] integrate recipes endpoints with persistent storage
 - [X] integrate articles endpoints with persistent storage
 - [X] refine articles endpoints, api, and routes to match recipes design
 - [X] update recipes routes and api to support drafts

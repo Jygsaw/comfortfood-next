@@ -1,19 +1,20 @@
-import { generateArticle } from "app/_lib/testUtils";
+import sql, { transformNull } from "app/_lib/db";
 
 export async function POST() {
-    const article = generateArticle();
-    const draft = {
-        ...article,
-        draftOf: article.id,
-    };
+    try {
+        const insert = await sql `
+            WITH init AS (SELECT uuid_generate_v4() AS uuid)
+            INSERT INTO contents (content_id, draft_of, type)
+            SELECT uuid, uuid, 'article'
+            FROM init
+            RETURNING *;
+        `;
 
-    // TODO: save draft to persistent storage
-    if (false) {
+        return Response.json({ data: { article: transformNull(insert[0]) } });
+    } catch (error) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
         } }, { status: 500 });
     }
-
-    return Response.json({ data: { article: draft } });
 }

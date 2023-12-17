@@ -7,16 +7,16 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    draftOf: string,
+    contentId: string,
     slug?: string,
 }
 
-const PublishArticleButton = ({ draftOf, slug }: Input) => {
+const PublishArticleButton = ({ contentId, slug }: Input) => {
     const router = useRouter();
 
     const handlePublish = () =>
-        publishArticleDraft(draftOf)
-            .then(() => router.push(buildPath(PATH_TYPES.article, draftOf, slug)));
+        publishArticleDraft(contentId)
+            .then(() => router.push(buildPath(PATH_TYPES.article, contentId, slug)));
 
     return (
         <div className="my-4">

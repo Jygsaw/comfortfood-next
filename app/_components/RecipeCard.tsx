@@ -6,8 +6,8 @@ import { PATH_TYPES } from "app/_lib/constants";
 
 import type { Recipe } from "app/_types/record";
 
-const RecipeCard = ({ id, slug, name, imageLink, description }: Recipe) => {
-    const href = buildPath(PATH_TYPES.recipe, id, slug);
+const RecipeCard = ({ contentId, slug, name, imageLink, description }: Recipe) => {
+    const href = buildPath(PATH_TYPES.recipe, contentId, slug);
 
     return (
         <Link className="group w-full h-full" href={href}>

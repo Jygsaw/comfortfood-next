@@ -10,7 +10,7 @@ const AddArticleButton = () => {
     const router = useRouter();
 
     const handleAdd = () => createArticleDraft()
-        .then(article => router.push(buildPath(PATH_TYPES.articleDraft, article.id)));
+        .then(article => router.push(buildPath(PATH_TYPES.articleDraft, article.contentId)));
 
     return (
         <div className="my-4">

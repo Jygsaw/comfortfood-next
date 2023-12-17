@@ -10,7 +10,7 @@ const AddRecipeButton = () => {
     const router = useRouter();
 
     const handleAdd = () => createRecipeDraft()
-        .then(recipe => router.push(buildPath(PATH_TYPES.recipeDraft, recipe.id)));
+        .then(recipe => router.push(buildPath(PATH_TYPES.recipeDraft, recipe.contentId)));
 
     return (
         <div className="my-4">

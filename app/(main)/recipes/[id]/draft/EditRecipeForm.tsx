@@ -7,10 +7,11 @@ import type { ChangeEvent, FormEvent } from "react";
 import type { RecipeDraft } from "app/_types/record";
 
 type Input = {
+    contentId: string,
     draft: RecipeDraft,
 }
 
-const EditRecipeForm =({ draft }: Input) => {
+const EditRecipeForm =({ contentId, draft }: Input) => {
     const [formData, setFormData] = useState<RecipeDraft>(draft);
     const [status, setStatus] = useState("");
 
@@ -29,7 +30,7 @@ const EditRecipeForm =({ draft }: Input) => {
         event.preventDefault();
 
         if (validate(formData)) {
-            updateRecipeDraft(formData.draftOf, formData)
+            updateRecipeDraft(contentId, formData)
                 .then(() => setStatus(""))
                 .catch((error: Error) => setStatus(error.message));
         } else {

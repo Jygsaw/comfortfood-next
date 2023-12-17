@@ -7,14 +7,14 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    id: string,
+    contentId: string,
 };
 
-const DeleteRecipeButton = ({ id }: Input) => {
+const DeleteRecipeButton = ({ contentId }: Input) => {
     const router = useRouter();
 
-    const handleDelete = () => deleteRecipeDraft(id)
-        .then(() => router.push(buildPath(PATH_TYPES.recipe, id)));
+    const handleDelete = () => deleteRecipeDraft(contentId)
+        .then(() => router.push(buildPath(PATH_TYPES.recipe, contentId)));
 
     return (
         <div className="my-4">

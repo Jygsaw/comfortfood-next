@@ -7,13 +7,13 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    id: string,
+    contentId: string,
 };
 
-const DeleteArticleButton = ({ id }: Input) => {
+const DeleteArticleButton = ({ contentId }: Input) => {
     const router = useRouter();
 
-    const handleDelete = () => deleteArticle(id)
+    const handleDelete = () => deleteArticle(contentId)
         .then(() => router.push(buildPath(PATH_TYPES.article)));
 
     return (

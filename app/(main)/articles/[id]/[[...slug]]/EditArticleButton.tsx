@@ -7,14 +7,14 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    id: string,
+    contentId: string,
 };
 
-const EditArticleButton = ({ id }: Input) => {
+const EditArticleButton = ({ contentId }: Input) => {
     const router = useRouter();
 
-    const handleEdit = () => createArticleDraft(id)
-        .then(() => router.push(buildPath(PATH_TYPES.articleDraft, id)));
+    const handleEdit = () => createArticleDraft(contentId)
+        .then(() => router.push(buildPath(PATH_TYPES.articleDraft, contentId)));
 
     return (
         <div className="my-4 ">

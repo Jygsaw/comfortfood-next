@@ -10,7 +10,7 @@ type Input = {
 }
 
 const Card = ({ data }: Input) => {
-    const href = buildPath(data.type, data.id, data.slug);
+    const href = buildPath(data.type, data.contentId, data.slug);
 
     return (
         <Link className="w-full h-full" href={href}>

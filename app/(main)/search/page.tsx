@@ -34,7 +34,7 @@ const Page = async ({ searchParams }: PageProps) => {
 
             <section className="w-full grid grid-cols-3 gap-x-10 gap-y-16 place-items-center">
                 {recipes.map(recipe => (
-                    <div key={recipe.id} className="w-96 h-96">
+                    <div key={recipe.contentId} className="w-96 h-96">
                         <RecipeCard {...recipe} />
                     </div>
                 ))}

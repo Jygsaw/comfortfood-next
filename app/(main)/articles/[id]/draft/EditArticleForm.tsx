@@ -7,14 +7,19 @@ import type { ChangeEvent, FormEvent } from "react";
 import type { ArticleDraft } from "app/_types/record";
 
 type Input = {
+    contentId: string,
     draft: ArticleDraft,
 }
 
-const EditArticleForm =({ draft }: Input) => {
-    const [formData, setFormData] = useState<ArticleDraft>(draft);
+const EditArticleForm =({ contentId, draft }: Input) => {
+    const [formData, setFormData] = useState<Partial<ArticleDraft>>({
+        name: draft.name,
+        description: draft.description,
+        imageLink: draft.imageLink,
+    });
     const [status, setStatus] = useState("");
 
-    const validate = (formData: ArticleDraft) => !!formData.name && !!formData.description;
+    const validate = (formData: Partial<ArticleDraft>) => !!formData.name && !!formData.description;
 
     const changeName = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, name: event.target.value }));
@@ -29,7 +34,7 @@ const EditArticleForm =({ draft }: Input) => {
         event.preventDefault();
 
         if (validate(formData)) {
-            updateArticleDraft(formData.draftOf, formData)
+            updateArticleDraft(contentId, formData)
                 .then(() => setStatus(""))
                 .catch((error: Error) => setStatus(error.message));
         } else {

@@ -10,8 +10,8 @@ const Page = async ({ params: { id } }: DynamicRoute) => {
 
     return (
         <>
-            <EditArticleButton {...{ id }} />
-            <DeleteArticleButton {...{ id }} />
+            <EditArticleButton contentId={id} />
+            <DeleteArticleButton contentId={id} />
 
             <article className="max-w-4xl mx-auto my-12">
                 <h1 className="mb-2 text-4xl">{article.name}</h1>

@@ -6,13 +6,13 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    id: string,
+    contentId: string,
 }
 
-const PreviewArticleButton = ({ id }: Input) => {
+const PreviewArticleButton = ({ contentId }: Input) => {
     const router = useRouter();
 
-    const handlePreview = () => router.push(buildPath(PATH_TYPES.articlePreview, id));
+    const handlePreview = () => router.push(buildPath(PATH_TYPES.articlePreview, contentId));
 
     return (
         <div className="my-4">

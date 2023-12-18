@@ -1,4 +1,4 @@
-import sql, { transformNull } from "app/_lib/db";
+import sql from "app/_lib/db";
 import { generateRecipes } from "app/_lib/testUtils";
 
 import type { NextRequest } from "next/server";
@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
         `;
 
         // TODO remove generateRecipes fallback after dev finished
-        return Response.json({ data: { recipes: select[0] ? select.map(elem => transformNull(elem)) : generateRecipes(q.length) } });
-        // return Response.json({ data: { recipes: select.map(elem => transformNull(elem)) } });
+        return Response.json({ data: { recipes: select.length ? select : generateRecipes(q.length) } });
+        // return Response.json({ data: { recipes: select } });
     } catch (error) {
         console.log("error:", error);
 
@@ -36,7 +36,7 @@ export async function POST() {
             RETURNING *
         `;
 
-        return Response.json({ data: { recipe: transformNull(insert[0]) } });
+        return Response.json({ data: { recipe: insert[0] } });
     } catch (error) {
         return Response.json({ error: {
             code: 500,

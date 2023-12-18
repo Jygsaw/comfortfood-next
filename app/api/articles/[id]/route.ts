@@ -1,4 +1,4 @@
-import sql, { transformNull } from "app/_lib/db";
+import sql from "app/_lib/db";
 
 import type { DynamicRoute } from "app/_types/site";
 
@@ -17,7 +17,7 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
             } }, { status: 404 });
         }
 
-        return Response.json({ data: { article: transformNull(select[0]) } });
+        return Response.json({ data: { article: select[0] } });
     } catch (error) {
         return Response.json({ error: {
             code: 500,
@@ -35,7 +35,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
         `;
 
         if (select[0]) {
-            return Response.json({ data: { article: transformNull(select[0]) } });
+            return Response.json({ data: { article: select[0] } });
         }
 
         const insert = await sql `
@@ -68,7 +68,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
             } }, { status: 404 });
         }
 
-        return Response.json({ data: { article: transformNull(insert[0]) } });
+        return Response.json({ data: { article: insert[0] } });
     } catch (error) {
         return Response.json({ error: {
             code: 500,

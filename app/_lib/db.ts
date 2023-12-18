@@ -38,15 +38,6 @@
 
 import postgres from "postgres";
 
-export const transformNull = (record: Record<string, any>) => {
-    for (const key in record) {
-        if (record[key] === null) {
-            record[key] = "";
-        }
-    }
-    return record;
-};
-
 const sql = postgres({
     host: process.env.POSTGRES_HOSTNAME,
     database: process.env.POSTGRES_DATABASE,

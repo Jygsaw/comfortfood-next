@@ -1,4 +1,4 @@
-import sql, { transformNull } from "app/_lib/db";
+import sql from "app/_lib/db";
 
 export async function POST() {
     try {
@@ -10,7 +10,7 @@ export async function POST() {
             RETURNING *
         `;
 
-        return Response.json({ data: { article: transformNull(insert[0]) } });
+        return Response.json({ data: { article: insert[0] } });
     } catch (error) {
         return Response.json({ error: {
             code: 500,

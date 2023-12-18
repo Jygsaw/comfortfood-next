@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { getArticle } from "app/_lib/articlesAPI";
 import DeleteArticleButton from "./DeleteArticleButton";
 import EditArticleButton from "./EditArticleButton";
@@ -19,6 +20,9 @@ const Page = async ({ params: { id } }: DynamicRoute) => {
                 <div className="my-4">
                     <p className="text-small">By {article.createdBy}</p>
                     <p className="text-small">Updated {article.updatedAt}</p>
+                </div>
+                <div className="relative w-full aspect-[1.5]">
+                    <Image src={article.imageLink} alt="" fill sizes="33vw" style={{ objectFit: "contain" }} />
                 </div>
                 <div className="my-6" dangerouslySetInnerHTML={{ __html: article.content }} />
             </article>

@@ -10,6 +10,8 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation)
 
 ## TODO
+- [ ] implement redirect and not found page when content is missing
+- [ ] integrate teaser component with persistent data
 - [ ] streamline endpoints with shared lib functions
 
 ## Next Steps
@@ -46,6 +48,8 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] provide example data and supply fake view content
+- [X] implement basic validation before publication
 - [X] integrate recipes endpoints with persistent storage
 - [X] integrate articles endpoints with persistent storage
 - [X] refine articles endpoints, api, and routes to match recipes design

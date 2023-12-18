@@ -1,3 +1,4 @@
+import { handleNetworkResponse } from "./apiUtils";
 import { buildUrl } from "./siteUtils";
 
 import type { PageProps } from "app/_types/site";
@@ -12,10 +13,7 @@ export async function getRecipes(searchParams?: PageProps["searchParams"]): Prom
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.recipes);
 }
 
@@ -26,10 +24,7 @@ export async function getRecipe(id: string): Promise<Recipe> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.recipe);
 }
 
@@ -40,9 +35,7 @@ export async function deleteRecipe(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }
 
 export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
@@ -52,10 +45,7 @@ export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.recipe);
 }
 
@@ -66,10 +56,7 @@ export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.recipe);
 }
 
@@ -82,10 +69,7 @@ export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>):
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.recipe);
 }
 
@@ -96,9 +80,7 @@ export async function deleteRecipeDraft(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }
 
 export async function publishRecipeDraft(id: string): Promise<void> {
@@ -108,7 +90,5 @@ export async function publishRecipeDraft(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }

@@ -1,3 +1,4 @@
+import { handleNetworkResponse } from "./apiUtils";
 import { buildUrl } from "./siteUtils";
 
 import type { Article, ArticleDraft } from "app/_types/record";
@@ -11,10 +12,7 @@ export async function getArticle(id: string): Promise<Article> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.article);
 }
 
@@ -25,9 +23,7 @@ export async function deleteArticle(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }
 
 export async function createArticleDraft(id: string = ""): Promise<ArticleDraft> {
@@ -37,10 +33,7 @@ export async function createArticleDraft(id: string = ""): Promise<ArticleDraft>
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.article);
 }
 
@@ -51,10 +44,7 @@ export async function getArticleDraft(id: string): Promise<ArticleDraft> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.article);
 }
 
@@ -67,10 +57,7 @@ export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
+        .then(handleNetworkResponse)
         .then(json => json.data.article);
 }
 
@@ -81,9 +68,7 @@ export async function deleteArticleDraft(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }
 
 export async function publishArticleDraft(id: string): Promise<void> {
@@ -93,7 +78,5 @@ export async function publishArticleDraft(id: string): Promise<void> {
     };
 
     return fetch(url, options)
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-        });
+        .then(handleNetworkResponse);
 }

@@ -1,39 +1,61 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import sql from "app/_lib/db";
 
 import type { DynamicRoute } from "app/_types/site";
 
 export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const draft = generateRecipe({ draftOf: id });
-    if (!draft) {
-        return Response.json({ error: {
-            code: 403,
-            message: "Not found",
-        } }, { status: 403 });
-    }
+    try {
+        const select = await sql `
+            SELECT *
+            FROM contents
+            WHERE draft_of = ${id}
+        `;
 
-    // TODO: refine logic flow
-    const shouldDelete = draft.draftOf !== draft.contentId;
-    const { draftOf, ...recipe } = draft;
-    recipe.contentId = draftOf;
+        if (!select[0]) {
+            return Response.json({ error: {
+                code: 404,
+                message: "Not found",
+            } }, { status: 404 });
+        }
 
-    // TODO: save recipe to persistent storage where ID = recipe.id
-    if (recipe && false) {
+        if (select[0].draftOf === select[0].contentId) {
+            await sql `
+                UPDATE contents
+                SET draft_of = null
+                WHERE draft_of = ${id}
+            `;
+
+            return new Response(null, { status: 204 });
+        } else {
+            await sql `
+                WITH draft AS (
+                    SELECT *
+                    FROM contents
+                    WHERE draft_of = ${id}
+                )
+                UPDATE contents
+                SET
+                    draft_of = null,
+                    name = draft.name,
+                    slug = draft.slug,
+                    image_link = draft.image_link,
+                    description = draft.description,
+                    content = draft.content
+                FROM draft
+                WHERE contents.content_id = ${id}
+            `;
+
+            await sql `
+                DELETE
+                FROM contents
+                WHERE draft_of = ${id}
+            `;
+
+            return new Response(null, { status: 204 });
+        }
+    } catch (error) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
         } }, { status: 500 });
     }
-
-    // TODO: delete draft from database where id = draft.id
-    console.log("> possibly deleting recipe where ID is:", draft.contentId);
-    if (shouldDelete && false) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
-    }
-
-    return new Response(null, { status: 204 });
 }

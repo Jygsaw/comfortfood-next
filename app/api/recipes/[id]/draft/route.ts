@@ -1,60 +1,77 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import sql, { transformNull } from "app/_lib/db";
 
 import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const recipe = generateRecipe({ draftOf: id });
-    if (!recipe) {
-        return Response.json({ error: {
-            code: 403,
-            message: "Not found",
-        } }, { status: 403 });
-    }
+    try {
+        const select = await sql `
+            SELECT *
+            FROM contents
+            WHERE draft_of = ${id}
+        `;
 
-    return Response.json({ data: { recipe } });
-}
+        if (!select[0]) {
+            return Response.json({ error: {
+                code: 404,
+                message: "Not found",
+            } }, { status: 404 });
+        }
 
-export async function PATCH(request: Request, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    // TODO: retrieve recipe from db where draftOf = id
-    const recipe = generateRecipe({ draftOf: id });
-    if (!recipe) {
-        return Response.json({ error: {
-            code: 403,
-            message: "Not found",
-        } }, { status: 403 });
-    }
-
-    const data = await request.json();
-    // TODO: validate data
-    if (false) {
-        return Response.json({ error: {
-            code: 400,
-            message: "Invalid data",
-        } }, { status: 400 });
-    }
-
-    const newRecipe = {
-        ...recipe,
-        ...data,
-    };
-
-    // TODO: save to persistent storage
-    if (false) {
+        return Response.json({ data: { recipe: transformNull(select[0]) } });
+    } catch (error) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
         } }, { status: 500 });
     }
+}
 
-    return Response.json({ data: { recipe: newRecipe } });
+export async function PATCH(request: Request, { params: { id } }: DynamicRoute) {
+    const ALLOWED_CHANGES = ["name", "description", "imageLink"];
+
+    try {
+        const data = await request.json();
+        const cleaned: Record<string, string> = ALLOWED_CHANGES.reduce((prev, col) => ({
+            ...prev,
+            [col]: data[col],
+        }), {});
+
+        const update = await sql `
+            UPDATE contents
+            SET ${sql(cleaned, Object.keys(cleaned))}
+            WHERE draft_of = ${id}
+            RETURNING *
+        `;
+
+        if (!update[0]) {
+            return Response.json({ error: {
+                code: 404,
+                message: "Not found",
+            } }, { status: 404 });
+        }
+
+        return Response.json({ data: { recipe: transformNull(update[0]) } });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
+    }
 }
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    console.log("> deleting recipe where draftOf is:", id);
+    try {
+        await sql `
+            DELETE
+            FROM contents
+            WHERE draft_of = ${id}
+        `;
 
-    return new Response(null, { status: 204 });
+        return new Response(null, { status: 204 });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
+    }
 }

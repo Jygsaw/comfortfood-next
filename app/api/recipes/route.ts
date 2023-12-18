@@ -1,32 +1,46 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import sql, { transformNull } from "app/_lib/db";
+import { generateRecipes } from "app/_lib/testUtils";
 
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-    const q = request.nextUrl.searchParams.get("q") ?? "";
+    try {
+        const q = request.nextUrl.searchParams.get("q") ?? "";
 
-    // TODO: connect to persistent storage
-    const recipes = new Array(q.length)
-        .fill(null)
-        .map(() => generateRecipe());
+        const select = await sql `
+            SELECT *
+            FROM contents
+            WHERE name like ${`%${q}%`}
+        `;
 
-    return Response.json({ data: { recipes } });
-}
+        // TODO remove generateRecipes fallback after dev finished
+        return Response.json({ data: { recipes: select[0] ? select.map(elem => transformNull(elem)) : generateRecipes(q.length) } });
+        // return Response.json({ data: { recipes: select.map(elem => transformNull(elem)) } });
+    } catch (error) {
+        console.log("error:", error);
 
-export async function POST() {
-    const recipe = generateRecipe();
-    const draft = {
-        ...recipe,
-        draftOf: recipe.contentId,
-    };
-
-    // TODO: save draft to persistent storage
-    if (false) {
         return Response.json({ error: {
             code: 500,
             message: "Server error"
         } }, { status: 500 });
     }
+}
 
-    return Response.json({ data: { recipe: draft } });
+export async function POST() {
+    try {
+        const insert = await sql `
+            WITH init AS (SELECT uuid_generate_v4() AS uuid)
+            INSERT INTO contents (content_id, draft_of, type)
+            SELECT uuid, uuid, 'recipe'
+            FROM init
+            RETURNING *
+        `;
+
+        return Response.json({ data: { recipe: transformNull(insert[0]) } });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
+    }
 }

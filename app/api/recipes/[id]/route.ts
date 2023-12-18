@@ -1,52 +1,95 @@
-import { generateRecipe } from "app/_lib/testUtils";
+import sql, { transformNull } from "app/_lib/db";
 
 import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    const recipe = generateRecipe({ contentId: id });
-    if (!recipe) {
-        return Response.json({ error: {
-            code: 403,
-            message: "Not found",
-        } }, { status: 403 });
-    }
+    try {
+        const select = await sql `
+            SELECT *
+            FROM contents
+            WHERE content_id = ${id}
+        `;
 
-    return Response.json({ data: { recipe } });
+        if (!select[0]) {
+            return Response.json({ error: {
+                code: 404,
+                message: "Not found",
+            } }, { status: 404 });
+        }
+
+        return Response.json({ data: { recipe: transformNull(select[0]) } });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
+    }
 }
 
 export async function POST(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: check if draft exists already for original recipe
-    // TODO: connect to persistent storage
-    let draft = generateRecipe({ draftOf: id });
+    try {
+        const select = await sql `
+            SELECT *
+            FROM contents
+            WHERE draft_of = ${id}
+        `;
 
-    if (!draft) {
-        // TODO: fetch original recipe from persistent storage
-        const recipe = generateRecipe({ contentId: id });
-        if (!recipe) {
+        if (select[0]) {
+            return Response.json({ data: { recipe: transformNull(select[0]) } });
+        }
+
+        const insert = await sql `
+            INSERT INTO contents (
+                draft_of,
+                name,
+                slug,
+                image_link,
+                description,
+                type,
+                content
+            )
+            SELECT
+                content_id,
+                name,
+                slug,
+                image_link,
+                description,
+                type,
+                content
+            FROM contents
+            WHERE content_id = ${id}
+            RETURNING *
+        `;
+
+        if (!insert[0]) {
             return Response.json({ error: {
-                code: 403,
+                code: 404,
                 message: "Not found",
-            } }, { status: 403 });
+            } }, { status: 404 });
         }
 
-        // TODO: create draft based on original
-        draft = generateRecipe({ name: recipe.name, draftOf: recipe.contentId });
-        // TODO: save draft to persistent storage
-        if (draft && false) {
-            return Response.json({ error: {
-                code: 500,
-                message: "Server error"
-            } }, { status: 500 });
-        }
+        return Response.json({ data: { recipe: transformNull(insert[0]) } });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
     }
-
-    return Response.json({ data: { recipe: draft } });
 }
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
-    // TODO: connect to persistent storage
-    console.log("> deleting recipe where id is:", id);
+    try {
+        await sql `
+            DELETE
+            FROM contents
+            WHERE content_id = ${id} or draft_of = ${id}
+        `;
 
-    return new Response(null, { status: 204 });
+        return new Response(null, { status: 204 });
+    } catch (error) {
+        return Response.json({ error: {
+            code: 500,
+            message: "Server error"
+        } }, { status: 500 });
+    }
 }

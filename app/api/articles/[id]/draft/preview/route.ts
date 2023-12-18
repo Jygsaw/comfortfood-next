@@ -47,7 +47,7 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
             await sql `
                 DELETE
                 FROM contents
-                WHERE draft_of = ${id};
+                WHERE draft_of = ${id}
             `;
 
             return new Response(null, { status: 204 });

@@ -7,7 +7,7 @@ export async function POST() {
             INSERT INTO contents (content_id, draft_of, type)
             SELECT uuid, uuid, 'article'
             FROM init
-            RETURNING *;
+            RETURNING *
         `;
 
         return Response.json({ data: { article: transformNull(insert[0]) } });

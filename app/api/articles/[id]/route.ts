@@ -7,7 +7,7 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql `
             SELECT *
             FROM contents
-            WHERE content_id = ${id};
+            WHERE content_id = ${id}
         `;
 
         if (!select[0]) {
@@ -31,7 +31,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql `
             SELECT *
             FROM contents
-            WHERE draft_of = ${id};
+            WHERE draft_of = ${id}
         `;
 
         if (select[0]) {
@@ -58,7 +58,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                 content
             FROM contents
             WHERE content_id = ${id}
-            RETURNING *;
+            RETURNING *
         `;
 
         if (!insert[0]) {
@@ -82,7 +82,7 @@ export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
         await sql `
             DELETE
             FROM contents
-            WHERE content_id = ${id} or draft_of = ${id};
+            WHERE content_id = ${id} or draft_of = ${id}
         `;
 
         return new Response(null, { status: 204 });

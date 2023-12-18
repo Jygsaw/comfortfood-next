@@ -15,7 +15,7 @@ const BANNER_LINK = "https://acupunctureofiowa.com/wp-content/uploads/2019/11/Ac
 
 const Page = async ({ searchParams }: PageProps) => {
     const q = searchParams?.q;
-    const recipes = await getRecipes(searchParams);
+    const recipes = q ? await getRecipes(searchParams) : [];
     const statusMsg = q
         ? `Found ${recipes.length} recipes for "${q}"`
         : "Find your next recipe today!";

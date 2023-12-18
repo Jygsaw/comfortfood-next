@@ -10,14 +10,16 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hibernation)
 
 ## TODO
-- [ ] implement redirect and not found page when content is missing
 - [ ] integrate teaser component with persistent data
 - [ ] streamline endpoints with shared lib functions
+- [ ] implement better error feedback for user interactions
 
 ## Next Steps
 - [ ] implement some concept of user record
     - [ ] when viewing a DRAFT recipe, then only visibile to createdBy
 - [ ] integrate React Suspense and NextJS loading.ts into pages
+- [ ] investigate useFormState for error handling
+    - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
 
 ## Future Features
 - research html editors and how to embed user-created articles in pages
@@ -48,6 +50,9 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] generalize frontend network error handling
+- [X] standardize network response handling in api lib
+- [X] create error and not-found pages
 - [X] provide example data and supply fake view content
 - [X] implement basic validation before publication
 - [X] integrate recipes endpoints with persistent storage

@@ -12,7 +12,7 @@ const Page = async ({ params: { id } }: DynamicRoute) => {
     return (
         <>
             <PreviewRecipeButton contentId={id} />
-            <DeleteRecipeButton contentId={id} />
+            <DeleteRecipeButton contentId={id} draftContentId={draft.contentId} />
             <EditRecipeForm contentId={id} draft={draft} />
         </>
     );

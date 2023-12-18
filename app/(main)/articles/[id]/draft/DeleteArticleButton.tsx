@@ -8,14 +8,14 @@ import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
     contentId: string,
-    draftOf: string,
+    draftContentId: string,
 };
 
-const DeleteArticleButton = ({ contentId, draftOf }: Input) => {
+const DeleteArticleButton = ({ contentId, draftContentId }: Input) => {
     const router = useRouter();
 
     const handleDelete = () => deleteArticleDraft(contentId)
-        .then(() => router.push(buildPath(PATH_TYPES.article, contentId === draftOf ? "" : contentId)));
+        .then(() => router.push(buildPath(PATH_TYPES.article, contentId === draftContentId ? "" : contentId)));
 
     return (
         <div className="my-4">

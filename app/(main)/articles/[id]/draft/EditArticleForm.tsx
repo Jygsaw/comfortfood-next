@@ -42,18 +42,21 @@ const EditArticleForm =({ contentId, draft }: Input) => {
 
             <div className="flex gap-6">
                 <label htmlFor="name">Name</label>
-                <input id="name" className="border" type="text" name="name" value={formData.name} onChange={changeName} placeholder="Pumpkin pie" />
+                <input id="name" className="w-1/2 border" type="text" name="name" value={formData.name} onChange={changeName} placeholder="Pumpkin pie" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: What&apos;s the Difference Between Expiration, Best-By, Sell-By, and Use-By Dates?</div>
 
             <div className="flex gap-6">
                 <label htmlFor="description">Description</label>
-                <textarea id="description" className="border" name="description" value={formData.description} onChange={changeDescription} placeholder="Lorem ipsum" />
+                <textarea id="description" className="w-1/2 h-48 border" name="description" value={formData.description} onChange={changeDescription} placeholder="Lorem ipsum" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: Reducing food waste is critical. Understanding expiration, sell-by, best-by, use-by, and freeze-by date labels can help you do your part, as well as save you money.</div>
 
             <div className="flex gap-6">
                 <label htmlFor="imageLink">Image</label>
-                <input id="imageLink" className="border" type="text" name="imageLink" value={formData.imageLink} onChange={changeImageLink} placeholder="http://example.com/image.jpg" />
+                <input id="imageLink" className="w-1/2 border" type="text" name="imageLink" value={formData.imageLink} onChange={changeImageLink} placeholder="http://example.com/image.jpg" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: https://www.simplyrecipes.com/thmb/aNnI7QfPFNrPdzU0Mbb7EcRvN4I=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Expiration-Dates-LEAD-a9c08d6e07f14ea1a80e06e1dd86cdd7.jpg</div>
 
             <button className="w-40 h-12 my-4 bg-blue-300 rounded" type="submit">
                 Save changes

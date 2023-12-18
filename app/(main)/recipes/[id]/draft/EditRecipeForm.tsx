@@ -42,18 +42,21 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
 
             <div className="flex gap-6">
                 <label htmlFor="name">Name</label>
-                <input id="name" className="border" type="text" name="name" value={formData.name} onChange={changeName} placeholder="Pumpkin pie" />
+                <input id="name" className="w-1/2 border" type="text" name="name" value={formData.name} onChange={changeName} placeholder="Pumpkin pie" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: Lorem ipsum dolor sit amet</div>
 
             <div className="flex gap-6">
                 <label htmlFor="description">Description</label>
-                <textarea id="description" className="border" name="description" value={formData.description} onChange={changeDescription} placeholder="Lorem ipsum" />
+                <textarea id="description" className="w-1/2 border" name="description" value={formData.description} onChange={changeDescription} placeholder="Lorem ipsum" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
 
             <div className="flex gap-6">
                 <label htmlFor="imageLink">Image</label>
-                <input id="imageLink" className="border" type="text" name="imageLink" value={formData.imageLink} onChange={changeImageLink} placeholder="http://example.com/image.jpg" />
+                <input id="imageLink" className="w-1/2 border" type="text" name="imageLink" value={formData.imageLink} onChange={changeImageLink} placeholder="http://example.com/image.jpg" />
             </div>
+            <div className="text-sm text-gray-700">DEV EXAMPLE: https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_59565821-77e2-437c-9113-cdf304316dd4.jpg</div>
 
             <button className="w-40 h-12 my-4 bg-blue-300 rounded" type="submit">
                 Save changes

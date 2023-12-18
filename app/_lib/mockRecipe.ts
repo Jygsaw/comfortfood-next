@@ -1,4 +1,4 @@
-export const MOCK_ARTICLE = {
+export const MOCK_RECIPE = {
     name: "What's the Difference Between Expiration, Best-By, Sell-By, and Use-By Dates?",
     description: "Reducing food waste is critical. Understanding expiration, sell-by, best-by, use-by, and freeze-by date labels can help you do your part, as well as save you money.",
     createdBy: "SU-JIT LIN",

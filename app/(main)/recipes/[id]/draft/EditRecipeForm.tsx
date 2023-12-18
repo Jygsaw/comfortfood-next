@@ -19,8 +19,6 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
     });
     const [status, setStatus] = useState("");
 
-    const validate = (formData: Partial<RecipeDraft>) => !!formData.name && !!formData.description;
-
     const changeName = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, name: event.target.value }));
 
@@ -30,20 +28,16 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
     const changeImageLink = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, imageLink: event.target.value }));
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSave = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (validate(formData)) {
-            updateRecipeDraft(contentId, formData)
-                .then(() => setStatus(""))
-                .catch((error: Error) => setStatus(error.message));
-        } else {
-            setStatus("Errors detected");
-        }
+        updateRecipeDraft(contentId, formData)
+            .then(() => setStatus(""))
+            .catch((error: Error) => setStatus(error.message));
     };
 
     return (
-        <form className="container flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form className="container flex flex-col gap-6" onSubmit={handleSave}>
             <h1 className="text-red-500 text-xl">{status}</h1>
 
             <div className="flex gap-6">

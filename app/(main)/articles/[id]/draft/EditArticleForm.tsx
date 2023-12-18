@@ -13,9 +13,9 @@ type Input = {
 
 const EditArticleForm =({ contentId, draft }: Input) => {
     const [formData, setFormData] = useState<Partial<ArticleDraft>>({
-        name: draft.name,
-        description: draft.description,
-        imageLink: draft.imageLink,
+        name: draft.name ?? "",
+        description: draft.description ?? "",
+        imageLink: draft.imageLink ?? "",
     });
     const [status, setStatus] = useState("");
 

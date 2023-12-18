@@ -12,10 +12,14 @@ type Input = {
 }
 
 const EditRecipeForm =({ contentId, draft }: Input) => {
-    const [formData, setFormData] = useState<RecipeDraft>(draft);
+    const [formData, setFormData] = useState<Partial<RecipeDraft>>({
+        name: draft.name ?? "",
+        description: draft.description ?? "",
+        imageLink: draft.imageLink ?? "",
+    });
     const [status, setStatus] = useState("");
 
-    const validate = (formData: RecipeDraft) => !!formData.name && !!formData.description;
+    const validate = (formData: Partial<RecipeDraft>) => !!formData.name && !!formData.description;
 
     const changeName = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, name: event.target.value }));

@@ -2,6 +2,10 @@ import sql from "app/_lib/db";
 
 import type { DynamicRoute } from "app/_types/site";
 
+function publishCheck(draft: any) {
+    return draft.name && draft.description && draft.imageLink;
+}
+
 export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
     try {
         const select = await sql `
@@ -15,6 +19,11 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
                 code: 404,
                 message: "Not found",
             } }, { status: 404 });
+        } else if (!publishCheck(select[0])) {
+            return Response.json({ error: {
+                code: 422,
+                message: "Invalid data",
+            } }, { status: 422 });
         }
 
         if (select[0].draftOf === select[0].contentId) {

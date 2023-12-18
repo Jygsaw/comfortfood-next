@@ -61,6 +61,18 @@ const nextConfig = {
                 port: "",
                 pathname: "**",
             },
+            {
+                protocol: "https",
+                hostname: "static.vecteezy.com",
+                port: "",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "st5.depositphotos.com",
+                port: "",
+                pathname: "**",
+            },
         ],
     },
 

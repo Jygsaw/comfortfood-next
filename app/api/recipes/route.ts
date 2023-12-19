@@ -17,8 +17,6 @@ export async function GET(request: NextRequest) {
         return Response.json({ data: { recipes: select.length ? select : generateRecipes(q.length) } });
         // return Response.json({ data: { recipes: select } });
     } catch (error) {
-        console.log("error:", error);
-
         return Response.json({ error: {
             code: 500,
             message: "Server error"

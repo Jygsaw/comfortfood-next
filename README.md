@@ -7,10 +7,9 @@ We apologize for the inconvenience.
 
 ## Demo
 https://comfortfood.onrender.com
-(note: May be slow to start up from hibernation)
+(note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] integrate teaser component with persistent data
 - [ ] implement better error feedback for user interactions
 
 ## Next Steps
@@ -49,6 +48,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] integrate homepage with persistent data
 - [X] simplify endpoint boilerplate responses
 - [X] generalize frontend network error handling
 - [X] standardize network response handling in api lib

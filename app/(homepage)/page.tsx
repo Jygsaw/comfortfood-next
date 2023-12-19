@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import { getList } from "app/_lib/listsAPI";
 import { titleAppend } from "app/_lib/siteUtils";
-import { generateArticles, generateRecipes } from "app/_lib/testUtils";
 import Card from "app/_components/Card";
 import SectionHeader from "app/_components/SectionHeader";
 
@@ -14,27 +14,25 @@ export const metadata: Metadata = {
 const HERO_LINK = "https://www.simplyrecipes.com/thmb/79AUTkQ0tTVt9mgC7MFGWD79cLc=/1200x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Non-Dairy-Coffee-Creamer-LEAD-3-72557d1cb77d475292d2e7e0635ed85d.jpg";
 const SCROLL_LINK = "https://d14tal8bchn59o.cloudfront.net/CZiNXwdrQIwowYvDIwCS_XCY0FOYi9_A8mP_gjtoC1g/w:960/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/34851/photos/1751044/cooking_corner_header_original.jpg";
 
-const Page = () => {
-    // TODO: refine thoughts on data models and storage
-    // TODO: pull data from endpoint
+const Page = async () => {
+    const cornerList = await getList({ limit: "8" });
     const teaserData = [
         {
             title: "Seasonal Favorites",
             link: "/articles",
-            cardData: generateArticles(3),
+            cardData: await getList({ type: "article", limit: "3" }),
         },
         {
             title: "Easy Snacks",
             link: "/recipes",
-            cardData: generateRecipes(3),
+            cardData: await getList({ type: "recipe", limit: "3" }),
         },
         {
             title: "Tips and Tricks",
             link: "/articles",
-            cardData: generateArticles(3),
+            cardData: await getList({ type: "article", limit: "3" }),
         },
     ];
-    const latestData = generateRecipes(8);
 
     return (
         <div className="bg-orange-50">
@@ -49,7 +47,7 @@ const Page = () => {
                         <Image className="w-fit h-fit mx-auto my-4" src={SCROLL_LINK} alt="" width="275" height="183" />
                     } />
                     <div className="grid grid-cols-2 gap-8">
-                        {latestData.map(data => <Card key={data.contentId} data={data} />)}
+                        {cornerList && cornerList.map(data => <Card key={data.contentId} data={data} />)}
                     </div>
                 </section>
             </section>
@@ -58,7 +56,7 @@ const Page = () => {
                     <section className="container mx-auto">
                         <SectionHeader title={data.title} link={data.link} />
                         <div className="w-full grid grid-cols-3 gap-10">
-                            {data.cardData.map(data => <Card key={data.contentId} data={data} />)}
+                            {data.cardData && data.cardData.map(data => <Card key={data.contentId} data={data} />)}
                         </div>
                     </section>
                 </div>

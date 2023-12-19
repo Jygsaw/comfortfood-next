@@ -1,5 +1,6 @@
 import sql from "app/_lib/db";
 import { generateRecipes } from "app/_lib/testUtils";
+import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { NextRequest } from "next/server";
 
@@ -17,10 +18,7 @@ export async function GET(request: NextRequest) {
         return Response.json({ data: { recipes: select.length ? select : generateRecipes(q.length) } });
         // return Response.json({ data: { recipes: select } });
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }
 
@@ -36,9 +34,6 @@ export async function POST() {
 
         return Response.json({ data: { recipe: insert[0] } });
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }

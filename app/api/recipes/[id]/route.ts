@@ -1,4 +1,5 @@
 import sql from "app/_lib/db";
+import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
@@ -10,19 +11,11 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
             WHERE content_id = ${id}
         `;
 
-        if (!select[0]) {
-            return Response.json({ error: {
-                code: 404,
-                message: "Not found",
-            } }, { status: 404 });
-        }
+        if (!select[0]) return RESPONSES.NOT_FOUND;
 
         return Response.json({ data: { recipe: select[0] } });
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }
 
@@ -61,19 +54,11 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
             RETURNING *
         `;
 
-        if (!insert[0]) {
-            return Response.json({ error: {
-                code: 404,
-                message: "Not found",
-            } }, { status: 404 });
-        }
+        if (!insert[0]) return RESPONSES.NOT_FOUND;
 
         return Response.json({ data: { recipe: insert[0] } });
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }
 
@@ -85,11 +70,8 @@ export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
             WHERE content_id = ${id} or draft_of = ${id}
         `;
 
-        return new Response(null, { status: 204 });
+        return RESPONSES.NO_CONTENT;
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }

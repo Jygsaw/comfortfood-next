@@ -1,4 +1,5 @@
 import sql from "app/_lib/db";
+import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
@@ -14,17 +15,9 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
             WHERE draft_of = ${id}
         `;
 
-        if (!select[0]) {
-            return Response.json({ error: {
-                code: 404,
-                message: "Not found",
-            } }, { status: 404 });
-        } else if (!publishCheck(select[0])) {
-            return Response.json({ error: {
-                code: 422,
-                message: "Invalid data",
-            } }, { status: 422 });
-        }
+        if (!select[0]) return RESPONSES.NOT_FOUND;
+
+        if (!publishCheck(select[0])) return RESPONSES.INVALID_DATA;
 
         if (select[0].draftOf === select[0].contentId) {
             await sql `
@@ -33,7 +26,7 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
                 WHERE draft_of = ${id}
             `;
 
-            return new Response(null, { status: 204 });
+            return RESPONSES.NO_CONTENT;
         } else {
             await sql `
                 WITH draft AS (
@@ -59,12 +52,9 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
                 WHERE draft_of = ${id}
             `;
 
-            return new Response(null, { status: 204 });
+            return RESPONSES.NO_CONTENT;
         }
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }

@@ -1,4 +1,5 @@
 import sql from "app/_lib/db";
+import { RESPONSES } from "app/api/_lib/routeUtils";
 
 export async function POST() {
     try {
@@ -12,9 +13,6 @@ export async function POST() {
 
         return Response.json({ data: { article: insert[0] } });
     } catch (error) {
-        return Response.json({ error: {
-            code: 500,
-            message: "Server error"
-        } }, { status: 500 });
+        return RESPONSES.SERVER_ERROR;
     }
 }

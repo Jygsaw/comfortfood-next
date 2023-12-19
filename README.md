@@ -11,7 +11,6 @@ https://comfortfood.onrender.com
 
 ## TODO
 - [ ] integrate teaser component with persistent data
-- [ ] streamline endpoints with shared lib functions
 - [ ] implement better error feedback for user interactions
 
 ## Next Steps
@@ -50,6 +49,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] simplify endpoint boilerplate responses
 - [X] generalize frontend network error handling
 - [X] standardize network response handling in api lib
 - [X] create error and not-found pages

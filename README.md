@@ -10,14 +10,24 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
+- [ ] incorporate user record concept into cookbook page
 - [ ] implement better error feedback for user interactions
 
-## Next Steps
-- [ ] implement some concept of user record
-    - [ ] when viewing a DRAFT recipe, then only visibile to createdBy
+## Backlog
+- [ ] review whether client components need auth access
+    - [ ] move auth access to parent server component and pass necessary info down?
+    - [ ] remove NextAuthProvider?
+- [ ] convert postgres usage to pg usage to cut down on packages installed
+    - redundant to use two different psql clients for database interaction when pg needed by next-auth
+- [ ] when viewing a DRAFT recipe, then only visibile to createdBy
 - [ ] integrate React Suspense and NextJS loading.ts into pages
 - [ ] investigate useFormState for error handling
     - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
+- [ ] investigate replacing NextAuth SessionProvider with getServerSession
+    - [ ] https://next-auth.js.org/getting-started/client#sessionprovider
+    - [ ] https://next-auth.js.org/configuration/nextjs#getserversession
+- [ ] migrate auth.ts implementation to new practices after NextAuth.js becomes Auth.js
+    - [ ] see: https://authjs.dev/guides/upgrade-to-v5?authentication-method=server-component
 
 ## Future Features
 - research html editors and how to embed user-created articles in pages
@@ -48,6 +58,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] integrate NextAuth for user authentication
 - [X] integrate homepage with persistent data
 - [X] simplify endpoint boilerplate responses
 - [X] generalize frontend network error handling

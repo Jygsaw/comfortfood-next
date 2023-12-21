@@ -10,10 +10,21 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] incorporate user record concept into cookbook page
+- [ ] refine client-side error-handling
+- [ ] update cookbook page to list authored content
 - [ ] implement better error feedback for user interactions
+- [ ] update tailwind configuration to style tags in bulk
+    - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
+    - [ ] see https://tailwindcss.com/docs/functions-and-directives#apply
+    - [ ] update "<a>" tags with traditional styling
 
 ## Backlog
+- [ ] integrate material UI components
+- [ ] implement animations
+- [ ] refine login flow
+    - [ ] give more login choices
+    - [ ] convert to modal for login prompt
+    - [ ] prompt user to create account
 - [ ] review whether client components need auth access
     - [ ] move auth access to parent server component and pass necessary info down?
     - [ ] remove NextAuthProvider?
@@ -28,8 +39,10 @@ https://comfortfood.onrender.com
     - [ ] https://next-auth.js.org/configuration/nextjs#getserversession
 - [ ] migrate auth.ts implementation to new practices after NextAuth.js becomes Auth.js
     - [ ] see: https://authjs.dev/guides/upgrade-to-v5?authentication-method=server-component
+- [ ] limit fetch cookies to only next-auth session tracking cookies
 
 ## Future Features
+- consider soft delete standard to preserve paper trail on updates
 - research html editors and how to embed user-created articles in pages
 - copied and modified recipes
     - allow users to copy a recipe in order to make personal version for cookbook
@@ -56,8 +69,11 @@ https://comfortfood.onrender.com
         - soft delete instead of hard delete?
         - null out createdFrom fields of related recipes?
         - bookmarks?
+- bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] move new content buttons to cookbook page
+- [X] check session and require user_id in content creation endpoints
 - [X] simplify site layout hierarchy
 - [X] integrate NextAuth for user authentication
 - [X] integrate homepage with persistent data

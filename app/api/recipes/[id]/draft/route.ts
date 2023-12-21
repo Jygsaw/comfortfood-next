@@ -1,4 +1,4 @@
-import sql from "app/_lib/db";
+import sql from "app/_db/db";
 import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { DynamicRoute } from "app/_types/site";

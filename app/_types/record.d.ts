@@ -1,22 +1,29 @@
 export interface BaseRecord {
-    contentId: string,
     createdBy: string,
     createdAt: string,
     updatedBy: string,
     updatedAt: string,
 }
 
+export interface UserRecord extends BaseRecord {
+    userId: string,
+    name: string,
+    email: string,
+    emailVerified: string,
+    image: string,
+}
+
 export interface ContentRecord extends BaseRecord {
+    contentId: string,
     name: string,
     slug: string,
     imageLink: string,
     description: string,
-
-    content: any,
 }
 
 export interface Article extends ContentRecord {
     type: "article",
+    content: any,
 }
 
 export interface ArticleDraft extends Article {
@@ -25,6 +32,7 @@ export interface ArticleDraft extends Article {
 
 export interface Recipe extends ContentRecord {
     type: "recipe",
+    content: any,
 }
 
 export interface RecipeDraft extends Recipe {

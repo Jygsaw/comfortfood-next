@@ -13,7 +13,6 @@ type Input = {
 const Error = ({ error }: Input) => {
     useEffect(() => {
         // TODO: Log the error to an error reporting service
-        console.error(error);
     }, [error]);
 
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import AccountControls from "app/_components/AccountControls";
+import UserControls from "app/_components/UserControls";
 import Logo from "app/_components/Logo";
 import NavBar from "app/_components/NavBar";
 
@@ -14,7 +14,7 @@ const Header = () => {
                 <NavBar />
             </div>
             <div className="w-48 min-w-fit">
-                <AccountControls />
+                <UserControls />
             </div>
         </div>
     );

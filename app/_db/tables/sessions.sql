@@ -1,0 +1,9 @@
+CREATE TABLE sessions (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+
+    "userId" INTEGER NOT NULL,
+    expires TIMESTAMPTZ NOT NULL,
+    "sessionToken" VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (id)
+);

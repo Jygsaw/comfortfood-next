@@ -4,7 +4,7 @@ import { RESPONSES } from "app/api/_lib/routeUtils";
 export async function POST() {
     try {
         const insert = await sql `
-            WITH init AS (SELECT uuid_generate_v4() AS uuid)
+            WITH init AS (SELECT gen_random_uuid() AS uuid)
             INSERT INTO contents (content_id, draft_of, type)
             SELECT uuid, uuid, 'article'
             FROM init

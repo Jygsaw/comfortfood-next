@@ -1,11 +1,12 @@
 import sql from "app/_db/db";
+import { getAuth } from "app/_lib/auth";
 import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
     try {
-        const select = await sql `
+        const select = await sql`
             SELECT *
             FROM contents
             WHERE content_id = ${id}
@@ -20,18 +21,22 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
 }
 
 export async function POST(_: never, { params: { id } }: DynamicRoute) {
+    const session = await getAuth();
+    if (!session) return RESPONSES.UNAUTHORIZED;
+
     try {
-        const select = await sql `
+        const select = await sql`
             SELECT *
             FROM contents
             WHERE draft_of = ${id}
+                AND created_by = ${session.user.userId}
         `;
 
         if (select[0]) {
             return Response.json({ data: { recipe: select[0] } });
         }
 
-        const insert = await sql `
+        const insert = await sql`
             INSERT INTO contents (
                 draft_of,
                 name,
@@ -39,7 +44,8 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                 image_link,
                 description,
                 type,
-                content
+                content,
+                created_by
             )
             SELECT
                 content_id,
@@ -48,7 +54,8 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                 image_link,
                 description,
                 type,
-                content
+                content,
+                ${session.user.userId}
             FROM contents
             WHERE content_id = ${id}
             RETURNING *
@@ -63,11 +70,15 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 }
 
 export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
+    const session = await getAuth();
+    if (!session) return RESPONSES.UNAUTHORIZED;
+
     try {
-        await sql `
+        await sql`
             DELETE
             FROM contents
-            WHERE content_id = ${id} or draft_of = ${id}
+            WHERE (content_id = ${id} OR draft_of = ${id})
+                AND created_by = ${session.user.userId}
         `;
 
         return RESPONSES.NO_CONTENT;

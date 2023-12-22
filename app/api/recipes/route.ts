@@ -1,14 +1,16 @@
 import sql from "app/_db/db";
+import { getAuth } from "app/_lib/auth";
 import { generateRecipes } from "app/_lib/testUtils";
 import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { NextRequest } from "next/server";
 
+// TODO: remove this route after substituting calls with lists endpoint
 export async function GET(request: NextRequest) {
     try {
         const q = request.nextUrl.searchParams.get("q") ?? "";
 
-        const select = await sql `
+        const select = await sql`
             SELECT *
             FROM contents
             WHERE name like ${`%${q}%`}
@@ -23,11 +25,14 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST() {
+    const session = await getAuth();
+    if (!session) return RESPONSES.UNAUTHORIZED;
+
     try {
-        const insert = await sql `
+        const insert = await sql`
             WITH init AS (SELECT gen_random_uuid() AS uuid)
-            INSERT INTO contents (content_id, draft_of, type)
-            SELECT uuid, uuid, 'recipe'
+            INSERT INTO contents (content_id, draft_of, type, created_by)
+            SELECT uuid, uuid, 'recipe', ${session.user.userId}
             FROM init
             RETURNING *
         `;

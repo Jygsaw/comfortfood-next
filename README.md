@@ -58,6 +58,7 @@ https://comfortfood.onrender.com
         - bookmarks?
 
 ## Done
+- [X] simplify site layout hierarchy
 - [X] integrate NextAuth for user authentication
 - [X] integrate homepage with persistent data
 - [X] simplify endpoint boilerplate responses

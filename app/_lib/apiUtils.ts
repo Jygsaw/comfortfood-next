@@ -1,6 +1,20 @@
+"use server";
+
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
-export function handleNetworkResponse(response: Response) {
+export async function buildFetchOptions(method: string, body?: string) {
+    return {
+        method,
+        headers: {
+            Cookie: cookies().toString(),
+            ...(body ? { "Content-Type": "application/json" } : {})
+        },
+        ...(body ? { body } : {}),
+    };
+}
+
+export async function handleNetworkResponse(response: Response) {
     if (!response.ok) {
         switch (response.status) {
             case 404:

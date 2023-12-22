@@ -1,5 +1,7 @@
-import { handleNetworkResponse } from "./apiUtils";
-import { buildUrl } from "./siteUtils";
+"use server";
+
+import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
+import { buildUrl } from "app/_lib/siteUtils";
 
 import type { Article, ArticleDraft } from "app/_types/record";
 
@@ -7,9 +9,7 @@ const ARTICLES_API = "/api/articles";
 
 export async function getArticle(id: string): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
-    const options = {
-        method: "GET",
-    };
+    const options = await buildFetchOptions("GET");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -18,9 +18,7 @@ export async function getArticle(id: string): Promise<Article> {
 
 export async function deleteArticle(id: string): Promise<void> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
-    const options = {
-        method: "DELETE",
-    };
+    const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
         .then(handleNetworkResponse);
@@ -28,9 +26,7 @@ export async function deleteArticle(id: string): Promise<void> {
 
 export async function createArticleDraft(id: string = ""): Promise<ArticleDraft> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
-    const options = {
-        method: "POST",
-    };
+    const options = await buildFetchOptions("POST");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -39,9 +35,7 @@ export async function createArticleDraft(id: string = ""): Promise<ArticleDraft>
 
 export async function getArticleDraft(id: string): Promise<ArticleDraft> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
-    const options = {
-        method: "GET",
-    };
+    const options = await buildFetchOptions("GET");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -50,11 +44,7 @@ export async function getArticleDraft(id: string): Promise<ArticleDraft> {
 
 export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>): Promise<ArticleDraft> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
-    const options = {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    };
+    const options = await buildFetchOptions("PATCH", JSON.stringify(data));
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -63,9 +53,7 @@ export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>
 
 export async function deleteArticleDraft(id: string): Promise<void> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
-    const options = {
-        method: "DELETE",
-    };
+    const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
         .then(handleNetworkResponse);
@@ -73,9 +61,7 @@ export async function deleteArticleDraft(id: string): Promise<void> {
 
 export async function publishArticleDraft(id: string): Promise<void> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft/preview`);
-    const options = {
-        method: "PATCH",
-    };
+    const options = await buildFetchOptions("PATCH");
 
     return fetch(url, options)
         .then(handleNetworkResponse);

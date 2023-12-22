@@ -1,5 +1,7 @@
-import { handleNetworkResponse } from "./apiUtils";
-import { buildUrl } from "./siteUtils";
+"use server";
+
+import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
+import { buildUrl } from "app/_lib/siteUtils";
 
 import type { PageProps } from "app/_types/site";
 import type { Recipe, RecipeDraft } from "app/_types/record";
@@ -8,9 +10,7 @@ const RECIPES_API = "/api/recipes";
 
 export async function getRecipes(searchParams?: PageProps["searchParams"]): Promise<Recipe[]> {
     const url = buildUrl(RECIPES_API, searchParams);
-    const options = {
-        method: "GET",
-    };
+    const options = await buildFetchOptions("GET");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -19,9 +19,7 @@ export async function getRecipes(searchParams?: PageProps["searchParams"]): Prom
 
 export async function getRecipe(id: string): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
-    const options = {
-        method: "GET",
-    };
+    const options = await buildFetchOptions("GET");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -30,9 +28,7 @@ export async function getRecipe(id: string): Promise<Recipe> {
 
 export async function deleteRecipe(id: string): Promise<void> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
-    const options = {
-        method: "DELETE",
-    };
+    const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
         .then(handleNetworkResponse);
@@ -40,9 +36,7 @@ export async function deleteRecipe(id: string): Promise<void> {
 
 export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
-    const options = {
-        method: "POST",
-    };
+    const options = await buildFetchOptions("POST");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -51,9 +45,7 @@ export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
 
 export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
-    const options = {
-        method: "GET",
-    };
+    const options = await buildFetchOptions("GET");
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -62,11 +54,7 @@ export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
 
 export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
-    const options = {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    };
+    const options = await buildFetchOptions("PATCH", JSON.stringify(data));
 
     return fetch(url, options)
         .then(handleNetworkResponse)
@@ -75,9 +63,7 @@ export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>):
 
 export async function deleteRecipeDraft(id: string): Promise<void> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
-    const options = {
-        method: "DELETE",
-    };
+    const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
         .then(handleNetworkResponse);
@@ -85,9 +71,7 @@ export async function deleteRecipeDraft(id: string): Promise<void> {
 
 export async function publishRecipeDraft(id: string): Promise<void> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft/preview`);
-    const options = {
-        method: "PATCH",
-    };
+    const options = await buildFetchOptions("PATCH");
 
     return fetch(url, options)
         .then(handleNetworkResponse);

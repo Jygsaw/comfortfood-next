@@ -1,21 +1,17 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { getAuth } from "app/_lib/auth";
+import LoginControl from "app/_components/LoginControl";
+import LogoutControl from "app/_components/LogoutControl";
 
-const AccountControls = () => {
-    const { status } = useSession();
-    const isLoggedIn = status === "authenticated";
-
-    const handleLogout = () => signOut();
-    const handleLogin = () => signIn();
+const AccountControls = async () => {
+    const session = await getAuth();
 
     return (
         <nav className="flex gap-5 justify-end items-center text-xl font-semibold">
-            {isLoggedIn && <Link href="/profile">Profile</Link>}
-            {isLoggedIn && <button className="p-1 rounded bg-orange-300" onClick={handleLogout}>Logout</button>}
-            {!isLoggedIn && <button className="p-1 rounded bg-orange-300" onClick={handleLogin}>Login</button>}
+            {!!session && <Link href="/profile">Profile</Link>}
+            {!!session && <LogoutControl />}
+            {!session && <LoginControl />}
         </nav>
     );
 };

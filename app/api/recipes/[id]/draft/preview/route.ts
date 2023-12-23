@@ -16,7 +16,7 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql`
             SELECT *
             FROM contents
-            WHERE draft_of = ${id}
+            WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
         `;
 

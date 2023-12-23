@@ -12,7 +12,7 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql`
             SELECT *
             FROM contents
-            WHERE draft_of = ${id}
+            WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
         `;
 
@@ -39,7 +39,7 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
         const update = await sql`
             UPDATE contents
             SET ${sql(cleaned, Object.keys(cleaned))}
-            WHERE draft_of = ${id}
+            WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
             RETURNING *
         `;
@@ -60,7 +60,7 @@ export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
         await sql`
             DELETE
             FROM contents
-            WHERE draft_of = ${id}
+            WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
         `;
 

@@ -9,7 +9,7 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql`
             SELECT *
             FROM contents
-            WHERE content_id = ${id}
+            WHERE content_id::text = ${id}
         `;
 
         if (!select[0]) return RESPONSES.NOT_FOUND;
@@ -28,7 +28,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
         const select = await sql`
             SELECT *
             FROM contents
-            WHERE draft_of = ${id}
+            WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
         `;
 
@@ -57,7 +57,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                 content,
                 ${session.user.userId}
             FROM contents
-            WHERE content_id = ${id}
+            WHERE content_id::text = ${id}
             RETURNING *
         `;
 
@@ -77,7 +77,7 @@ export async function DELETE(_: never, { params: { id } }: DynamicRoute) {
         await sql`
             DELETE
             FROM contents
-            WHERE (content_id = ${id} OR draft_of = ${id})
+            WHERE (content_id::text = ${id} OR draft_of::text = ${id})
                 AND created_by = ${session.user.userId}
         `;
 

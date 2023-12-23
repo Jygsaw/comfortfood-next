@@ -5,11 +5,16 @@ import { RESPONSES } from "app/api/_lib/routeUtils";
 import type { DynamicRoute } from "app/_types/site";
 
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
+    const session = await getAuth();
+
     try {
         const select = await sql`
             SELECT *
             FROM contents
             WHERE content_id::text = ${id}
+                AND (draft_of IS NULL
+                    ${session ? sql`OR created_by = ${session.user.userId}` : sql``}
+                )
         `;
 
         if (!select[0]) return RESPONSES.NOT_FOUND;
@@ -58,6 +63,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                 ${session.user.userId}
             FROM contents
             WHERE content_id::text = ${id}
+                AND draft_of IS NULL
             RETURNING *
         `;
 

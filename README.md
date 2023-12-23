@@ -10,8 +10,16 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
+- [ ] Fix Card to build links relative to a card's primary id
+    - [ ] cards for draft content link to the draft as a primary source instead of as a draft
 - [ ] investigate route and cache invalidation
     - [ ] quickly revisiting content creation pages after navigating away displays data from previous load
+    - [ ] test case
+        - edit draft name
+        - save
+        - preview draft
+        - click "back" in browser
+        - verify stale old name displayed
 - [ ] implement better error feedback for user interactions
 - [ ] style html tags in bulk via tailwind configuration
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
@@ -44,12 +52,6 @@ https://comfortfood.onrender.com
 - consider soft delete standard to preserve paper trail on updates
 - research html editors and how to embed user-created articles in pages
 - copied and modified recipes
-    - allow users to copy a recipe in order to make personal version for cookbook
-    - POST(id) = copy recipe button
-        - copy recipe as separate entity
-            - id = genUUID
-            - draftOf = self.id
-            - copiedFrom = POST.id
     - should modified recipe keep a reference to original?
     - what happens if original is deleted?
 - extend articles data model
@@ -71,6 +73,7 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] implement content copying by non-creators
 - [X] update cookbook page to list authored content
 - [X] limit access of draft recipes to owners (ie. createdBy)
 - [X] redirect 401 errors to login page
@@ -102,9 +105,15 @@ https://comfortfood.onrender.com
             - [X] fetch recipe where id = id
         - [X] POST(id) = edit recipe button
             - [X] if draft exists, skip creation
-            - [X] if draft doesn't exist, copy original recipe and create new record
+            - [X] if draft doesn't exist and user created original
+                - [X] create draft of original recipe
                 - [X] id = genUUID
                 - [X] draftOf = POST.id
+            - [X] if draft doesn't exist and user did not create original
+                - [X] create separate copy of original recipe in draft state
+                - [X] id = genUUID
+                - [X] draftOf = genUUID
+                - [X] copiedFrom = POST.id
             - [X] redirect to /recipes/[id]/draft
         - [X] DELETE(id) = delete recipe button
             - [X] delete recipe where id = DELETE.id

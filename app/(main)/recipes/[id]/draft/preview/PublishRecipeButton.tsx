@@ -7,21 +7,21 @@ import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 type Input = {
-    draftOf: string,
+    contentId: string,
     slug?: string,
 }
 
-const PublishRecipeButton = ({ draftOf, slug }: Input) => {
+const PublishRecipeButton = ({ contentId, slug }: Input) => {
     const router = useRouter();
 
     const handlePublish = () =>
-        publishRecipeDraft(draftOf)
-            .then(() => router.push(buildPath(PATH_TYPES.recipe, draftOf, slug)));
+        publishRecipeDraft(contentId)
+            .then(() => router.push(buildPath(PATH_TYPES.recipe, contentId, slug)));
 
     return (
         <div className="my-4">
             <button className="w-40 h-12 bg-blue-300 rounded" onClick={handlePublish}>
-                    Publish recipe
+                Publish recipe
             </button>
         </div>
     );

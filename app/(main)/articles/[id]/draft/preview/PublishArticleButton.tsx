@@ -21,7 +21,7 @@ const PublishArticleButton = ({ contentId, slug }: Input) => {
     return (
         <div className="my-4">
             <button className="w-40 h-12 bg-blue-300 rounded" onClick={handlePublish}>
-                    Publish article
+                Publish article
             </button>
         </div>
     );

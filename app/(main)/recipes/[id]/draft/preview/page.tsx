@@ -9,7 +9,7 @@ const Page = async ({ params: { id } }: DynamicRoute) => {
 
     return (
         <>
-            <PublishRecipeButton draftOf={recipe.draftOf} />
+            <PublishRecipeButton contentId={id} slug={recipe.slug} />
             <pre>{JSON.stringify(recipe, null, 4)}</pre>
         </>
     );

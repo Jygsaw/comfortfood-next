@@ -33,7 +33,7 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
         const data = await request.json();
         const cleaned: Record<string, string> = ALLOWED_CHANGES.reduce((prev, col) => ({
             ...prev,
-            ...(data[col] ? { [col]: data[col] } : {}),
+            ...(data[col] !== undefined ? { [col]: data[col] } : {}),
         }), {});
 
         const update = await sql`

@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export async function buildFetchOptions(method: string, body?: string) {
     return {
@@ -17,6 +17,8 @@ export async function buildFetchOptions(method: string, body?: string) {
 export async function handleNetworkResponse(response: Response) {
     if (!response.ok) {
         switch (response.status) {
+            case 401:
+                redirect("/login");
             case 404:
                 notFound();
             default:

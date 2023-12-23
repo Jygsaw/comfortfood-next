@@ -10,9 +10,10 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] update cookbook page to list authored content
+- [ ] investigate route and cache invalidation
+    - [ ] quickly revisiting content creation pages after navigating away displays data from previous load
 - [ ] implement better error feedback for user interactions
-- [ ] update tailwind configuration to style tags in bulk
+- [ ] style html tags in bulk via tailwind configuration
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#apply
     - [ ] update "<a>" tags with traditional styling
@@ -27,9 +28,8 @@ https://comfortfood.onrender.com
 - [ ] review whether client components need auth access
     - [ ] move auth access to parent server component and pass necessary info down?
     - [ ] remove NextAuthProvider?
-- [ ] convert postgres usage to pg usage to cut down on packages installed
+- [ ] use pg client instead of postgres to cut down on number of dependencies
     - redundant to use two different psql clients for database interaction when pg needed by next-auth
-- [ ] when viewing a DRAFT recipe, then only visibile to createdBy
 - [ ] integrate React Suspense and NextJS loading.ts into pages
 - [ ] investigate useFormState for error handling
     - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
@@ -71,6 +71,8 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] update cookbook page to list authored content
+- [X] limit access of draft recipes to owners (ie. createdBy)
 - [X] redirect 401 errors to login page
 - [X] typecast uuid to allow invalid uuids to process as not found
 - [X] move new content buttons to cookbook page

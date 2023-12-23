@@ -10,7 +10,6 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] refine client-side error-handling
 - [ ] update cookbook page to list authored content
 - [ ] implement better error feedback for user interactions
 - [ ] update tailwind configuration to style tags in bulk
@@ -72,6 +71,8 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] redirect 401 errors to login page
+- [X] typecast uuid to allow invalid uuids to process as not found
 - [X] move new content buttons to cookbook page
 - [X] check session and require user_id in content creation endpoints
 - [X] simplify site layout hierarchy

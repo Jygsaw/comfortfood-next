@@ -15,6 +15,7 @@ const BASE_RECORD_DEFAULTS = {
     createdAt: "",
     updatedBy: "",
     updatedAt: "",
+    copiedFrom: "",
 } as const;
 
 const CONTENT_RECORD_DEFAULTS = {

@@ -30,46 +30,70 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
     if (!session) return RESPONSES.UNAUTHORIZED;
 
     try {
-        const select = await sql`
+        const draft = await sql`
             SELECT *
             FROM contents
             WHERE draft_of::text = ${id}
                 AND created_by = ${session.user.userId}
         `;
 
-        if (select[0]) {
-            return Response.json({ data: { recipe: select[0] } });
+        if (draft[0]) {
+            return Response.json({ data: { recipe: draft[0] } });
         }
 
-        const insert = await sql`
-            INSERT INTO contents (
-                draft_of,
-                name,
-                slug,
-                image_link,
-                description,
-                type,
-                content,
-                created_by
-            )
+        const source = await sql`
             SELECT
-                content_id,
+                type,
                 name,
                 slug,
                 image_link,
                 description,
-                type,
-                content,
-                ${session.user.userId}
+                content
             FROM contents
             WHERE content_id::text = ${id}
                 AND draft_of IS NULL
-            RETURNING *
         `;
 
-        if (!insert[0]) return RESPONSES.NOT_FOUND;
+        if (!source[0]) return RESPONSES.NOT_FOUND;
 
-        return Response.json({ data: { recipe: insert[0] } });
+        if (source[0].created_by === session.user.userId) {
+            const insert = await sql`
+                INSERT INTO contents(
+                    draft_of,
+                    created_by,
+                    ${sql(Object.keys(source[0]))}
+                )
+                VALUES(
+                    ${id},
+                    ${session.user.userId},
+                    ${sql(source[0])}
+                )
+                RETURNING *
+            `;
+
+            return Response.json({ data: { recipe: insert[0] } });
+        } else {
+            const insert = await sql`
+                WITH init AS (SELECT gen_random_uuid() AS uuid)
+                INSERT INTO contents (
+                    content_id,
+                    draft_of,
+                    copied_from,
+                    created_by,
+                    ${sql(Object.keys(source[0]))}
+                )
+                SELECT
+                    uuid,
+                    uuid,
+                    ${id},
+                    ${session.user.userId},
+                    ${sql(source[0])}
+                FROM init
+                RETURNING *
+            `;
+
+            return Response.json({ data: { recipe: insert[0] } });
+        }
     } catch (error) {
         return RESPONSES.SERVER_ERROR;
     }

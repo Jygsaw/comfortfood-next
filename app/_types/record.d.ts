@@ -3,6 +3,7 @@ export interface BaseRecord {
     createdAt: string,
     updatedBy: string,
     updatedAt: string,
+    copiedFrom: string,
 }
 
 export interface UserRecord extends BaseRecord {

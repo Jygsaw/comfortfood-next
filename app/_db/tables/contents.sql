@@ -6,6 +6,7 @@ CREATE TABLE contents (
     updated_by UUID,
     updated_at TIMESTAMPTZ,
     draft_of UUID,
+    copied_from UUID,
 
     name TEXT,
     slug TEXT,

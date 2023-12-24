@@ -14,7 +14,7 @@ const EditRecipeButton = ({ contentId }: Input) => {
     const router = useRouter();
 
     const handleEdit = () => createRecipeDraft(contentId)
-        .then(() => router.push(buildPath(PATH_TYPES.recipeDraft, contentId)));
+        .then(recipe => router.push(buildPath(PATH_TYPES.recipeDraft, recipe.contentId)));
 
     return (
         <div className="my-4 ">

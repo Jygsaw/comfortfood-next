@@ -43,7 +43,6 @@ export async function PATCH(_: never, { params: { id } }: DynamicRoute) {
                 )
                 UPDATE contents
                 SET
-                    draft_of = null,
                     name = draft.name,
                     slug = draft.slug,
                     image_link = draft.image_link,

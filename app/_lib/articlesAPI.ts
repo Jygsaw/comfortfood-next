@@ -1,7 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
-import { buildUrl } from "app/_lib/siteUtils";
+import { buildPath, buildUrl } from "app/_lib/siteUtils";
+import { PATH_TYPES } from "app/_lib/constants";
 
 import type { Article, ArticleDraft } from "app/_types/record";
 
@@ -21,7 +23,8 @@ export async function deleteArticle(id: string): Promise<void> {
     const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.article, id), "layout"));
 }
 
 export async function createArticleDraft(id: string = ""): Promise<ArticleDraft> {
@@ -48,7 +51,10 @@ export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>
 
     return fetch(url, options)
         .then(handleNetworkResponse)
-        .then(json => json.data.article);
+        .then(json => {
+            revalidatePath(buildPath(PATH_TYPES.articleDraft, id), "layout");
+            return json.data.article;
+        });
 }
 
 export async function deleteArticleDraft(id: string): Promise<void> {
@@ -56,7 +62,8 @@ export async function deleteArticleDraft(id: string): Promise<void> {
     const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.articleDraft, id), "layout"));
 }
 
 export async function publishArticleDraft(id: string): Promise<void> {
@@ -64,5 +71,6 @@ export async function publishArticleDraft(id: string): Promise<void> {
     const options = await buildFetchOptions("PATCH");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.article, id), "layout"));
 }

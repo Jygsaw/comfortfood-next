@@ -1,7 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
-import { buildUrl } from "app/_lib/siteUtils";
+import { buildPath, buildUrl } from "app/_lib/siteUtils";
+import { PATH_TYPES } from "app/_lib/constants";
 
 import type { PageProps } from "app/_types/site";
 import type { Recipe, RecipeDraft } from "app/_types/record";
@@ -31,7 +33,8 @@ export async function deleteRecipe(id: string): Promise<void> {
     const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
 }
 
 export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
@@ -58,7 +61,10 @@ export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>):
 
     return fetch(url, options)
         .then(handleNetworkResponse)
-        .then(json => json.data.recipe);
+        .then(json => {
+            revalidatePath(buildPath(PATH_TYPES.recipeDraft, id), "layout");
+            return json.data.recipe;
+        });
 }
 
 export async function deleteRecipeDraft(id: string): Promise<void> {
@@ -66,7 +72,8 @@ export async function deleteRecipeDraft(id: string): Promise<void> {
     const options = await buildFetchOptions("DELETE");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.recipeDraft, id), "layout"));
 }
 
 export async function publishRecipeDraft(id: string): Promise<void> {
@@ -74,5 +81,6 @@ export async function publishRecipeDraft(id: string): Promise<void> {
     const options = await buildFetchOptions("PATCH");
 
     return fetch(url, options)
-        .then(handleNetworkResponse);
+        .then(handleNetworkResponse)
+        .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
 }

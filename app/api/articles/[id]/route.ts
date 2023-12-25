@@ -43,6 +43,7 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
         const source = await sql`
             SELECT
+                created_by,
                 type,
                 name,
                 slug,
@@ -56,18 +57,26 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
         if (!source[0]) return RESPONSES.NOT_FOUND;
 
-        if (source[0].created_by === session.user.userId) {
+        const data = {
+            ...source[0],
+            createdBy: session.user.userId,
+        };
+
+        if (source[0].createdBy === session.user.userId) {
             const insert = await sql`
                 INSERT INTO contents(
                     draft_of,
                     created_by,
-                    ${sql(Object.keys(source[0]))}
+                    type,
+                    name,
+                    slug,
+                    image_link,
+                    description,
+                    content
                 )
-                VALUES(
+                SELECT
                     ${id},
-                    ${session.user.userId},
-                    ${sql(source[0])}
-                )
+                    ${sql(data)}
                 RETURNING *
             `;
 
@@ -80,14 +89,18 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
                     draft_of,
                     copied_from,
                     created_by,
-                    ${sql(Object.keys(source[0]))}
+                    type,
+                    name,
+                    slug,
+                    image_link,
+                    description,
+                    content
                 )
                 SELECT
                     uuid,
                     uuid,
                     ${id},
-                    ${session.user.userId},
-                    ${sql(source[0])}
+                    ${sql(data)}
                 FROM init
                 RETURNING *
             `;

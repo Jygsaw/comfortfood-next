@@ -1,10 +1,6 @@
 CREATE TABLE contents (
     content_id UUID DEFAULT gen_random_uuid() NOT NULL,
 
-    created_by UUID,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_by UUID,
-    updated_at TIMESTAMPTZ,
     draft_of UUID,
     copied_from UUID,
 
@@ -15,6 +11,11 @@ CREATE TABLE contents (
 
     type TEXT, -- [ article | recipe ]
     content TEXT,
+
+    created_by UUID,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_by UUID,
+    updated_at TIMESTAMPTZ,
 
     PRIMARY KEY (content_id)
 );

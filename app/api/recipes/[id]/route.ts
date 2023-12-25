@@ -21,7 +21,7 @@ export async function GET(_: never, { params: { id } }: DynamicRoute) {
     }
 }
 
-export async function POST(_: never, { params: { id } }: DynamicRoute) {
+export async function PUT(_: never, { params: { id } }: DynamicRoute) {
     const session = await getAuth();
     if (!session) return RESPONSES.UNAUTHORIZED;
 
@@ -39,7 +39,53 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
         const source = await sql`
             SELECT
+                copied_from,
                 created_by,
+                type,
+                name,
+                slug,
+                image_link,
+                description,
+                content
+            FROM contents
+            WHERE content_id::text = ${id}
+                AND draft_of IS NULL
+                AND created_by = ${session.user.userId}
+        `;
+
+        if (!source[0]) return RESPONSES.NOT_FOUND;
+
+        const insert = await sql`
+            INSERT INTO contents(
+                draft_of,
+                copied_from,
+                created_by,
+                type,
+                name,
+                slug,
+                image_link,
+                description,
+                content
+            )
+            SELECT
+                ${id},
+                ${sql(source[0])}
+            RETURNING *
+        `;
+
+        return Response.json({ data: { recipe: insert[0] } });
+    } catch (error) {
+        return RESPONSES.SERVER_ERROR;
+    }
+}
+
+export async function POST(_: never, { params: { id } }: DynamicRoute) {
+    const session = await getAuth();
+    if (!session) return RESPONSES.UNAUTHORIZED;
+
+    try {
+        const source = await sql`
+            SELECT
                 type,
                 name,
                 slug,
@@ -53,56 +99,31 @@ export async function POST(_: never, { params: { id } }: DynamicRoute) {
 
         if (!source[0]) return RESPONSES.NOT_FOUND;
 
-        const data = {
-            ...source[0],
-            createdBy: session.user.userId,
-        };
+        const insert = await sql`
+            WITH init AS (SELECT gen_random_uuid() AS uuid)
+            INSERT INTO contents (
+                content_id,
+                draft_of,
+                copied_from,
+                created_by,
+                type,
+                name,
+                slug,
+                image_link,
+                description,
+                content
+            )
+            SELECT
+                uuid,
+                uuid,
+                ${id},
+                ${session.user.userId},
+                ${sql(source[0])}
+            FROM init
+            RETURNING *
+        `;
 
-        if (source[0].createdBy === session.user.userId) {
-            const insert = await sql`
-                INSERT INTO contents(
-                    draft_of,
-                    created_by,
-                    type,
-                    name,
-                    slug,
-                    image_link,
-                    description,
-                    content
-                )
-                SELECT
-                    ${id},
-                    ${sql(data)}
-                RETURNING *
-            `;
-
-            return Response.json({ data: { recipe: insert[0] } });
-        } else {
-            const insert = await sql`
-                WITH init AS (SELECT gen_random_uuid() AS uuid)
-                INSERT INTO contents (
-                    content_id,
-                    draft_of,
-                    copied_from,
-                    created_by,
-                    type,
-                    name,
-                    slug,
-                    image_link,
-                    description,
-                    content
-                )
-                SELECT
-                    uuid,
-                    uuid,
-                    ${id},
-                    ${sql(data)}
-                FROM init
-                RETURNING *
-            `;
-
-            return Response.json({ data: { recipe: insert[0] } });
-        }
+        return Response.json({ data: { recipe: insert[0] } });
     } catch (error) {
         return RESPONSES.SERVER_ERROR;
     }

@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import { getAuth } from "app/_lib/auth";
 import { getArticle } from "app/_lib/articlesAPI";
+import CopyArticleButton from "./CopyArticleButton";
 import DeleteArticleButton from "./DeleteArticleButton";
 import EditArticleButton from "./EditArticleButton";
 
@@ -10,12 +12,18 @@ import type { DynamicRoute } from "app/_types/site";
 import { MOCK_ARTICLE } from "app/_lib/mockArticle";
 
 const Page = async ({ params: { id } }: DynamicRoute) => {
+    const session = await getAuth();
     const article = await getArticle(id);
 
     return (
         <>
-            <EditArticleButton contentId={id} />
-            <DeleteArticleButton contentId={id} />
+            {session && session.user.userId === article.createdBy && (
+                <>
+                    <EditArticleButton contentId={id} />
+                    <DeleteArticleButton contentId={id} />
+                </>
+            )}
+            {session && article.draftOf === null && <CopyArticleButton contentId={id} />}
 
             <article className="max-w-4xl mx-auto my-12">
                 <h1 className="mb-2 text-4xl">{article.name}</h1>

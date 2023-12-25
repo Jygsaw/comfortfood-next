@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import { getAuth } from "app/_lib/auth";
 import { getRecipe } from "app/_lib/recipesAPI";
+import CopyRecipeButton from "./CopyRecipeButton";
 import DeleteRecipeButton from "./DeleteRecipeButton";
 import EditRecipeButton from "./EditRecipeButton";
 
@@ -10,12 +12,18 @@ import type { DynamicRoute } from "app/_types/site";
 import { MOCK_RECIPE } from "app/_lib/mockRecipe";
 
 const Page = async ({ params: { id } }: DynamicRoute) => {
+    const session = await getAuth();
     const recipe = await getRecipe(id);
 
     return (
         <>
-            <EditRecipeButton contentId={id} />
-            <DeleteRecipeButton contentId={id} />
+            {session && session.user.userId === recipe.createdBy && (
+                <>
+                    <EditRecipeButton contentId={id} />
+                    <DeleteRecipeButton contentId={id} />
+                </>
+            )}
+            {session && recipe.draftOf === null && <CopyRecipeButton contentId={id} />}
 
             <article className="max-w-4xl mx-auto my-12">
                 <h1 className="mb-2 text-4xl">{recipe.name}</h1>

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { createRecipeDraft } from "app/_lib/recipesAPI";
+import { editRecipe } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
@@ -13,7 +13,7 @@ type Input = {
 const EditRecipeButton = ({ contentId }: Input) => {
     const router = useRouter();
 
-    const handleEdit = () => createRecipeDraft(contentId)
+    const handleEdit = () => editRecipe(contentId)
         .then(recipe => router.push(buildPath(PATH_TYPES.recipeDraft, recipe.draftOf)));
 
     return (

@@ -14,7 +14,7 @@ const EditArticleButton = ({ contentId }: Input) => {
     const router = useRouter();
 
     const handleEdit = () => createArticleDraft(contentId)
-        .then(article => router.push(buildPath(PATH_TYPES.articleDraft, article.contentId)));
+        .then(article => router.push(buildPath(PATH_TYPES.articleDraft, article.draftOf)));
 
     return (
         <div className="my-4 ">

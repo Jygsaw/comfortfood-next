@@ -5,11 +5,11 @@ import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
 import { buildPath, buildUrl } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
-import type { Article, ArticleDraft } from "app/_types/record";
+import type { Article } from "app/_types/record";
 
 const ARTICLES_API = "/api/articles";
 
-export async function createArticleDraft(): Promise<ArticleDraft> {
+export async function createArticleDraft(): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}`);
     const options = await buildFetchOptions("POST");
 
@@ -36,7 +36,7 @@ export async function deleteArticle(id: string): Promise<void> {
         .then(() => revalidatePath(buildPath(PATH_TYPES.article, id), "layout"));
 }
 
-export async function editArticle(id: string): Promise<ArticleDraft> {
+export async function editArticle(id: string): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
     const options = await buildFetchOptions("PUT");
 
@@ -45,7 +45,7 @@ export async function editArticle(id: string): Promise<ArticleDraft> {
         .then(json => json.data.article);
 }
 
-export async function copyArticle(id: string): Promise<ArticleDraft> {
+export async function copyArticle(id: string): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
     const options = await buildFetchOptions("POST");
 
@@ -54,7 +54,7 @@ export async function copyArticle(id: string): Promise<ArticleDraft> {
         .then(json => json.data.article);
 }
 
-export async function getArticleDraft(id: string): Promise<ArticleDraft> {
+export async function getArticleDraft(id: string): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
     const options = await buildFetchOptions("GET");
 
@@ -63,7 +63,7 @@ export async function getArticleDraft(id: string): Promise<ArticleDraft> {
         .then(json => json.data.article);
 }
 
-export async function updateArticleDraft(id: string, data: Partial<ArticleDraft>): Promise<ArticleDraft> {
+export async function updateArticleDraft(id: string, data: Partial<Article>): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}/draft`);
     const options = await buildFetchOptions("PATCH", JSON.stringify(data));
 

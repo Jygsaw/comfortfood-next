@@ -3,7 +3,6 @@ export interface BaseRecord {
     createdAt: string,
     updatedBy: string,
     updatedAt: string,
-    copiedFrom: string,
 }
 
 export interface UserRecord extends BaseRecord {
@@ -16,6 +15,9 @@ export interface UserRecord extends BaseRecord {
 
 export interface ContentRecord extends BaseRecord {
     contentId: string,
+    draftOf: string,
+    copiedFrom: string,
+
     name: string,
     slug: string,
     imageLink: string,
@@ -27,17 +29,9 @@ export interface Article extends ContentRecord {
     content: any,
 }
 
-export interface ArticleDraft extends Article {
-    draftOf: string,
-}
-
 export interface Recipe extends ContentRecord {
     type: "recipe",
     content: any,
-}
-
-export interface RecipeDraft extends Recipe {
-    draftOf: string,
 }
 
 export type UserContent = Article | Recipe;

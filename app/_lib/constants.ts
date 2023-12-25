@@ -10,15 +10,17 @@ export const PATH_TYPES = {
 } as const;
 
 const BASE_RECORD_DEFAULTS = {
-    contentId: "FAKE_ID",
     createdBy: "",
     createdAt: "",
     updatedBy: "",
     updatedAt: "",
-    copiedFrom: "",
 } as const;
 
 const CONTENT_RECORD_DEFAULTS = {
+    contentId: "FAKE_CONTENT_ID",
+    draftOf: "",
+    copiedFrom: "",
+
     name: "",
     slug: "",
     imageLink: "",

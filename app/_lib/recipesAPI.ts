@@ -6,7 +6,7 @@ import { buildPath, buildUrl } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
 
 import type { PageProps } from "app/_types/site";
-import type { Recipe, RecipeDraft } from "app/_types/record";
+import type { Recipe } from "app/_types/record";
 
 const RECIPES_API = "/api/recipes";
 
@@ -19,7 +19,7 @@ export async function getRecipes(searchParams?: PageProps["searchParams"]): Prom
         .then(json => json.data.recipes);
 }
 
-export async function createRecipeDraft(): Promise<RecipeDraft> {
+export async function createRecipeDraft(): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}`);
     const options = await buildFetchOptions("POST");
 
@@ -46,7 +46,7 @@ export async function deleteRecipe(id: string): Promise<void> {
         .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
 }
 
-export async function editRecipe(id: string): Promise<RecipeDraft> {
+export async function editRecipe(id: string): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
     const options = await buildFetchOptions("PUT");
 
@@ -55,7 +55,7 @@ export async function editRecipe(id: string): Promise<RecipeDraft> {
         .then(json => json.data.recipe);
 }
 
-export async function copyRecipe(id: string): Promise<RecipeDraft> {
+export async function copyRecipe(id: string): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
     const options = await buildFetchOptions("POST");
 
@@ -64,7 +64,7 @@ export async function copyRecipe(id: string): Promise<RecipeDraft> {
         .then(json => json.data.recipe);
 }
 
-export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
+export async function getRecipeDraft(id: string): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
     const options = await buildFetchOptions("GET");
 
@@ -73,7 +73,7 @@ export async function getRecipeDraft(id: string): Promise<RecipeDraft> {
         .then(json => json.data.recipe);
 }
 
-export async function updateRecipeDraft(id: string, data: Partial<RecipeDraft>): Promise<RecipeDraft> {
+export async function updateRecipeDraft(id: string, data: Partial<Recipe>): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}/draft`);
     const options = await buildFetchOptions("PATCH", JSON.stringify(data));
 

@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import { updateArticleDraft } from "app/_lib/articlesAPI";
 
 import type { ChangeEvent, FormEvent } from "react";
-import type { ArticleDraft } from "app/_types/record";
+import type { Article } from "app/_types/record";
 
 type Input = {
     contentId: string,
-    draft: ArticleDraft,
+    draft: Article,
 }
 
 const EditArticleForm =({ contentId, draft }: Input) => {
-    const [formData, setFormData] = useState<Partial<ArticleDraft>>({
+    const [formData, setFormData] = useState<Partial<Article>>({
         name: draft.name ?? "",
         description: draft.description ?? "",
         imageLink: draft.imageLink ?? "",

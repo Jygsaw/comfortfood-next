@@ -2,15 +2,13 @@ import { v4 as uuidv4 } from "uuid";
 import { ARTICLE_DEFAULTS, RECIPE_DEFAULTS } from "app/_lib/constants";
 import { MOCK_ARTICLE } from "app/_lib/mockArticle";
 
-import type { Article, ArticleDraft, Recipe, RecipeDraft } from "app/_types/record";
+import type { Article, Recipe } from "app/_types/record";
 
 export function generateRecipes(num: number) {
     return new Array(num).fill(null).map(() => generateRecipe());
 }
 
-export function generateRecipe(overrides?: Partial<Recipe>): Recipe
-export function generateRecipe(overrides?: Partial<RecipeDraft>): RecipeDraft
-export function generateRecipe(overrides?: Partial<RecipeDraft>): Recipe | RecipeDraft {
+export function generateRecipe(overrides?: Partial<Recipe>): Recipe {
     const id = uuidv4();
     return {
         ...RECIPE_DEFAULTS,
@@ -29,9 +27,7 @@ export function generateArticles(num: number) {
     return new Array(num).fill(null).map(() => generateArticle());
 }
 
-export function generateArticle(overrides?: Partial<Article>): Article
-export function generateArticle(overrides?: Partial<ArticleDraft>): ArticleDraft
-export function generateArticle(overrides?: Partial<ArticleDraft>): Article | ArticleDraft {
+export function generateArticle(overrides?: Partial<Article>): Article {
     const id = uuidv4();
     return {
         ...ARTICLE_DEFAULTS,

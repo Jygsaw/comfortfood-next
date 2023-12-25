@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import { updateRecipeDraft } from "app/_lib/recipesAPI";
 
 import type { ChangeEvent, FormEvent } from "react";
-import type { RecipeDraft } from "app/_types/record";
+import type { Recipe } from "app/_types/record";
 
 type Input = {
     contentId: string,
-    draft: RecipeDraft,
+    draft: Recipe,
 }
 
 const EditRecipeForm =({ contentId, draft }: Input) => {
-    const [formData, setFormData] = useState<Partial<RecipeDraft>>({
+    const [formData, setFormData] = useState<Partial<Recipe>>({
         name: draft.name ?? "",
         description: draft.description ?? "",
         imageLink: draft.imageLink ?? "",

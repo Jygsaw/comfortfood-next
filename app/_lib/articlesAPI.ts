@@ -9,6 +9,15 @@ import type { Article, ArticleDraft } from "app/_types/record";
 
 const ARTICLES_API = "/api/articles";
 
+export async function createArticleDraft(): Promise<ArticleDraft> {
+    const url = buildUrl(`${ARTICLES_API}`);
+    const options = await buildFetchOptions("POST");
+
+    return fetch(url, options)
+        .then(handleNetworkResponse)
+        .then(json => json.data.article);
+}
+
 export async function getArticle(id: string): Promise<Article> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
     const options = await buildFetchOptions("GET");
@@ -27,7 +36,16 @@ export async function deleteArticle(id: string): Promise<void> {
         .then(() => revalidatePath(buildPath(PATH_TYPES.article, id), "layout"));
 }
 
-export async function createArticleDraft(id: string = ""): Promise<ArticleDraft> {
+export async function editArticle(id: string): Promise<ArticleDraft> {
+    const url = buildUrl(`${ARTICLES_API}/${id}`);
+    const options = await buildFetchOptions("PUT");
+
+    return fetch(url, options)
+        .then(handleNetworkResponse)
+        .then(json => json.data.article);
+}
+
+export async function copyArticle(id: string): Promise<ArticleDraft> {
     const url = buildUrl(`${ARTICLES_API}/${id}`);
     const options = await buildFetchOptions("POST");
 

@@ -19,6 +19,15 @@ export async function getRecipes(searchParams?: PageProps["searchParams"]): Prom
         .then(json => json.data.recipes);
 }
 
+export async function createRecipeDraft(): Promise<RecipeDraft> {
+    const url = buildUrl(`${RECIPES_API}`);
+    const options = await buildFetchOptions("POST");
+
+    return fetch(url, options)
+        .then(handleNetworkResponse)
+        .then(json => json.data.recipe);
+}
+
 export async function getRecipe(id: string): Promise<Recipe> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
     const options = await buildFetchOptions("GET");
@@ -37,7 +46,16 @@ export async function deleteRecipe(id: string): Promise<void> {
         .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
 }
 
-export async function createRecipeDraft(id: string = ""): Promise<RecipeDraft> {
+export async function editRecipe(id: string): Promise<RecipeDraft> {
+    const url = buildUrl(`${RECIPES_API}/${id}`);
+    const options = await buildFetchOptions("PUT");
+
+    return fetch(url, options)
+        .then(handleNetworkResponse)
+        .then(json => json.data.recipe);
+}
+
+export async function copyRecipe(id: string): Promise<RecipeDraft> {
     const url = buildUrl(`${RECIPES_API}/${id}`);
     const options = await buildFetchOptions("POST");
 

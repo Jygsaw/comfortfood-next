@@ -12,19 +12,25 @@ https://comfortfood.onrender.com
 ## TODO
 - [ ] Fix Card to build links relative to a card's primary id
     - [ ] cards for draft content link to the draft as a primary source instead of as a draft
-- [ ] investigate route and cache invalidation
-    - [ ] quickly revisiting content creation pages after navigating away displays data from previous load
-    - [ ] test case
-        - edit draft name
-        - save
-        - preview draft
-        - click "back" in browser
-        - verify stale old name displayed
 - [ ] implement better error feedback for user interactions
 - [ ] style html tags in bulk via tailwind configuration
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#apply
     - [ ] update "<a>" tags with traditional styling
+- [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
+    - testcase:
+        - log out
+        - visit article
+        - try to edit
+            - unauthorized error triggered
+            - redirect triggered
+            - promise chain continues to success path with router.push to next page
+                - note: promise chain stops because of undefined var, but can success chain be avoided?
+- [ ] simplify editing vs copying content
+    - [ ] current POST route implicitly chooses based on ownership of original
+        - [ ] current behavior will repeatedly create copy of original when non-creator clicks "Edit" button on non-owned original
+    - [ ] create separate copy route
+    - [ ] handle choice of edit vs copy at UI by presenting different button instead of implicit "smart" logic
 
 ## Backlog
 - [ ] integrate material UI components
@@ -73,6 +79,7 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] trigger path revalidation after api lib mutation to prevent display of stale data
 - [X] implement content copying by non-creators
 - [X] update cookbook page to list authored content
 - [X] limit access of draft recipes to owners (ie. createdBy)

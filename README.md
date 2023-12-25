@@ -10,8 +10,11 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] Fix Card to build links relative to a card's primary id
+- [ ] fix Card to build links relative to a card's primary id
     - [ ] cards for draft content link to the draft as a primary source instead of as a draft
+- [ ] investigate idle database connections
+    - [ ] postgres running out of available connections
+    - [ ] fundamental misunderstanding of how to use the postgres client?
 - [ ] implement better error feedback for user interactions
 - [ ] style html tags in bulk via tailwind configuration
     - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
@@ -26,11 +29,6 @@ https://comfortfood.onrender.com
             - redirect triggered
             - promise chain continues to success path with router.push to next page
                 - note: promise chain stops because of undefined var, but can success chain be avoided?
-- [ ] simplify editing vs copying content
-    - [ ] current POST route implicitly chooses based on ownership of original
-        - [ ] current behavior will repeatedly create copy of original when non-creator clicks "Edit" button on non-owned original
-    - [ ] create separate copy route
-    - [ ] handle choice of edit vs copy at UI by presenting different button instead of implicit "smart" logic
 
 ## Backlog
 - [ ] integrate material UI components
@@ -79,6 +77,18 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] treat cookbook as hub for content authoring
+    - [X] DELETE published content => redirect to cookbook
+    - [X] DELETE unpublished content draft => redirect to cookbook
+    - [X] DELETE published content draft => redirect to published content
+- [X] split editing vs copying into separate routes
+    - [X] handle choice of edit vs copy at UI by presenting different button instead of implicit "smart" logic
+    - [X] PUT = create draft of live content
+        - [X] only usable if user = created_by
+        - [X] if draft already exists, return existing draft
+    - [X] POST = create copy of live content
+        - [X] sets copied_from to source content_id
+        - [X] will always create a new record
 - [X] trigger path revalidation after api lib mutation to prevent display of stale data
 - [X] implement content copying by non-creators
 - [X] update cookbook page to list authored content

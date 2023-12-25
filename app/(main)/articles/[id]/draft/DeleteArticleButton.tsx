@@ -15,7 +15,7 @@ const DeleteArticleButton = ({ contentId, draftContentId }: Input) => {
     const router = useRouter();
 
     const handleDelete = () => deleteArticleDraft(contentId)
-        .then(() => router.push(buildPath(PATH_TYPES.article, contentId === draftContentId ? "" : contentId)));
+        .then(() => router.push(contentId === draftContentId ? "/cookbook" : buildPath(PATH_TYPES.article, contentId)));
 
     return (
         <div className="my-4">

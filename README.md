@@ -10,14 +10,10 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] investigate idle database connections
-    - [ ] postgres running out of available connections
-    - [ ] fundamental misunderstanding of how to use the postgres client?
-- [ ] implement better error feedback for user interactions
-- [ ] style html tags in bulk via tailwind configuration
-    - [ ] see https://tailwindcss.com/docs/functions-and-directives#layer
-    - [ ] see https://tailwindcss.com/docs/functions-and-directives#apply
-    - [ ] update "<a>" tags with traditional styling
+- [ ] integrate React Suspense and NextJS loading.ts into pages
+- [ ] integrate material UI components
+    - [ ] build out nicer looking forms for modifying data
+    - [ ] implement better error feedback for user interactions
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
     - testcase:
         - log out
@@ -27,35 +23,34 @@ https://comfortfood.onrender.com
             - redirect triggered
             - promise chain continues to success path with router.push to next page
                 - note: promise chain stops because of undefined var, but can success chain be avoided?
+- [ ] secure endpoints with csrf tokens
+    - [ ] develop better understanding of csrf tokens
+    - [ ] read https://github.com/nextauthjs/next-auth/issues/717
+    - [ ] update list of cookies sent in requests?
+    - [ ] limit fetch cookies to only next-auth session tracking cookies?
+    - [ ] how does this effect CSRF tokens?
 
 ## Backlog
-- [ ] integrate material UI components
+- [ ] investigate idle database connections
+    - [ ] postgres running out of available connections
+    - [ ] fundamental misunderstanding of how to use the postgres client?
+- [ ] investigate useFormState for error handling
+    - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/
+- [ ] implement data visualization
 - [ ] implement animations
 - [ ] refine login flow
     - [ ] give more login choices
     - [ ] convert to modal for login prompt
     - [ ] prompt user to create account
-- [ ] review whether client components need auth access
-    - [ ] move auth access to parent server component and pass necessary info down?
-    - [ ] remove NextAuthProvider?
 - [ ] use pg client instead of postgres to cut down on number of dependencies
     - redundant to use two different psql clients for database interaction when pg needed by next-auth
-- [ ] integrate React Suspense and NextJS loading.ts into pages
-- [ ] investigate useFormState for error handling
-    - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-validation-and-error-handling
-- [ ] investigate replacing NextAuth SessionProvider with getServerSession
-    - [ ] https://next-auth.js.org/getting-started/client#sessionprovider
-    - [ ] https://next-auth.js.org/configuration/nextjs#getserversession
+server-actions-and-mutations#server-side-validation-and-error-handling
 - [ ] migrate auth.ts implementation to new practices after NextAuth.js becomes Auth.js
     - [ ] see: https://authjs.dev/guides/upgrade-to-v5?authentication-method=server-component
-- [ ] limit fetch cookies to only next-auth session tracking cookies
 
 ## Future Features
-- consider soft delete standard to preserve paper trail on updates
+- consider soft delete to preserve paper trail on mutations
 - research html editors and how to embed user-created articles in pages
-- copied and modified recipes
-    - should modified recipe keep a reference to original?
-    - what happens if original is deleted?
 - extend articles data model
     - rating system
 - extend recipes data model
@@ -75,6 +70,8 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] update header links styling using tailwind @layer
+- [X] remove unused NextAuthProvider now that session authentication flowing through server components
 - [X] fix Card component to build links for draft content relative to the source content_id
 - [X] treat cookbook as hub for content authoring
     - [X] DELETE published content => redirect to cookbook

@@ -1,5 +1,5 @@
 ## Summary
-This is a personal project to learn NextJS and PostgreSQL and to work through different development scenarios.  Some design choices are intentionally bad in order to experience the pain and corrective work necessary to clean up tech debt.
+This is a personal project to learn NextJS, PostgreSQL, infrastructure, and devops and to work through different development scenarios.  Some design choices are intentionally bad in order to experience the pain and corrective work necessary to clean up tech debt.
 
 For example, all user content data is currently stored in one giant table that will eventually need to be split and normalized.  Though this is bad from a design standpoint, the underlying goal is to research and implement a migration path to achieve better data normalization.
 
@@ -10,8 +10,6 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] fix Card to build links relative to a card's primary id
-    - [ ] cards for draft content link to the draft as a primary source instead of as a draft
 - [ ] investigate idle database connections
     - [ ] postgres running out of available connections
     - [ ] fundamental misunderstanding of how to use the postgres client?
@@ -77,6 +75,7 @@ https://comfortfood.onrender.com
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] fix Card component to build links for draft content relative to the source content_id
 - [X] treat cookbook as hub for content authoring
     - [X] DELETE published content => redirect to cookbook
     - [X] DELETE unpublished content draft => redirect to cookbook

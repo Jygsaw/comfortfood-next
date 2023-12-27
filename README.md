@@ -10,10 +10,16 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] integrate material UI components
-    - [ ] build out nicer looking forms for modifying data
+- [ ] improve draft editing forms
+    - [X] integrate material UI base components
+    - [X] make draft editing forms look nicer
     - [ ] implement better error feedback for user interactions
+        - [ ] server-actions-and-mutations#server-side-validation-and-error-handling
+- [ ] investigate idle database connections
+    - [ ] postgres running out of available connections
+    - [ ] fundamental misunderstanding of how to use the postgres client?
 - [ ] convert Spinner raw CSS to Tailwind classes
+- [ ] implement auto-save for draft changes
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
     - testcase:
         - log out
@@ -31,9 +37,7 @@ https://comfortfood.onrender.com
     - [ ] how does this effect CSRF tokens?
 
 ## Backlog
-- [ ] investigate idle database connections
-    - [ ] postgres running out of available connections
-    - [ ] fundamental misunderstanding of how to use the postgres client?
+- [ ] create edit-in-place version of draft editor to display final version while drafting
 - [ ] investigate useFormState for error handling
     - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/
 - [ ] implement data visualization
@@ -45,9 +49,9 @@ https://comfortfood.onrender.com
     - [ ] prompt user to create account
 - [ ] use pg client instead of postgres to cut down on number of dependencies
     - redundant to use two different psql clients for database interaction when pg needed by next-auth
-server-actions-and-mutations#server-side-validation-and-error-handling
 - [ ] migrate auth.ts implementation to new practices after NextAuth.js becomes Auth.js
     - [ ] see: https://authjs.dev/guides/upgrade-to-v5?authentication-method=server-component
+- [ ] decide if siteUtils.slugify() is good enough or rely on library dependency
 
 ## Future Features
 - consider soft delete to preserve paper trail on mutations
@@ -69,6 +73,7 @@ server-actions-and-mutations#server-side-validation-and-error-handling
         - null out createdFrom fields of related recipes?
         - bookmarks?
 - bypass REST endpoints and call database client directly from website server components
+- parameterize database name to allow configuration of production, staging, testing, etc. databases
 
 ## Done
 - [X] implement root loading spinner

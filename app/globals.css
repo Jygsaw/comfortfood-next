@@ -4,6 +4,6 @@
 
 @layer base {
     a {
-        @apply hover:underline
+        @apply hover:underline hover:cursor-pointer
     }
 }

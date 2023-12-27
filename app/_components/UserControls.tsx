@@ -9,7 +9,7 @@ const AccountControls = async () => {
 
     return (
         <nav className="flex gap-5 justify-end items-center text-xl font-semibold">
-            {!!session && <Link href="/profile">Profile</Link>}
+            {!!session && <Link className="text-orange-500" href="/profile">Profile</Link>}
             {!!session && <LogoutControl />}
             {!session && <LoginControl />}
         </nav>

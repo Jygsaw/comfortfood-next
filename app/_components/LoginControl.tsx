@@ -12,9 +12,9 @@ const LoginControl = ({ type, text = "Login" }: Input) => {
     const handleLogin = () => signIn();
 
     if (type === "link") {
-        return <a className="text-blue-600 hover:underline hover:text-blue-800 visited:text-purple-600" onClick={handleLogin}>{text}</a>;
+        return <a className="text-blue-600" onClick={handleLogin}>{text}</a>;
     } else {
-        return <button className="p-1 rounded bg-orange-300" onClick={handleLogin}>{text}</button>;
+        return <button className="p-1 rounded bg-orange-400 text-white border hover:border-orange-600" onClick={handleLogin}>{text}</button>;
     }
 };
 

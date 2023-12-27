@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "app/_components/Image";
 
 const IMAGE_LINK = "https://static.vecteezy.com/system/resources/previews/008/382/506/original/404-error-page-with-explorer-man-illustration-on-white-background-vector.jpg";
 

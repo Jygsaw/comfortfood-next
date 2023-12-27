@@ -1,7 +1,7 @@
 import React from "react";
-import Image from "next/image";
 import { getAuth } from "app/_lib/auth";
 import { getArticle } from "app/_lib/articlesAPI";
+import Image from "app/_components/Image";
 import CopyArticleButton from "./CopyArticleButton";
 import DeleteArticleButton from "./DeleteArticleButton";
 import EditArticleButton from "./EditArticleButton";

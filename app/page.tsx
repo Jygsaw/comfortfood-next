@@ -1,8 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import { getList } from "app/_lib/listsAPI";
 import { titleAppend } from "app/_lib/siteUtils";
 import Card from "app/_components/Card";
+import Image from "app/_components/Image";
 import SectionHeader from "app/_components/SectionHeader";
 
 import type { Metadata } from "next";

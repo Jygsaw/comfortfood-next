@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Image from "next/image";
+import Image from "app/_components/Image";
 
 const IMAGE_LINK = "https://st5.depositphotos.com/70183936/64515/v/450/depositphotos_645153956-stock-illustration-error-creative-icons-desig.jpg";
 

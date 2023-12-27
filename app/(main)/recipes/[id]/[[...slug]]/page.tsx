@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "app/_components/Image";
 import { getAuth } from "app/_lib/auth";
 import { getRecipe } from "app/_lib/recipesAPI";
 import CopyRecipeButton from "./CopyRecipeButton";

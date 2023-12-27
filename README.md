@@ -10,10 +10,10 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] integrate React Suspense and NextJS loading.ts into pages
 - [ ] integrate material UI components
     - [ ] build out nicer looking forms for modifying data
     - [ ] implement better error feedback for user interactions
+- [ ] convert Spinner raw CSS to Tailwind classes
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
     - testcase:
         - log out
@@ -37,7 +37,8 @@ https://comfortfood.onrender.com
 - [ ] investigate useFormState for error handling
     - [ ] https://nextjs.org/docs/app/building-your-application/data-fetching/
 - [ ] implement data visualization
-- [ ] implement animations
+- [ ] implement more animations
+    - [ ] see https://loading.io/css/
 - [ ] refine login flow
     - [ ] give more login choices
     - [ ] convert to modal for login prompt
@@ -70,6 +71,7 @@ server-actions-and-mutations#server-side-validation-and-error-handling
 - bypass REST endpoints and call database client directly from website server components
 
 ## Done
+- [X] implement root loading spinner
 - [X] update header links styling using tailwind @layer
 - [X] remove unused NextAuthProvider now that session authentication flowing through server components
 - [X] fix Card component to build links for draft content relative to the source content_id

@@ -15,29 +15,24 @@ const Page = async () => {
 
     return (
         <>
-            <SectionHeader title="Cookbook" bannerLink={BANNER_LINK} />
-
-            <nav>
-                {!session ? (
-                    <>
-                        <LoginControl type="link" /> to share your ideas and record your recipes!
-                    </>
-                ) : (
-                    <>
+            <SectionHeader
+                title="Cookbook" bannerLink={BANNER_LINK}
+                postTitle={
+                    <section className="flex gap-3 justify-end">
                         <AddArticleButton />
                         <AddRecipeButton />
-                    </>
-                )}
-            </nav>
+                    </section>
+                }
+            />
 
-            {session && (
-                <section>
-                    <SectionHeader title="My Creations" />
-                    <div className="w-full grid grid-cols-3 gap-10">
+            {!session
+                ? <p><LoginControl type="link" /> to share your ideas and record your recipes!</p>
+                : (
+                    <section className="w-full grid grid-cols-3 gap-10">
                         {list.map(data => <Card key={data.contentId} data={data} />)}
-                    </div>
-                </section>
-            )}
+                    </section>
+                )
+            }
         </>
     );
 };

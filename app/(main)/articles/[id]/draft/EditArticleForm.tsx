@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { Input, TextareaAutosize } from "@mui/base";
 import { updateArticleDraft } from "app/_lib/articlesAPI";
+import { debounce, slugify } from "app/_lib/siteUtils";
+import SectionHeader from "app/_components/SectionHeader";
+import Button from "app/_components/Button";
+import FormRow from "app/_components/FormRow";
+import DeleteArticleButton from "./DeleteArticleButton";
+import PreviewArticleButton from "./PreviewArticleButton";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { Article } from "app/_types/record";
@@ -11,16 +18,36 @@ type Input = {
     draft: Article,
 }
 
+const Controls = ({ contentId, draftContentId }: { contentId: string, draftContentId: string }) => {
+    return (
+        <section className="flex gap-6 items-center justify-end">
+            <DeleteArticleButton contentId={contentId} draftContentId={draftContentId} />
+            <PreviewArticleButton contentId={contentId} />
+            <Button variant="outlined" type="submit">Save changes</Button>
+        </section>
+    );
+};
+
 const EditArticleForm =({ contentId, draft }: Input) => {
     const [formData, setFormData] = useState<Partial<Article>>({
         name: draft.name ?? "",
+        slug: draft.slug ?? "",
         description: draft.description ?? "",
         imageLink: draft.imageLink ?? "",
+        content: draft.content ?? "",
     });
     const [status, setStatus] = useState("");
 
+    const slugifySlug = useMemo(() => debounce(() =>
+        setFormData(prev => ({ ...prev, slug: slugify(prev.slug) })), 3000), []);
+
     const changeName = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, name: event.target.value }));
+
+    const changeSlug = (event: ChangeEvent<HTMLInputElement>) => {
+        setFormData(prev => ({ ...prev, slug: event.target.value }));
+        slugifySlug();
+    };
 
     const changeDescription = (event: ChangeEvent<HTMLTextAreaElement>) =>
         setFormData(prev => ({ ...prev, description: event.target.value }));
@@ -28,42 +55,109 @@ const EditArticleForm =({ contentId, draft }: Input) => {
     const changeImageLink = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, imageLink: event.target.value }));
 
+    const changeContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
+        setFormData(prev => ({ ...prev, content: event.target.value }));
+
     const handleSave = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         updateArticleDraft(contentId, formData)
             .then(() => setStatus(""))
             .catch((error: Error) => setStatus(error.message));
     };
 
     return (
-        <form className="container flex flex-col gap-6" onSubmit={handleSave}>
+        <>
+            <SectionHeader
+                title="Edit your article"
+                postTitle={<Controls contentId={contentId} draftContentId={draft.contentId} />}
+            />
+
             <h1 className="text-red-500 text-xl">{status}</h1>
 
-            <div className="flex gap-6">
-                <label htmlFor="name">Name</label>
-                <input id="name" className="w-1/2 border" type="text" name="name" value={formData.name} onChange={changeName} placeholder="Pumpkin pie" />
-            </div>
-            <div className="text-sm text-gray-700">DEV EXAMPLE: What&apos;s the Difference Between Expiration, Best-By, Sell-By, and Use-By Dates?</div>
+            <form className="container" onSubmit={handleSave}>
+                <FormRow
+                    label={<label htmlFor="name">Name</label>}
+                    input={
+                        <Input
+                            id="name"
+                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={changeName}
+                            placeholder="Pumpkin Pie"
+                        />
+                    }
+                    example="What's the Difference Between Expiration, Best-By, Sell-By, and Use-By Dates?"
+                />
 
-            <div className="flex gap-6">
-                <label htmlFor="description">Description</label>
-                <textarea id="description" className="w-1/2 h-48 border" name="description" value={formData.description} onChange={changeDescription} placeholder="Lorem ipsum" />
-            </div>
-            <div className="text-sm text-gray-700">DEV EXAMPLE: Reducing food waste is critical. Understanding expiration, sell-by, best-by, use-by, and freeze-by date labels can help you do your part, as well as save you money.</div>
+                <FormRow
+                    label={<label htmlFor="slug">Slug</label>}
+                    input={
+                        <Input
+                            id="slug"
+                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
+                            type="text"
+                            name="slug"
+                            value={formData.slug}
+                            onChange={changeSlug}
+                            placeholder="this-is-a-seo-friendly-slug"
+                        />
+                    }
+                    example="Expiration, Best-By, Sell-By, and Use-By Dates"
+                />
 
-            <div className="flex gap-6">
-                <label htmlFor="imageLink">Image</label>
-                <input id="imageLink" className="w-1/2 border" type="text" name="imageLink" value={formData.imageLink} onChange={changeImageLink} placeholder="http://example.com/image.jpg" />
-            </div>
-            <div className="text-sm text-gray-700">DEV EXAMPLE: https://www.simplyrecipes.com/thmb/aNnI7QfPFNrPdzU0Mbb7EcRvN4I=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Expiration-Dates-LEAD-a9c08d6e07f14ea1a80e06e1dd86cdd7.jpg</div>
+                <FormRow
+                    label={<label htmlFor="description">Subtitle</label>}
+                    input={
+                        <TextareaAutosize
+                            id="description"
+                            className="w-full px-3 py-1 border"
+                            name="description"
+                            value={formData.description}
+                            onChange={changeDescription}
+                            placeholder="Lorem ipsum"
+                            minRows="1"
+                        />
+                    }
+                    example="Reducing food waste is critical. Understanding expiration, sell-by, best-by, use-by, and freeze-by date labels can help you do your part, as well as save you money."
+                />
 
-            <button className="w-40 h-12 my-4 bg-blue-300 rounded" type="submit">
-                Save changes
-            </button>
+                <FormRow
+                    label={<label htmlFor="imageLink">Image</label>}
+                    input={
+                        <Input
+                            id="imageLink"
+                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
+                            type="text"
+                            name="imageLink"
+                            value={formData.imageLink}
+                            onChange={changeImageLink}
+                            placeholder="http://example.com/image.jpg"
+                        />
+                    }
+                    example="https://www.simplyrecipes.com/thmb/aNnI7QfPFNrPdzU0Mbb7EcRvN4I=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Expiration-Dates-LEAD-a9c08d6e07f14ea1a80e06e1dd86cdd7.jpg"
+                />
 
-            <pre>{JSON.stringify(formData, null, 4)}</pre>
-        </form>
+                <FormRow
+                    label={<label htmlFor="content">Content</label>}
+                    input={
+                        <TextareaAutosize
+                            id="content"
+                            className="w-full px-3 py-1 border"
+                            name="content"
+                            value={formData.content}
+                            onChange={changeContent}
+                            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+                            minRows="5"
+                        />
+                    }
+                    example="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                />
+
+                <Controls contentId={contentId} draftContentId={draft.contentId} />
+            </form>
+        </>
     );
 };
 

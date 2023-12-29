@@ -4,6 +4,8 @@ import { RESPONSES } from "app/api/_lib/routeUtils";
 
 import type { DynamicRoute } from "app/_types/site";
 
+const ALLOWED_CHANGES = ["name", "slug", "description", "imageLink", "content"];
+
 export async function GET(_: never, { params: { id } }: DynamicRoute) {
     const session = await getAuth();
     if (!session) return RESPONSES.UNAUTHORIZED;
@@ -29,7 +31,6 @@ export async function PATCH(request: Request, { params: { id } }: DynamicRoute) 
     if (!session) return RESPONSES.UNAUTHORIZED;
 
     try {
-        const ALLOWED_CHANGES = ["name", "description", "imageLink"];
         const data = await request.json();
         const cleaned: Record<string, string> = ALLOWED_CHANGES.reduce((prev, col) => ({
             ...prev,

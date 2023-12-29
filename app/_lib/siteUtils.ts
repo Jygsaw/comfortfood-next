@@ -34,3 +34,24 @@ export function buildUrl(path: string, params?: Record<string, string>) {
 
     return `${protocol}${hostname}${path}${query && `?${query}`}`;
 }
+
+export function debounce<F extends(...args: Parameters<F>) => ReturnType<F>>(func: F, ms: number) {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined = undefined;
+    return (...args: Parameters<F>) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(null, args), ms);
+    };
+}
+
+// slugify function taken from: https://byby.dev/js-slugify-string
+// TODO: decide if this is good enough or write my own or rely on library dependency
+export function slugify(str: string = "") {
+    return String(str)
+        .normalize("NFKD") // split accented characters into their base characters and diacritical marks
+        .replace(/[\u0300-\u036f]/g, "") // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+        .trim() // trim leading or trailing whitespace
+        .toLowerCase() // convert to lowercase
+        .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
+        .replace(/\s+/g, "-") // replace spaces with hyphens
+        .replace(/-+/g, "-"); // remove consecutive hyphens
+}

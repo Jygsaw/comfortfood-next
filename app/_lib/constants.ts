@@ -1,6 +1,6 @@
 import type { Article, Recipe } from "app/_types/record";
 
-export const PATH_TYPES = {
+export const PATHS = {
     cookbook: "cookbook",
     article: "article",
     articleDraft: "articleDraft",

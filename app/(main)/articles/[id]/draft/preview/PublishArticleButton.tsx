@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { publishArticleDraft } from "app/_lib/articlesAPI";
 import { buildPath } from "app/_lib/siteUtils";
-import { PATH_TYPES } from "app/_lib/constants";
+import { PATHS } from "app/_lib/constants";
 import Button from "app/_components/Button";
 
 type Input = {
@@ -17,7 +17,7 @@ const PublishArticleButton = ({ contentId, slug }: Input) => {
 
     const handlePublish = () =>
         publishArticleDraft(contentId)
-            .then(() => router.push(buildPath(PATH_TYPES.article, contentId, slug)));
+            .then(() => router.push(buildPath(PATHS.article, contentId, slug)));
 
     return <Button onClick={handlePublish}>Publish article</Button>;
 };

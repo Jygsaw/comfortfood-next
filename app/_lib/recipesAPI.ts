@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { buildFetchOptions, handleNetworkResponse } from "app/_lib/apiUtils";
 import { buildPath, buildUrl } from "app/_lib/siteUtils";
-import { PATH_TYPES } from "app/_lib/constants";
+import { PATHS } from "app/_lib/constants";
 
 import type { PageProps } from "app/_types/site";
 import type { Recipe } from "app/_types/record";
@@ -43,7 +43,7 @@ export async function deleteRecipe(id: string): Promise<void> {
 
     return fetch(url, options)
         .then(handleNetworkResponse)
-        .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
+        .then(() => revalidatePath(buildPath(PATHS.recipe, id), "layout"));
 }
 
 export async function editRecipe(id: string): Promise<Recipe> {
@@ -80,7 +80,7 @@ export async function updateRecipeDraft(id: string, data: Partial<Recipe>): Prom
     return fetch(url, options)
         .then(handleNetworkResponse)
         .then(json => {
-            revalidatePath(buildPath(PATH_TYPES.recipeDraft, id), "layout");
+            revalidatePath(buildPath(PATHS.recipeDraft, id), "layout");
             return json.data.recipe;
         });
 }
@@ -91,7 +91,7 @@ export async function deleteRecipeDraft(id: string): Promise<void> {
 
     return fetch(url, options)
         .then(handleNetworkResponse)
-        .then(() => revalidatePath(buildPath(PATH_TYPES.recipeDraft, id), "layout"));
+        .then(() => revalidatePath(buildPath(PATHS.recipeDraft, id), "layout"));
 }
 
 export async function publishRecipeDraft(id: string): Promise<void> {
@@ -100,5 +100,5 @@ export async function publishRecipeDraft(id: string): Promise<void> {
 
     return fetch(url, options)
         .then(handleNetworkResponse)
-        .then(() => revalidatePath(buildPath(PATH_TYPES.recipe, id), "layout"));
+        .then(() => revalidatePath(buildPath(PATHS.recipe, id), "layout"));
 }

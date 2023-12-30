@@ -1,4 +1,4 @@
-import { PATH_TYPES } from "app/_lib/constants";
+import { PATHS } from "app/_lib/constants";
 
 import type { PathTypes } from "app/_types/site";
 
@@ -8,19 +8,19 @@ export function titleAppend(title: string) {
 
 export function buildPath(type: PathTypes, id?: string, slug?: string) {
     switch (type) {
-        case PATH_TYPES.cookbook:
+        case PATHS.cookbook:
             return "/cookbook";
-        case PATH_TYPES.article:
+        case PATHS.article:
             return ["/articles", id, slug].join("/");
-        case PATH_TYPES.articleDraft:
+        case PATHS.articleDraft:
             return ["/articles", id, "draft"].join("/");
-        case PATH_TYPES.articlePreview:
+        case PATHS.articlePreview:
             return ["/articles", id, "draft", "preview"].join("/");
-        case PATH_TYPES.recipe:
+        case PATHS.recipe:
             return ["/recipes", id, slug].join("/");
-        case PATH_TYPES.recipeDraft:
+        case PATHS.recipeDraft:
             return ["/recipes", id, "draft"].join("/");
-        case PATH_TYPES.recipePreview:
+        case PATHS.recipePreview:
             return ["/recipes", id, "draft", "preview"].join("/");
         default:
             throw new Error(`Unknown path type: ${type}`);

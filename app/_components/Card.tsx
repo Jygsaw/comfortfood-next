@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { buildPath } from "app/_lib/siteUtils";
-import { PATH_TYPES } from "app/_lib/constants";
+import { PATHS } from "app/_lib/constants";
 import Image from "app/_components/Image";
 
 import type { UserContent } from "app/_types/record";
@@ -12,8 +12,8 @@ type Input = {
 
 const Card = ({ data }: Input) => {
     const href = data.draftOf === null
-        ? buildPath(PATH_TYPES[data.type], data.contentId, data.slug)
-        : buildPath(PATH_TYPES[`${data.type}Draft`], data.draftOf);
+        ? buildPath(PATHS[data.type], data.contentId, data.slug)
+        : buildPath(PATHS[`${data.type}Draft`], data.draftOf);
 
     return (
         <Link className="w-full h-full" href={href}>

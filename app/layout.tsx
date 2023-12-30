@@ -15,7 +15,7 @@ const RootLayout = ({ children }: PropsWithChildren) => (
                 <main className="w-full basis-0 flex-grow">
                     {children}
                 </main>
-                <footer className="border-t border-slate-500">
+                <footer className="my-4 border-t border-slate-500">
                     <SiteFooter />
                 </footer>
             </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { publishArticleDraft } from "app/_lib/articlesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -18,13 +19,7 @@ const PublishArticleButton = ({ contentId, slug }: Input) => {
         publishArticleDraft(contentId)
             .then(() => router.push(buildPath(PATH_TYPES.article, contentId, slug)));
 
-    return (
-        <div className="my-4">
-            <button className="w-40 h-12 bg-blue-300 rounded" onClick={handlePublish}>
-                Publish article
-            </button>
-        </div>
-    );
+    return <Button onClick={handlePublish}>Publish article</Button>;
 };
 
 export default PublishArticleButton;

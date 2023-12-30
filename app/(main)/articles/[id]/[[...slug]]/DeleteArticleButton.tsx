@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { deleteArticle } from "app/_lib/articlesAPI";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -14,13 +15,7 @@ const DeleteArticleButton = ({ contentId }: Input) => {
     const handleDelete = () => deleteArticle(contentId)
         .then(() => router.push("/cookbook"));
 
-    return (
-        <div className="my-4">
-            <button className="w-40 h-12 bg-blue-300 rounded" onClick={handleDelete}>
-                Delete article
-            </button>
-        </div>
-    );
+    return <Button onClick={handleDelete}>Delete article</Button>;
 };
 
 export default DeleteArticleButton;

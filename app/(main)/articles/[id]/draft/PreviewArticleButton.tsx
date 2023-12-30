@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -14,13 +15,7 @@ const PreviewArticleButton = ({ contentId }: Input) => {
 
     const handlePreview = () => router.push(buildPath(PATH_TYPES.articlePreview, contentId));
 
-    return (
-        <div className="my-4">
-            <button className="w-40 h-12 bg-blue-300 rounded" onClick={handlePreview}>
-                Preview draft
-            </button>
-        </div>
-    );
+    return <Button onClick={handlePreview}>Preview draft</Button>;
 };
 
 export default PreviewArticleButton;

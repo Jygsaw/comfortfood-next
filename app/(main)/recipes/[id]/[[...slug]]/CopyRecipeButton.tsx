@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { copyRecipe } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -16,13 +17,7 @@ const CopyRecipeButton = ({ contentId }: Input) => {
     const handleEdit = () => copyRecipe(contentId)
         .then(recipe => router.push(buildPath(PATH_TYPES.recipeDraft, recipe.draftOf)));
 
-    return (
-        <div className="my-4 ">
-            <button className="w-40 h-12 bg-blue-300 rounded" onClick={handleEdit}>
-                Copy recipe
-            </button>
-        </div>
-    );
+    return <Button onClick={handleEdit}>Copy recipe</Button>;
 };
 
 export default CopyRecipeButton;

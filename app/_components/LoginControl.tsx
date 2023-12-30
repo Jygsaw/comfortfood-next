@@ -2,6 +2,7 @@
 
 import React from "react";
 import { signIn } from "next-auth/react";
+import Button from "app/_components/Button";
 
 type Input = {
     type?: "button" | "link",
@@ -14,7 +15,7 @@ const LoginControl = ({ type, text = "Login" }: Input) => {
     if (type === "link") {
         return <a className="text-blue-600" onClick={handleLogin}>{text}</a>;
     } else {
-        return <button className="p-1 rounded bg-orange-400 text-white border hover:border-orange-600" onClick={handleLogin}>{text}</button>;
+        return <Button variant="contained" onClick={handleLogin}>{text}</Button>;
     }
 };
 

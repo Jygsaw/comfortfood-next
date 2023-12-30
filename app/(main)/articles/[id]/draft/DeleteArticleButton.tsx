@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { deleteArticleDraft } from "app/_lib/articlesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATH_TYPES } from "app/_lib/constants";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -15,15 +16,9 @@ const DeleteArticleButton = ({ contentId, draftContentId }: Input) => {
     const router = useRouter();
 
     const handleDelete = () => deleteArticleDraft(contentId)
-        .then(() => router.push(contentId === draftContentId ? "/cookbook" : buildPath(PATH_TYPES.article, contentId)));
+        .then(() => router.push(buildPath(contentId === draftContentId ? PATH_TYPES.cookbook : PATH_TYPES.article, contentId)));
 
-    return (
-        <div className="my-4">
-            <button className="w-40 h-12 bg-blue-300 rounded" onClick={handleDelete}>
-                Delete draft
-            </button>
-        </div>
-    );
+    return <Button onClick={handleDelete}>Delete draft</Button>;
 };
 
 export default DeleteArticleButton;

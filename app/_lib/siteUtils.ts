@@ -8,6 +8,8 @@ export function titleAppend(title: string) {
 
 export function buildPath(type: PathTypes, id?: string, slug?: string) {
     switch (type) {
+        case PATH_TYPES.cookbook:
+            return "/cookbook";
         case PATH_TYPES.article:
             return ["/articles", id, slug].join("/");
         case PATH_TYPES.articleDraft:

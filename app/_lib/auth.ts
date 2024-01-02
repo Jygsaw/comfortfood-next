@@ -1,7 +1,7 @@
 import NextAuth, { getServerSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import PostgresAdapter from "@auth/pg-adapter";
-import { pool } from "app/_db/db";
+import { pool } from "app/_lib/db";
 
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 import type { NextAuthOptions } from "next-auth";

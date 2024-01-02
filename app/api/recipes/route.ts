@@ -1,4 +1,4 @@
-import sql from "app/_db/db";
+import sql from "app/_lib/db";
 import { getAuth } from "app/_lib/auth";
 import { generateRecipes } from "app/_lib/testUtils";
 import { RESPONSES } from "app/api/_lib/routeUtils";

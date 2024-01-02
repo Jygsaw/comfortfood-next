@@ -10,14 +10,10 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] improve draft editing forms
-    - [X] integrate material UI base components
-    - [X] make draft editing forms look nicer
-    - [ ] implement better error feedback for user interactions
-        - [ ] server-actions-and-mutations#server-side-validation-and-error-handling
 - [ ] investigate idle database connections
     - [ ] postgres running out of available connections
     - [ ] fundamental misunderstanding of how to use the postgres client?
+- [ ] research next ui themes
 - [ ] convert Spinner raw CSS to Tailwind classes
 - [ ] implement auto-save for draft changes
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
@@ -35,6 +31,11 @@ https://comfortfood.onrender.com
     - [ ] update list of cookies sent in requests?
     - [ ] limit fetch cookies to only next-auth session tracking cookies?
     - [ ] how does this effect CSRF tokens?
+- [ ] implement better validation error feedback during publish step
+    - [ ] research next ui components error props
+    - [ ] design error flow that integrates with next ui components
+    - [ ] see: server-actions-and-mutations#server-side-validation-and-error-handling
+
 
 ## Backlog
 - [ ] create edit-in-place version of draft editor to display final version while drafting
@@ -76,6 +77,11 @@ https://comfortfood.onrender.com
 - parameterize database name to allow configuration of production, staging, testing, etc. databases
 
 ## Done
+- [X] improve draft editing forms
+    - [X] integrate material UI base components
+    - [X] make draft editing forms look nicer
+    - [X] integrate delete confirmation modal
+- [X] replace @mui/base with @nextui-org/react
 - [X] implement root loading spinner
 - [X] update header links styling using tailwind @layer
 - [X] remove unused NextAuthProvider now that session authentication flowing through server components

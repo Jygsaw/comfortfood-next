@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
 import { deleteRecipe } from "app/_lib/recipesAPI";
+import ConfirmButton from "app/_components/ConfirmButton";
 
 type Input = {
     contentId: string,
@@ -15,7 +15,13 @@ const DeleteRecipeButton = ({ contentId }: Input) => {
     const handleDelete = () => deleteRecipe(contentId)
         .then(() => router.push("/cookbook"));
 
-    return <Button onPress={handleDelete}>Delete recipe</Button>;
+    return (
+        <ConfirmButton
+            confirmTitle="Delete Recipe"
+            confirmBody="Are you sure you want to delete this recipe?"
+            onPress={handleDelete}
+        >Delete recipe</ConfirmButton>
+    );
 };
 
 export default DeleteRecipeButton;

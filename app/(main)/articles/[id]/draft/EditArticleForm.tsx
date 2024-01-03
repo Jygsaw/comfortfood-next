@@ -1,32 +1,21 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { Input, TextareaAutosize } from "@mui/base";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { updateArticleDraft } from "app/_lib/articlesAPI";
 import { debounce, slugify } from "app/_lib/siteUtils";
 import SectionHeader from "app/_components/SectionHeader";
-import Button from "app/_components/Button";
 import FormRow from "app/_components/FormRow";
 import DeleteArticleButton from "./DeleteArticleButton";
 import PreviewArticleButton from "./PreviewArticleButton";
 
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent } from "react";
 import type { Article } from "app/_types/record";
 
 type Input = {
     contentId: string,
     draft: Article,
 }
-
-const Controls = ({ contentId, draftContentId }: { contentId: string, draftContentId: string }) => {
-    return (
-        <section className="flex gap-6 items-center justify-end">
-            <DeleteArticleButton contentId={contentId} draftContentId={draftContentId} />
-            <PreviewArticleButton contentId={contentId} />
-            <Button variant="outlined" type="submit">Save changes</Button>
-        </section>
-    );
-};
 
 const EditArticleForm =({ contentId, draft }: Input) => {
     const [formData, setFormData] = useState<Partial<Article>>({
@@ -49,20 +38,29 @@ const EditArticleForm =({ contentId, draft }: Input) => {
         slugifySlug();
     };
 
-    const changeDescription = (event: ChangeEvent<HTMLTextAreaElement>) =>
+    const changeDescription = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, description: event.target.value }));
 
     const changeImageLink = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, imageLink: event.target.value }));
 
-    const changeContent = (event: ChangeEvent<HTMLTextAreaElement>) =>
+    const changeContent = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, content: event.target.value }));
 
-    const handleSave = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSave = () => {
         updateArticleDraft(contentId, formData)
             .then(() => setStatus(""))
             .catch((error: Error) => setStatus(error.message));
+    };
+
+    const Controls = ({ contentId, draftContentId }: { contentId: string, draftContentId: string }) => {
+        return (
+            <section className="flex gap-6 items-center justify-end">
+                <DeleteArticleButton contentId={contentId} draftContentId={draftContentId} />
+                <PreviewArticleButton contentId={contentId} />
+                <Button onPress={handleSave}>Save changes</Button>
+            </section>
+        );
     };
 
     return (
@@ -80,8 +78,6 @@ const EditArticleForm =({ contentId, draft }: Input) => {
                     input={
                         <Input
                             id="name"
-                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
-                            type="text"
                             name="name"
                             value={formData.name}
                             onChange={changeName}
@@ -96,8 +92,6 @@ const EditArticleForm =({ contentId, draft }: Input) => {
                     input={
                         <Input
                             id="slug"
-                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
-                            type="text"
                             name="slug"
                             value={formData.slug}
                             onChange={changeSlug}
@@ -110,14 +104,13 @@ const EditArticleForm =({ contentId, draft }: Input) => {
                 <FormRow
                     label={<label htmlFor="description">Subtitle</label>}
                     input={
-                        <TextareaAutosize
+                        <Textarea
                             id="description"
-                            className="w-full px-3 py-1 border"
                             name="description"
                             value={formData.description}
                             onChange={changeDescription}
                             placeholder="Lorem ipsum"
-                            minRows="1"
+                            minRows={1}
                         />
                     }
                     example="Reducing food waste is critical. Understanding expiration, sell-by, best-by, use-by, and freeze-by date labels can help you do your part, as well as save you money."
@@ -128,8 +121,6 @@ const EditArticleForm =({ contentId, draft }: Input) => {
                     input={
                         <Input
                             id="imageLink"
-                            slotProps={{ input: { className: "w-full px-3 py-1 border" } }}
-                            type="text"
                             name="imageLink"
                             value={formData.imageLink}
                             onChange={changeImageLink}
@@ -142,14 +133,13 @@ const EditArticleForm =({ contentId, draft }: Input) => {
                 <FormRow
                     label={<label htmlFor="content">Content</label>}
                     input={
-                        <TextareaAutosize
+                        <Textarea
                             id="content"
-                            className="w-full px-3 py-1 border"
                             name="content"
                             value={formData.content}
                             onChange={changeContent}
                             placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
-                            minRows="5"
+                            minRows={5}
                         />
                     }
                     example="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."

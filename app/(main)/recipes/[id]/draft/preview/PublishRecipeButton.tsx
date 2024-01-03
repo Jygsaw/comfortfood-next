@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@nextui-org/react";
 import { publishRecipeDraft } from "app/_lib/recipesAPI";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATHS } from "app/_lib/constants";
-import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -19,7 +19,7 @@ const PublishRecipeButton = ({ contentId, slug }: Input) => {
         publishRecipeDraft(contentId)
             .then(() => router.push(buildPath(PATHS.recipe, contentId, slug)));
 
-    return <Button onClick={handlePublish}>Publish recipe</Button>;
+    return <Button onPress={handlePublish}>Publish recipe</Button>;
 };
 
 export default PublishRecipeButton;

@@ -4,6 +4,9 @@
 import postgres from "postgres";
 import { Pool } from "pg";
 
+// TODO: investigate db hitting connection limit
+//  see: https://github.com/porsager/postgres?tab=readme-ov-file#connection-timeout
+//  see: https://github.com/porsager/postgres/issues/443 for debugging options
 export const sql = postgres({
     host: process.env.POSTGRES_HOSTNAME,
     database: process.env.POSTGRES_DATABASE,

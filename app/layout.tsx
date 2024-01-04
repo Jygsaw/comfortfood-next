@@ -10,7 +10,7 @@ const RootLayout = ({ children }: PropsWithChildren) => (
     <html lang="en" className="light">
         <body className="overflow-y-scroll">
             <Providers>
-                <div className="min-h-screen flex flex-col">
+                <div className="min-h-screen flex flex-col light text-foreground bg-background">
                     <header className="sticky top-0 h-24 z-30 border-b border-slate-500">
                         <SiteHeader />
                     </header>

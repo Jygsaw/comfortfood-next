@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Input, Textarea } from "@nextui-org/react";
 import { updateArticleDraft } from "app/_lib/articlesAPI";
 import { debounce, slugify } from "app/_lib/siteUtils";
 import SectionHeader from "app/_components/SectionHeader";
 import FormRow from "app/_components/FormRow";
+import Button from "app/_components/Button";
 import DeleteArticleButton from "./DeleteArticleButton";
 import PreviewArticleButton from "./PreviewArticleButton";
 
@@ -58,7 +59,7 @@ const EditArticleForm =({ contentId, draft }: Input) => {
             <section className="flex gap-6 items-center justify-end">
                 <DeleteArticleButton contentId={contentId} draftContentId={draftContentId} />
                 <PreviewArticleButton contentId={contentId} />
-                <Button onPress={handleSave}>Save changes</Button>
+                <Button color="primary" onPress={handleSave}>Save changes</Button>
             </section>
         );
     };

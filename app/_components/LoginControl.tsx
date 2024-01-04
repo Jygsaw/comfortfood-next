@@ -2,7 +2,7 @@
 
 import React from "react";
 import { signIn } from "next-auth/react";
-import { Button } from "@nextui-org/react";
+import Button from "app/_components/Button";
 
 type Input = {
     type?: "button" | "link",
@@ -15,7 +15,7 @@ const LoginControl = ({ type, text = "Login" }: Input) => {
     if (type === "link") {
         return <a className="text-blue-600" onClick={handleLogin}>{text}</a>;
     } else {
-        return <Button onPress={handleLogin}>{text}</Button>;
+        return <Button color="primary" className="text-lg" onPress={handleLogin}>{text}</Button>;
     }
 };
 

@@ -23,7 +23,7 @@ const DeleteArticleButton = ({ contentId, draftContentId }: Input) => {
             confirmTitle="Delete Draft Article"
             confirmBody="Are you sure you want to delete this draft article?"
             onPress={handleDelete}
-        >Delete draft article</ConfirmButton>
+        >Delete draft</ConfirmButton>
     );
 };
 

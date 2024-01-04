@@ -2,9 +2,9 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
 import { buildPath } from "app/_lib/siteUtils";
 import { PATHS } from "app/_lib/constants";
+import Button from "app/_components/Button";
 
 type Input = {
     contentId: string,
@@ -15,7 +15,7 @@ const PreviewRecipeButton = ({ contentId }: Input) => {
 
     const handlePreview = () => router.push(buildPath(PATHS.recipePreview, contentId));
 
-    return <Button onPress={handlePreview}>Preview draft</Button>;
+    return <Button color="primary" onPress={handlePreview}>Preview draft</Button>;
 };
 
 export default PreviewRecipeButton;

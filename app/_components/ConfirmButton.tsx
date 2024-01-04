@@ -1,7 +1,8 @@
 import React, { ReactNode } from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import Button from "app/_components/Button";
 
-import { ButtonProps } from "@nextui-org/react";
+import type { ButtonProps } from "@nextui-org/react";
 import type { PressEvent } from "@react-types/shared";
 
 type Input = {
@@ -29,7 +30,7 @@ const ConfirmButton = ({
 
     return (
         <>
-            <Button onPress={onOpen}>{children}</Button>
+            <Button color="primary" onPress={onOpen}>{children}</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
@@ -40,7 +41,7 @@ const ConfirmButton = ({
                                 <Button onPress={onClose}>
                                     {cancelText}
                                 </Button>
-                                <Button onPress={handleConfirm(onClose)}>
+                                <Button color="primary" onPress={handleConfirm(onClose)}>
                                     {confirmText}
                                 </Button>
                             </ModalFooter>

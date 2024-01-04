@@ -23,7 +23,7 @@ const DeleteRecipeButton = ({ contentId, draftContentId }: Input) => {
             confirmTitle="Delete Draft Recipe"
             confirmBody="Are you sure you want to delete this draft recipe?"
             onPress={handleDelete}
-        >Delete draft recipe</ConfirmButton>
+        >Delete draft</ConfirmButton>
     );
 };
 

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { Button, Input, Textarea } from "@nextui-org/react";
+import { Input, Textarea } from "@nextui-org/react";
 import { updateRecipeDraft } from "app/_lib/recipesAPI";
 import { debounce, slugify } from "app/_lib/siteUtils";
 import SectionHeader from "app/_components/SectionHeader";
 import FormRow from "app/_components/FormRow";
+import Button from "app/_components/Button";
 import DeleteRecipeButton from "./DeleteRecipeButton";
 import PreviewRecipeButton from "./PreviewRecipeButton";
 
@@ -58,7 +59,7 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
             <section className="flex gap-6 items-center justify-end">
                 <DeleteRecipeButton contentId={contentId} draftContentId={draftContentId} />
                 <PreviewRecipeButton contentId={contentId} />
-                <Button onPress={handleSave}>Save changes</Button>
+                <Button color="primary" onPress={handleSave}>Save changes</Button>
             </section>
         );
     };

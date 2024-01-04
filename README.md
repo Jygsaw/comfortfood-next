@@ -10,11 +10,6 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] investigate idle database connections
-    - [ ] postgres running out of available connections
-    - [ ] fundamental misunderstanding of how to use the postgres client?
-- [ ] research next ui themes
-- [ ] convert Spinner raw CSS to Tailwind classes
 - [ ] implement auto-save for draft changes
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
     - testcase:
@@ -25,6 +20,9 @@ https://comfortfood.onrender.com
             - redirect triggered
             - promise chain continues to success path with router.push to next page
                 - note: promise chain stops because of undefined var, but can success chain be avoided?
+- [ ] investigate idle database connections
+    - [ ] postgres running out of available connections
+    - [ ] fundamental misunderstanding of how to use the postgres client?
 - [ ] secure endpoints with csrf tokens
     - [ ] develop better understanding of csrf tokens
     - [ ] read https://github.com/nextauthjs/next-auth/issues/717
@@ -77,6 +75,7 @@ https://comfortfood.onrender.com
 - parameterize database name to allow configuration of production, staging, testing, etc. databases
 
 ## Done
+- [X] research next ui themes
 - [X] improve draft editing forms
     - [X] integrate material UI base components
     - [X] make draft editing forms look nicer

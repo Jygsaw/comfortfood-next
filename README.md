@@ -10,7 +10,6 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] implement auto-save for draft changes
 - [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
     - testcase:
         - log out
@@ -75,6 +74,7 @@ https://comfortfood.onrender.com
 - parameterize database name to allow configuration of production, staging, testing, etc. databases
 
 ## Done
+- [X] implement auto-save for draft changes
 - [X] research next ui themes
 - [X] improve draft editing forms
     - [X] integrate material UI base components

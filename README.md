@@ -10,29 +10,21 @@ https://comfortfood.onrender.com
 (note: May be slow to start up from hosting service hibernation)
 
 ## TODO
-- [ ] investigate whether redirect in handleNetworkResponse should block success chain of EditArticleButton
-    - testcase:
-        - log out
-        - visit article
-        - try to edit
-            - unauthorized error triggered
-            - redirect triggered
-            - promise chain continues to success path with router.push to next page
-                - note: promise chain stops because of undefined var, but can success chain be avoided?
-- [ ] investigate idle database connections
-    - [ ] postgres running out of available connections
-    - [ ] fundamental misunderstanding of how to use the postgres client?
 - [ ] secure endpoints with csrf tokens
     - [ ] develop better understanding of csrf tokens
     - [ ] read https://github.com/nextauthjs/next-auth/issues/717
     - [ ] update list of cookies sent in requests?
     - [ ] limit fetch cookies to only next-auth session tracking cookies?
     - [ ] how does this effect CSRF tokens?
+- [ ] refine login flow
+    - [ ] give more login choices
+    - [ ] convert to modal for login prompt
+    - [ ] prompt user to create account
 - [ ] implement better validation error feedback during publish step
     - [ ] research next ui components error props
     - [ ] design error flow that integrates with next ui components
     - [ ] see: server-actions-and-mutations#server-side-validation-and-error-handling
-
+- [ ] decide if siteUtils.slugify() is good enough or rely on library dependency
 
 ## Backlog
 - [ ] create edit-in-place version of draft editor to display final version while drafting
@@ -41,15 +33,13 @@ https://comfortfood.onrender.com
 - [ ] implement data visualization
 - [ ] implement more animations
     - [ ] see https://loading.io/css/
-- [ ] refine login flow
-    - [ ] give more login choices
-    - [ ] convert to modal for login prompt
-    - [ ] prompt user to create account
+- [ ] investigate idle database connections
+    - [ ] postgres running out of available connections
+    - [ ] fundamental misunderstanding of how to use the postgres client?
 - [ ] use pg client instead of postgres to cut down on number of dependencies
     - redundant to use two different psql clients for database interaction when pg needed by next-auth
 - [ ] migrate auth.ts implementation to new practices after NextAuth.js becomes Auth.js
     - [ ] see: https://authjs.dev/guides/upgrade-to-v5?authentication-method=server-component
-- [ ] decide if siteUtils.slugify() is good enough or rely on library dependency
 
 ## Future Features
 - consider soft delete to preserve paper trail on mutations

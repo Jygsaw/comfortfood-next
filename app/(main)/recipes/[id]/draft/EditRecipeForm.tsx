@@ -1,17 +1,19 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Input, Textarea } from "@nextui-org/react";
 import { updateRecipeDraft } from "app/_lib/recipesAPI";
 import { debounce, slugify } from "app/_lib/siteUtils";
 import SectionHeader from "app/_components/SectionHeader";
 import FormRow from "app/_components/FormRow";
-import Button from "app/_components/Button";
 import DeleteRecipeButton from "./DeleteRecipeButton";
 import PreviewRecipeButton from "./PreviewRecipeButton";
 
 import type { ChangeEvent } from "react";
 import type { Recipe } from "app/_types/record";
+
+const DEBOUNCE_DELAY = 3000;
+const SLUGIFY_DELAY = 2000;
 
 type Input = {
     contentId: string,
@@ -28,8 +30,15 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
     });
     const [status, setStatus] = useState("");
 
-    const slugifySlug = useMemo(() => debounce(() =>
-        setFormData(prev => ({ ...prev, slug: slugify(prev.slug) })), 3000), []);
+    const saveChanges = useMemo(() => debounce((contentId: string, formData: Partial<Recipe>) => {
+        updateRecipeDraft(contentId, formData)
+            .then(() => setStatus("Saved"))
+            .catch((error: Error) => setStatus(error.message));
+    }, DEBOUNCE_DELAY), []);
+
+    const slugifySlug = useMemo(() => debounce(() => {
+        setFormData(prev => ({ ...prev, slug: slugify(prev.slug) }));
+    }, SLUGIFY_DELAY), []);
 
     const changeName = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, name: event.target.value }));
@@ -48,18 +57,17 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
     const changeContent = (event: ChangeEvent<HTMLInputElement>) =>
         setFormData(prev => ({ ...prev, content: event.target.value }));
 
-    const handleSave = () => {
-        updateRecipeDraft(contentId, formData)
-            .then(() => setStatus(""))
-            .catch((error: Error) => setStatus(error.message));
-    };
+    useEffect(() => {
+        setStatus("Saving...");
+        saveChanges(contentId, formData);
+    }, [saveChanges, contentId, formData]);
 
     const Controls = ({ contentId, draftContentId }: { contentId: string, draftContentId: string }) => {
         return (
             <section className="flex gap-6 items-center justify-end">
+                {status}
                 <DeleteRecipeButton contentId={contentId} draftContentId={draftContentId} />
                 <PreviewRecipeButton contentId={contentId} />
-                <Button color="primary" onPress={handleSave}>Save changes</Button>
             </section>
         );
     };
@@ -71,9 +79,7 @@ const EditRecipeForm =({ contentId, draft }: Input) => {
                 postTitle={<Controls contentId={contentId} draftContentId={draft.contentId} />}
             />
 
-            <h1 className="text-red-500 text-xl">{status}</h1>
-
-            <form className="container" onSubmit={handleSave}>
+            <form className="container">
 
                 <FormRow
                     label={<label htmlFor="name">Name</label>}

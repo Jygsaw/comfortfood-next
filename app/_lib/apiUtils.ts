@@ -15,7 +15,14 @@ export async function buildFetchOptions(method: string, body?: string) {
 }
 
 export async function handleNetworkResponse(response: Response) {
-    if (!response.ok) {
+    if (response.ok) {
+        switch (response.status) {
+            case 204:
+                return;
+            default:
+                return response.json();
+        }
+    } else {
         switch (response.status) {
             case 401:
                 redirect("/login");
@@ -24,12 +31,5 @@ export async function handleNetworkResponse(response: Response) {
             default:
                 throw new Error(response.statusText);
         }
-    }
-
-    switch (response.status) {
-        case 204:
-            return;
-        default:
-            return response.json();
     }
 }
